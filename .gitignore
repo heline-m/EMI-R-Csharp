@@ -321,6 +321,8 @@ node_modules/
 
 # Visual Studio 6 build log
 *.plg
+EMI_RA.DAL/appsettings.json
+EMI_RA.Tests/appsettings.json
 
 # Visual Studio 6 workspace options file
 *.opt
