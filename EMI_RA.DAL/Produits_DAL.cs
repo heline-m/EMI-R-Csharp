@@ -13,11 +13,12 @@ namespace EMI_RA.DAL
         public List<Produits_DAL> Produits { get; set; }
         public String Libelle { get; set; }
         public String Marque { get; set; }
+        public String Reference { get; set; }
         public int IdFournisseurs { get; set; }
         public List<AssoProduitsFournisseurs_DAL> ProduitsFournisseurs { get; set; }
 
-        public Produits_DAL(int idProduits, String libelle, String marque, int idFournisseurs)
-            => (ID, Libelle, Marque, IdFournisseurs) = (idProduits, libelle, marque, idFournisseurs);
+        public Produits_DAL(int idProduits, String libelle, String marque, int idFournisseurs,String reference)
+            => (ID, Libelle, Marque, IdFournisseurs, Reference) = (idProduits, libelle, marque, idFournisseurs, reference);
 
         public void Insert()
         {
@@ -39,10 +40,11 @@ namespace EMI_RA.DAL
                     //avec des paramètres si besoin
                     //SELECT SCOPE_IDENTITY() va renvoyer l'ID créé
                  
-                    commande.CommandText = "insert into produits (libelle, marque, idFournisseurs ) values (@libelle, @marque, @idFournisseurs) ; SELECT SCOPE_IDENTITY()";
+                    commande.CommandText = "insert into produits (libelle, marque, idFournisseurs, reference) values (@libelle, @marque, @idFournisseurs, @reference) ; SELECT SCOPE_IDENTITY()";
                     commande.Parameters.Add(new SqlParameter("@libelle", Libelle));
                     commande.Parameters.Add(new SqlParameter("@marque", Marque));
                     commande.Parameters.Add(new SqlParameter("@IdFournisseurs", IdFournisseurs));
+                    commande.Parameters.Add(new SqlParameter("@reference", Reference));
                     ID = (int)commande.ExecuteScalar();
 
                    

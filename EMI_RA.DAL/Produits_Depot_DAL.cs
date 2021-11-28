@@ -18,7 +18,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs from produits";
+            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs, reference from produits";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -27,7 +27,7 @@ namespace EMI_RA.DAL
             while (reader.Read())
             {
                 //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = ID, 1 = Societe...
-                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2));
+                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2), reader.GetString(3));
 
                 listeDeProduits.Add(produits);
             }
@@ -41,7 +41,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs from produits";
+            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs, reference from produits";
             commande.Parameters.Add(new SqlParameter("@idProduits", ID));
             var reader = commande.ExecuteReader();
 
@@ -50,7 +50,7 @@ namespace EMI_RA.DAL
             Produits_DAL produits;
             if (reader.Read())
             {
-                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),reader.GetInt32(2));
+                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),reader.GetInt32(2), reader.GetString(3));
             }
             else
                 throw new Exception($"Pas de produit dans la BDD avec l'ID {ID}");
@@ -64,10 +64,11 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into produits (libelle, marque, idFournisseurs ) values (@libelle, @marque, @idFournisseurs) ; SELECT SCOPE_IDENTITY()";
+            commande.CommandText = "insert into produits (libelle, marque, idFournisseurs, reference) values (@libelle, @marque, @idFournisseurs, @reference) ; SELECT SCOPE_IDENTITY()";
             commande.Parameters.Add(new SqlParameter("@libelle", produits.Libelle));
             commande.Parameters.Add(new SqlParameter("@marque", produits.Marque));
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", produits.IdFournisseurs));
+            commande.Parameters.Add(new SqlParameter("@reference", produits.Reference));
             var ID = (int)commande.ExecuteScalar();
 
             
@@ -83,10 +84,11 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update produits set libelle = @libelle, marque = @marque idFournisseurs  =@idFournisseurs where idProduits=@idProduits";
+            commande.CommandText = "update produits set libelle = @libelle, marque = @marque, idFournisseurs  = @idFournisseurs, reference = @reference where idProduits=@idProduits";
             commande.Parameters.Add(new SqlParameter("@libelle", produits.Libelle));
             commande.Parameters.Add(new SqlParameter("@marque", produits.Marque));
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", produits.IdFournisseurs));
+            commande.Parameters.Add(new SqlParameter("@reference", produits.Reference));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
