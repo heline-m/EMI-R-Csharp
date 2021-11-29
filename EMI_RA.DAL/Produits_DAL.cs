@@ -43,7 +43,7 @@ namespace EMI_RA.DAL
                     commande.CommandText = "insert into produits (libelle, marque, idFournisseurs, reference) values (@libelle, @marque, @idFournisseurs, @reference) ; SELECT SCOPE_IDENTITY()";
                     commande.Parameters.Add(new SqlParameter("@libelle", Libelle));
                     commande.Parameters.Add(new SqlParameter("@marque", Marque));
-                    commande.Parameters.Add(new SqlParameter("@IdFournisseurs", IdFournisseurs));
+                    commande.Parameters.Add(new SqlParameter("@idFournisseurs", IdFournisseurs));
                     commande.Parameters.Add(new SqlParameter("@reference", Reference));
                     ID = (int)commande.ExecuteScalar();
 
