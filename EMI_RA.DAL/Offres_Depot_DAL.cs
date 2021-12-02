@@ -39,6 +39,52 @@ namespace EMI_RA.DAL
             return listeDOffres;
         }
 
+        public Offres_DAL GetByIDFournisseur(int idFournisseurs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idFournisseurs, idLignesPaniers, prix from offres where idFournisseurs=@idFournisseurs";
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
+            var reader = commande.ExecuteReader();
+
+            var listeOffre = new List<Offres_DAL>();
+
+            Offres_DAL offre;
+            if (reader.Read())
+            {
+                offre = new Offres_DAL(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+            }
+            else
+                throw new Exception($"Pas d'offre dans la BDD avec l'idFournisseur {idFournisseurs}");
+
+            DetruireConnexionEtCommande();
+
+            return offre;
+        }
+
+        public Offres_DAL GetByIDLignesPaniers(int idLignesPaniers)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idFournisseurs, idLignesPaniers, prix from offres where idLignesPaniers=@idLignesPaniers";
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniers", idLignesPaniers));
+            var reader = commande.ExecuteReader();
+
+            var listeOffre = new List<Offres_DAL>();
+
+            Offres_DAL offre;
+            if (reader.Read())
+            {
+                offre = new Offres_DAL(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+            }
+            else
+                throw new Exception($"Pas d'offre dans la BDD avec l'idLignesPaniers {idLignesPaniers}");
+
+            DetruireConnexionEtCommande();
+
+            return offre;
+        }
+
 
         public override Offres_DAL Insert(Offres_DAL offre)
         {
@@ -55,6 +101,7 @@ namespace EMI_RA.DAL
             return offre;
         }
 
-       
+
+
     }
 }
