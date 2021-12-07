@@ -45,7 +45,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee from paniersGlobaux";
+            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee from paniersGlobaux where idPaniersGlobaux = @idPaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
