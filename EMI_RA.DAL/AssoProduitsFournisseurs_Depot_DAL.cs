@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EMI_RA.DAL
 {
-    public abstract class AssoProduitsFournisseurs_Depot_DAL : Depot_DAL<AssoProduitsFournisseurs_DAL>
+    public class AssoProduitsFournisseurs_Depot_DAL : Depot_DAL<AssoProduitsFournisseurs_DAL>
     {
         public AssoProduitsFournisseurs_Depot_DAL()
             : base()
@@ -44,26 +44,74 @@ namespace EMI_RA.DAL
             commande.CommandText = "insert into assoProduitsFournisseurs (idFournisseurs, idProduits ) values (@idFournisseurs, @idProduits)";
             commande.Parameters.Add(new SqlParameter("@idProduits", assoProduitsFournisseurs.IdProduits));
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", assoProduitsFournisseurs.IdFournisseurs));
-            
+            commande.ExecuteNonQuery();
+
             DetruireConnexionEtCommande();
 
             return assoProduitsFournisseurs;
         }
-        public override AssoProduitsFournisseurs_DAL Update(AssoProduitsFournisseurs_DAL assoProduitsFournisseurs)
+
+        public override void Delete(AssoProduitsFournisseurs_DAL item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AssoProduitsFournisseurs_DAL GetByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AssoProduitsFournisseurs_DAL Update(AssoProduitsFournisseurs_DAL produits)
+        {
+            throw new NotImplementedException();
+
+
+        }
+        public AssoProduitsFournisseurs_DAL GetByIdProduit(int idProduits)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update assoProduitsFournisseurs set idFournisseurs = @idFournisseurs, idProduits = @idProduits)";
+            commande.CommandText = "select idProduits, idFournisseurs from assoProduitsFournisseurs where idProduits=@idProduits ";
+            commande.Parameters.Add(new SqlParameter("@idProduits", idProduits));
+            var reader = commande.ExecuteReader();
 
-            commande.Parameters.Add(new SqlParameter("@idProduits", assoProduitsFournisseurs.IdProduits));
-            commande.Parameters.Add(new SqlParameter("@idFournisseurs", assoProduitsFournisseurs.IdFournisseurs));
+            var listeDeAssoProduitsFournisseurs = new List<AssoProduitsFournisseurs_DAL>();
 
- 
+            AssoProduitsFournisseurs_DAL AssoProduitsFournisseurs;
+            if (reader.Read())
+            {
+                AssoProduitsFournisseurs = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(2));
+            }
+            else
+                throw new Exception($"Pas association produit fournisseur dans la BDD avec l'ID produit  {idProduits}");
+
             DetruireConnexionEtCommande();
 
-            return assoProduitsFournisseurs;
+            return AssoProduitsFournisseurs;
         }
 
-        
+        public AssoProduitsFournisseurs_DAL GetByIdFournisseurs(int idFournisseurs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idProduits, idFournisseurs from assoProduitsFournisseurs where idFournisseurs=@idFournisseurs ";
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
+            var reader = commande.ExecuteReader();
+
+            var listeDeAssoProduitsFournisseurs = new List<AssoProduitsFournisseurs_DAL>();
+
+            AssoProduitsFournisseurs_DAL AssoProduitsFournisseurs;
+            if (reader.Read())
+            {
+                AssoProduitsFournisseurs = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(2));
+            }
+            else
+                throw new Exception($"Pas de association produit fournisseur dans la BDD avec l'ID fournisseur {idFournisseurs}");
+
+            DetruireConnexionEtCommande();
+
+            return AssoProduitsFournisseurs;
+        }
+
     }
 }
