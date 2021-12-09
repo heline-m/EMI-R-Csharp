@@ -18,7 +18,7 @@ namespace EMI_RA.DAL
         public AssoProduitsFournisseurs_DAL(int idFournisseurs, int idProduits)
             => (IdFournisseurs, IdProduits) = (idFournisseurs, idProduits);
 
-        internal void Insert()
+       /* internal void Insert()
         {
             var chaineConnexion = "Data Source=localhost;Initial Catalog=EMI-r;Integrated Security=True";
 
@@ -40,7 +40,7 @@ namespace EMI_RA.DAL
 
                 }
                 connexion.Close();
-            }
+            }*/
         }
 
 

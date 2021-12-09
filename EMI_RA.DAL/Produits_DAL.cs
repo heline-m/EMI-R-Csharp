@@ -22,7 +22,7 @@ namespace EMI_RA.DAL
         public Produits_DAL(int idProduits, String libelle, String marque, int idFournisseurs, String reference)
             => (ID, Libelle, Marque, IdFournisseurs, Reference) = (idProduits, libelle, marque, idFournisseurs, reference);
 
-        public void Insert()
+        /*public void Insert()
         {
             var chaineConnexion = "Data Source=localhost;Initial Catalog=EMI-r;Integrated Security=True";
 
@@ -56,6 +56,6 @@ namespace EMI_RA.DAL
                 //fermer la connexion
                 connexion.Close();
             }
-        }
+        }*/
     }
 }

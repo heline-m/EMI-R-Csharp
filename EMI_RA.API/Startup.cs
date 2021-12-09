@@ -35,6 +35,8 @@ namespace EMI_RA.API
             });
 
             //services.AddSingleton(typeof(IEmiraService), new EmiraService());
+            services.AddSingleton(typeof(IProduitsService), new ProduitsServices());
+            services.AddSingleton(typeof(IAssoProduitsFournisseursServices), new AssoProduitsFournisseursServices());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
