@@ -9,11 +9,11 @@ namespace EMI_RA.DAL
 {
     public class AssoProduitsFournisseurs_DAL
     {
-       
+
         public int IdFournisseurs { get; set; }
         public int IdProduits { get; set; }
 
-   
+
 
         public AssoProduitsFournisseurs_DAL(int idFournisseurs, int idProduits)
             => (IdFournisseurs, IdProduits) = (idFournisseurs, idProduits);
@@ -34,7 +34,7 @@ namespace EMI_RA.DAL
                     commande.Parameters.Add(new SqlParameter("@idProduits", IdProduits));
                     commande.Parameters.Add(new SqlParameter("@idFournisseurs", IdFournisseurs));
 
-                    
+
                     //définir l'instruction SQL
                     // avec des paramètres si besoin 
 
@@ -43,8 +43,8 @@ namespace EMI_RA.DAL
             }
         }
 
-            
 
 
-        }
+
+    }
 }

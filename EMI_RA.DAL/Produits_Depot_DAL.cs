@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace EMI_RA.DAL
 {
-    public abstract class Produits_Depot_DAL : Depot_DAL<Produits_DAL>
+    public class Produits_Depot_DAL : Depot_DAL<Produits_DAL>
     {
         public Produits_Depot_DAL()
             : base()
@@ -22,12 +22,12 @@ namespace EMI_RA.DAL
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
-            var listeDeProduits= new List<Produits_DAL>();
+            var listeDeProduits = new List<Produits_DAL>();
 
             while (reader.Read())
             {
                 //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = ID, 1 = Societe...
-                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2), reader.GetString(3));
+                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
 
                 listeDeProduits.Add(produits);
             }
@@ -50,7 +50,7 @@ namespace EMI_RA.DAL
             Produits_DAL produits;
             if (reader.Read())
             {
-                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),reader.GetInt32(2), reader.GetString(3));
+                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2), reader.GetString(3));
             }
             else
                 throw new Exception($"Pas de produit dans la BDD avec l'ID {ID}");
@@ -69,10 +69,10 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@marque", produits.Marque));
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", produits.IdFournisseurs));
             commande.Parameters.Add(new SqlParameter("@reference", produits.Reference));
-            var ID = (int)commande.ExecuteScalar();
+            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            
-        
+
+
             produits.ID = ID;
 
             DetruireConnexionEtCommande();
