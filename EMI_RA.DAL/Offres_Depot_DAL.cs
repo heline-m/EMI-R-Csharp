@@ -8,12 +8,17 @@ using System.Threading.Tasks;
 
 namespace EMI_RA.DAL
 {
-    public abstract class Offres_Depot_DAL : Depot_DAL<Offres_DAL>
+    public class Offres_Depot_DAL : Depot_DAL<Offres_DAL>
     {
         public Offres_Depot_DAL()
             : base()
         {
 
+        }
+
+        public override void Delete(Offres_DAL item)
+        {
+            throw new NotImplementedException();
         }
 
         public override List<Offres_DAL> GetAll()
@@ -37,6 +42,11 @@ namespace EMI_RA.DAL
             DetruireConnexionEtCommande();
 
             return listeDOffres;
+        }
+
+        public override Offres_DAL GetByID(int ID)
+        {
+            throw new NotImplementedException();
         }
 
         public Offres_DAL GetByIDFournisseur(int idFournisseurs)
@@ -101,7 +111,9 @@ namespace EMI_RA.DAL
             return offre;
         }
 
-
-
+        public override Offres_DAL Update(Offres_DAL item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
