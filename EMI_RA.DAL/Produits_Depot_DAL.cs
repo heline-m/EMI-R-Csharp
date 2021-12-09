@@ -41,7 +41,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs, reference from produits";
+            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs, reference from produits where ID = @idProduits";
             commande.Parameters.Add(new SqlParameter("@idProduits", ID));
             var reader = commande.ExecuteReader();
 

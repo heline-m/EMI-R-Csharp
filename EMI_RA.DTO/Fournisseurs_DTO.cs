@@ -4,12 +4,12 @@ namespace EMI_RA.DTO
 {
     public class Fournisseurs_DTO
     {
-        public int idFournisseurs { get; set; }
-        public String societe { get; set; }
-        public String civiliteContact { get; set; }
-        public String nomContact { get; set; }
-        public String prenomContact { get; set; }
-        public String email { get; set; }
-        public String adresse { get; set; }
+        public int IdFournisseurs { get; set; }
+        public String Societe { get; set; }
+        public String CiviliteContact { get; set; }
+        public String NomContact { get; set; }
+        public String PrenomContact { get; set; }
+        public String Email { get; set; }
+        public String Adresse { get; set; }
     }
 }

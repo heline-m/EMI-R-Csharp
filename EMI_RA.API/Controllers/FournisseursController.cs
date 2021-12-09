@@ -14,19 +14,51 @@ namespace EMI_RA.API.Controllers
     [Route("[controller]")]
     public class FournisseursController : Controller
     {
+        private IFournisseursService service;
+
+        public FournisseursController(IFournisseursService srv)
+        {
+            service = srv;
+        }
+
         // GET: api/<FournisseursController>
-        //[HttpGet]
-        //public IEnumerable<Fournisseurs_DTO> GetAllFournisseurs()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpGet]
+        public IEnumerable<Fournisseurs_DTO> GetAllFournisseurs()
+        {
+            return service.GetAllFournisseurs().Select(f => new Fournisseurs_DTO()
+            {
+                IdFournisseurs = f.IdFournisseurs,
+                Societe = f.Societe,
+                CiviliteContact = f.CiviliteContact,
+                NomContact = f.NomContact,
+                PrenomContact = f.PrenomContact,
+                Email = f.Email,
+                Adresse = f.Adresse,
+            });
+        }
+
+        [HttpPost]
+        public Fournisseurs_DTO Insert(Fournisseurs_DTO f)
+        {
+            var f_metier = service.Insert(new Fournisseurs(f.IdFournisseurs,
+                                                   f.Societe,
+                                                   f.CiviliteContact,
+                                                   f.NomContact,
+                                                   f.PrenomContact,
+                                                   f.Email,
+                                                   f.Adresse));
+            //Je récupère l'ID
+            f.IdFournisseurs = f_metier.IdFournisseurs;
+            //je renvoie l'objet DTO
+            return f;
+        }
 
         // GET api/<FournisseursController>/5
-        [HttpGet("{idFournisseurs}")]
-        public string Get(int idFournisseurs)
-        {
-            return "value";
-        }
+        //[HttpGet("{idFournisseurs}")]
+        //public string Get(int idFournisseurs)
+        //{
+        //    return "value";
+        //}
 
         //// POST api/<FournisseursController>
         //[HttpPost]
