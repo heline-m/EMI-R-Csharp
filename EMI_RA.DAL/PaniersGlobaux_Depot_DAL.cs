@@ -72,13 +72,13 @@ namespace EMI_RA.DAL
 
             commande.CommandText = "insert into paniersGlobaux (numeroSemaine, annee)"
                                     + " values (@numeroSemaine, @annee); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@numeroSemaine", panierGlobal.numeroSemaine));
-            commande.Parameters.Add(new SqlParameter("@annee", panierGlobal.annee));
+            commande.Parameters.Add(new SqlParameter("@numeroSemaine", panierGlobal.NumeroSemaine));
+            commande.Parameters.Add(new SqlParameter("@annee", panierGlobal.Annee));
    
 
             var idPaniersGlobaux = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            panierGlobal.idPaniersGlobaux = idPaniersGlobaux;
+            panierGlobal.IDPaniersGlobaux = idPaniersGlobaux;
 
             DetruireConnexionEtCommande();
 
@@ -91,15 +91,15 @@ namespace EMI_RA.DAL
 
             commande.CommandText = "update paniersGlobaux set numeroSemaine = @numeroSemaine, annee = @annee)"
                                     + " where idFournisseurs=@idFournisseurs";
-            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", panierGlobal.idPaniersGlobaux));
-            commande.Parameters.Add(new SqlParameter("@numeroSemaine", panierGlobal.numeroSemaine));
-            commande.Parameters.Add(new SqlParameter("@annee", panierGlobal.annee));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", panierGlobal.IDPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@numeroSemaine", panierGlobal.NumeroSemaine));
+            commande.Parameters.Add(new SqlParameter("@annee", panierGlobal.Annee));
             
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour le pannier global avec l'ID  {panierGlobal.idPaniersGlobaux}");
+                throw new Exception($"Impossible de mettre à jour le pannier global avec l'ID  {panierGlobal.IDPaniersGlobaux}");
             }
 
             DetruireConnexionEtCommande();
@@ -112,12 +112,12 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "delete from panniersGlobaux where idpaniersGlobaux = @idpaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idpaniersGlobaux", panierGlobal.idPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idpaniersGlobaux", panierGlobal.IDPaniersGlobaux));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de supprimer le panier global avec l'ID {panierGlobal.idPaniersGlobaux}");
+                throw new Exception($"Impossible de supprimer le panier global avec l'ID {panierGlobal.IDPaniersGlobaux}");
             }
 
             DetruireConnexionEtCommande();
