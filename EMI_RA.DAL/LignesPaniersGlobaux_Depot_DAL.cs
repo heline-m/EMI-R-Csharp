@@ -98,14 +98,14 @@ namespace EMI_RA.DAL
 
             commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idListesDAchats, idPaniers)"
                                     + " values (@idProduits, @quantite, @idListesDAchats, @idPaniers); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.idProduits_DAL));
-            commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.idListesDAchats_DAL));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.idPaniers_DAL));
+            commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
+            commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
+            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
+            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
 
             var idLignesPaniersGlobaux = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            lignePanierGlobal.idLignesPaniersGlobaux = idLignesPaniersGlobaux;
+            lignePanierGlobal.IDLignesPaniersGlobaux = idLignesPaniersGlobaux;
 
             DetruireConnexionEtCommande();
 
@@ -118,16 +118,16 @@ namespace EMI_RA.DAL
 
             commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idListesDAchats=@idListesDAchats, idPaniers=@idPaniers )"
                                     + " where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.idLignesPaniersGlobaux));
-            commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.idProduits_DAL));
-            commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.idListesDAchats_DAL));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.idPaniers_DAL));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
+            commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
+            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
+            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.idLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
             }
 
             DetruireConnexionEtCommande();
@@ -140,12 +140,12 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "delete from LignesPaniersGlobaux where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.idLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.idLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
             }
 
             DetruireConnexionEtCommande();
