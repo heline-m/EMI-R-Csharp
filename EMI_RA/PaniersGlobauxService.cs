@@ -25,7 +25,7 @@ namespace EMI_RA
 
         public PaniersGlobaux GetPaniersGlobauxByID(int idPaniersGlobaux)
         {
-            var p = depot.GetByID(idPaniersGlobaux),
+            var p = depot.GetByID(idPaniersGlobaux);
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
                                                 p.NumeroSemaine,
