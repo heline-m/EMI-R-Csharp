@@ -22,20 +22,5 @@ namespace EMI_RA.DAL
         public LignesPaniersGlobaux_DAL(int IDLignesPaniersGlobaux, int idProduits, int quantites, int idListesDAchats, int idPaniers)
                 => (idLignesPaniersGlobaux, idProduits_DAL, quantite, idListesDAchats_DAL, idPaniers_DAL) = (IDLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
 
-        internal void Insert(SqlConnection connexion)
-        {
-            using (var commande = new SqlCommand())
-            {
-                commande.Connection = connexion;
-                commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idListesDAchats, idPaniers)"
-                                    + " values (@idProduits, @quantite, @idListesDAchats, @idPaniers";
-                commande.Parameters.Add(new SqlParameter("@idProduits", idProduits_DAL));
-                commande.Parameters.Add(new SqlParameter("@quantite", quantite));
-                commande.Parameters.Add(new SqlParameter("@idListesDAchats", idListesDAchats_DAL));
-                commande.Parameters.Add(new SqlParameter("@idPaniers", idPaniers_DAL));
-
-                commande.ExecuteNonQuery();
-            }
-        }
     }
 }

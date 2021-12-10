@@ -34,7 +34,9 @@ namespace EMI_RA.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EMI_RA.API", Version = "v1" });
             });
 
-            //services.AddSingleton(typeof(IEmiraService), new EmiraService());
+            services.AddSingleton(typeof(IFournisseursService), new FournisseursService());
+            services.AddSingleton(typeof(IAdherentsService), new AdherentsService());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

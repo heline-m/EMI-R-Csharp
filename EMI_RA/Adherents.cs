@@ -6,26 +6,30 @@ using System.Threading.Tasks;
 
 namespace EMI_RA
 {
-    public class Fournisseurs
+    public class Adherents
     {
-        public int IdFournisseurs { get; set; }
+        public int ID { get; set; }
         public String Societe { get; set; }
         public String CiviliteContact { get; set; }
         public String NomContact { get; set; }
         public String PrenomContact { get; set; }
         public String Email { get; set; }
         public String Adresse { get; set; }
+        public DateTime? DateAdhesion { get; set; }
 
-        public Fournisseurs(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
+
+        public Adherents(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
                     => (Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (societe, civiliteContact, nomContact, prenomContact, email, adresse);
 
-        public Fournisseurs(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse) : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
+        public Adherents(int idAdherents, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse) : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
         {
-            IdFournisseurs = iDFournisseurs;
+            ID = idAdherents;
         }
-        public Fournisseurs(int id)
+
+        public Adherents(int iD)
         {
-            IdFournisseurs = id;
+            ID = iD;
         }
+
     }
 }
