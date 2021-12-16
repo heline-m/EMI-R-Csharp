@@ -1,4 +1,5 @@
-﻿using EMI_RA.DTO;
+﻿using EMI_RA.DAL;
+using EMI_RA.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace EMI_RA.API.Controllers
 
         // GET: api/<FournisseursController>
         [HttpGet]
-        public IEnumerable<Fournisseurs_DTO> GetAllFournisseurs()
+        public IEnumerable<Fournisseurs_DTO> GetAllAdherents()
         {
             return service.GetAllFournisseurs().Select(f => new Fournisseurs_DTO()
             {
@@ -41,41 +42,40 @@ namespace EMI_RA.API.Controllers
         public Fournisseurs_DTO Insert(Fournisseurs_DTO f)
         {
             var f_metier = service.Insert(new Fournisseurs(f.IdFournisseurs,
-                                                   f.Societe,
-                                                   f.CiviliteContact,
-                                                   f.NomContact,
-                                                   f.PrenomContact,
-                                                   f.Email,
-                                                   f.Adresse));
+                                                           f.Societe,
+                                                           f.CiviliteContact,
+                                                           f.NomContact,
+                                                           f.PrenomContact,
+                                                           f.Email,
+                                                           f.Adresse));
             //Je récupère l'ID
             f.IdFournisseurs = f_metier.IdFournisseurs;
             //je renvoie l'objet DTO
             return f;
         }
 
-        // GET api/<FournisseursController>/5
-        //[HttpGet("{idFournisseurs}")]
-        //public string Get(int idFournisseurs)
-        //{
-        //    return "value";
-        //}
+        // PUT api/<FournisseursController>/5
+        [HttpPut]
+        public Fournisseurs_DTO Update(Fournisseurs_DTO f)
+        {
+            var f_metier = service.Update(new Fournisseurs(f.IdFournisseurs,
+                                                           f.Societe,
+                                                           f.CiviliteContact,
+                                                           f.NomContact,
+                                                           f.PrenomContact,
+                                                           f.Email,
+                                                           f.Adresse));
+            //Je récupère l'ID
+            f.IdFournisseurs = f_metier.IdFournisseurs;
+            //je renvoie l'objet DTO
+            return f;
+        }
 
-        //// POST api/<FournisseursController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/<FournisseursController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<FournisseursController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE api/<FournisseursController>/5
+        [HttpDelete("{id}")]
+        public void Delete([FromRoute] int id)
+        {
+            service.Delete(new Fournisseurs(id));
+        }
     }
 }
