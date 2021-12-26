@@ -80,6 +80,29 @@ namespace EMI_RA.DAL
             return produits;
         }
 
+        public Produits_DAL GetByRef(string reference)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idProduits, libelle, marque, idFournisseurs, reference from produits where reference = @reference";
+            commande.Parameters.Add(new SqlParameter("@reference", reference));
+            var reader = commande.ExecuteReader();
+
+            var listeDeProduits = new List<Produits_DAL>();
+
+            Produits_DAL produits;
+            if (reader.Read())
+            {
+                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2), reader.GetString(3));
+            }
+            else
+                throw new Exception($"Pas de produit dans la BDD avec la reference {reference}");
+
+            DetruireConnexionEtCommande();
+
+            return produits;
+        }
+
         public override Produits_DAL Update(Produits_DAL produits)
         {
             CreerConnexionEtCommande();

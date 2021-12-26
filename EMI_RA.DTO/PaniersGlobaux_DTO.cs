@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace EMI_RA.DTO
 {
-    class PaniersGlobaux_DTO
+    public class PaniersGlobaux_DTO
     {
+        public int IDPaniersGlobaux { get; set; }
+        public int NumeroSemaine { get; set; }
+        public int Annee { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace EMI_RA
         //constructeur par défaut 
         public ListeAchat(int idAdherents, int idPaniersGlobaux, int annee, int numeroSemaine)
         => (IdAdherents, IdPaniersGlobaux, Annee, NumeroSemaine) = (idAdherents, idPaniersGlobaux, annee, numeroSemaine);
+        public ListeAchat(int idAdherents, int annee, int numeroSemaine)
+        => (IdAdherents, Annee, NumeroSemaine) = (idAdherents, annee, numeroSemaine);
         public ListeAchat(int idListesDAchats, int idAdherents, int idPaniersGlobaux, int annee, int numeroSemaine)
                     => (IdListesDAchats, IdAdherents, IdPaniersGlobaux, Annee, NumeroSemaine) = (idListesDAchats, idAdherents, idPaniersGlobaux, annee, numeroSemaine);
 

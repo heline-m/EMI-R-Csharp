@@ -11,16 +11,20 @@ namespace EMI_RA.DAL
     {
         public int ID { get; set; }
         public List<Produits_DAL> Produits { get; set; }
-        public String Libelle { get; set; }
-        public String Marque { get; set; }
-        public String Reference { get; set; }
+        public string Libelle { get; set; }
+        public string Marque { get; set; }
+        public string Reference { get; set; }
         public int IdFournisseurs { get; set; }
         public List<AssoProduitsFournisseurs_DAL> ProduitsFournisseurs { get; set; }
 
-        public Produits_DAL(String libelle, String marque, int idFournisseurs, String reference)
+        public Produits_DAL(string libelle, string marque, int idFournisseurs, string reference)
             => (Libelle, Marque, IdFournisseurs, Reference) = (libelle, marque, idFournisseurs, reference);
-        public Produits_DAL(int idProduits, String libelle, String marque, int idFournisseurs, String reference)
+        public Produits_DAL(int idProduits, string libelle, string marque, int idFournisseurs, string reference)
             => (ID, Libelle, Marque, IdFournisseurs, Reference) = (idProduits, libelle, marque, idFournisseurs, reference);
+        public Produits_DAL(string libelle, string marque, string reference)
+           => (Libelle, Marque, Reference) = (libelle, marque, reference);
+        public Produits_DAL(int idProduits, string libelle, string marque, string reference)
+            => (ID, Libelle, Marque, Reference) = (idProduits, libelle, marque, reference);
 
         /*public void Insert()
         {

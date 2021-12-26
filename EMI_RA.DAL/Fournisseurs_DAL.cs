@@ -19,9 +19,6 @@ namespace EMI_RA.DAL
 
         public Fournisseurs_DAL(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
                     => (IdFournisseurs, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (iDFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse);
-
-
-        // TODO : remplacer le string fourisseur par le Fournisseur une fois cet objet créé
         
     }
 }

@@ -24,7 +24,7 @@ namespace EMI_RA.API.Controllers
 
         // GET: api/<FournisseursController>
         [HttpGet]
-        public IEnumerable<Fournisseurs_DTO> GetAllAdherents()
+        public IEnumerable<Fournisseurs_DTO> GetAllFournisseurs()
         {
             return service.GetAllFournisseurs().Select(f => new Fournisseurs_DTO()
             {
