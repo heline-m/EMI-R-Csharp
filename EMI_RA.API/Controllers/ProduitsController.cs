@@ -20,20 +20,6 @@ namespace EMI_RA.API.Controllers
             service = srv;
         }
 
-        // GET: api/<ProduitsController>
-        //[HttpGet]
-        //public IEnumerable<Produits_DTO> GetAllProduits()
-        //{
-        //    return service.GetAllProduits().Select(p => new Produits_DTO()
-        //    {
-        //        ID = p.ID,
-        //        Libelle = p.Libelle,
-        //        Marque = p.Marque,
-        //        //IdFournisseurs = p.IdFournisseurs,
-        //        Reference = p.Reference,
-        //    });
-        //}
-
         [HttpGet]
         public IEnumerable<Produits> Get()
         {
@@ -69,21 +55,6 @@ namespace EMI_RA.API.Controllers
                 }
             }
         }
-
-        //// PUT api/<ProduitsController>/5
-        //[HttpPut]
-        //public Produits_DTO Update(Produits_DTO p)
-        //{
-        //    var p_metier = service.Update(new Produits(p.ID,
-        //                                               p.Libelle,
-        //                                               p.Marque,
-        //                                               p.IdFournisseurs,
-        //                                               p.Reference));
-        //    //Je récupère l'ID
-        //    p.ID = p_metier.ID;
-        //    //je renvoie l'objet DTO
-        //    return p;
-        //}
 
         // DELETE api/<ProduitsController>/5
         [HttpDelete("{id}")]
