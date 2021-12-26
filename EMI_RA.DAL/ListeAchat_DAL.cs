@@ -10,7 +10,6 @@ namespace EMI_RA.DAL
         public int ID { get; set; }
 
         public List<ListeAchat_DAL> ListeAchat { get; set; }
-        public int IdListesDAchats  { get; set; }
         public int IdAdherents { get; set; }
         public int IdPaniersGlobaux { get; set; }
         public int Annee { get; set; }
@@ -19,8 +18,8 @@ namespace EMI_RA.DAL
         //constructeur par défaut 
         public ListeAchat_DAL(int idAdherents, int idPaniersGlobaux, int annee, int numeroSemaine)
         =>(IdAdherents, IdPaniersGlobaux, Annee, NumeroSemaine) = (idAdherents, idPaniersGlobaux, annee, numeroSemaine);
-        public ListeAchat_DAL(int idListesDAchats, int idAdherents, int idPaniersGlobaux, int annee, int numeroSemaine)
-                    => (IdListesDAchats, IdAdherents, IdPaniersGlobaux, Annee, NumeroSemaine) = (idListesDAchats,idAdherents,idPaniersGlobaux, annee, numeroSemaine);
+        public ListeAchat_DAL(int ID, int idAdherents, int idPaniersGlobaux, int annee, int numeroSemaine)
+                    => (ID, IdAdherents, IdPaniersGlobaux, Annee, NumeroSemaine) = (ID,idAdherents,idPaniersGlobaux, annee, numeroSemaine);
 
 
         public void Insert()

@@ -93,7 +93,7 @@ namespace EMI_RA.DAL
             Produits_DAL produits;
             if (reader.Read())
             {
-                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(2), reader.GetString(3));
+                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4));
             }
             else
                 throw new Exception($"Pas de produit dans la BDD avec la reference {reference}");

@@ -17,7 +17,7 @@ namespace EMI_RA
         public List<ListeAchat> GetAllListeAchat()
         {
             var listeAchat = depot.GetAll()
-                .Select(l => new ListeAchat(l.IdListesDAchats,
+                .Select(l => new ListeAchat(l.ID,
                                             l.IdAdherents,
                                             l.IdPaniersGlobaux,
                                             l.Annee,
@@ -31,7 +31,7 @@ namespace EMI_RA
         {
             var listeAchat = depot.GetByID(idListeAchat);
 
-            return new ListeAchat(listeAchat.IdListesDAchats,
+            return new ListeAchat(listeAchat.ID,
                                   listeAchat.IdAdherents,
                                   listeAchat.IdPaniersGlobaux,
                                   listeAchat.Annee,
@@ -45,8 +45,8 @@ namespace EMI_RA
                                             l.IdPaniersGlobaux,
                                             l.Annee,
                                             l.NumeroSemaine);
-            depot.Insert(listeAchat);
-            l.IdListesDAchats = listeAchat.IdListesDAchats;
+            listeAchat = depot.Insert(listeAchat);
+            l.IdListesDAchats = listeAchat.ID;
 
             return l;
         }
@@ -83,7 +83,7 @@ namespace EMI_RA
             DateTime date = DateTime.Now;
             Calendar cal = dfi.Calendar;
             var listeAchat = new ListeAchat(IdAdherent, date.Year, cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
-            Insert(listeAchat);
+            listeAchat = Insert(listeAchat);
 
             using (StreamReader reader = new StreamReader(csvFile.OpenReadStream()))
             {
