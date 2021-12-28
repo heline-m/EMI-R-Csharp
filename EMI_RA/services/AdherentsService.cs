@@ -10,50 +10,6 @@ namespace EMI_RA
     public class AdherentsService : IAdherentsService
     {
         private Adherents_Depot_DAL depotAdherents = new Adherents_Depot_DAL();
-
-        //public static List<Adherents> GetAllAdherents()
-        //{
-        //    var depot = new Adherents_Depot_DAL();
-        //    var adherents = depot.GetAll()
-        //        .Select(a => new Adherents(a.ID,
-        //                                   a.Societe,
-        //                                   a.CiviliteContact,
-        //                                   a.NomContact,
-        //                                   a.PrenomContact,
-        //                                   a.Email,
-        //                                   a.Adresse
-        //                ))
-        //        .ToList();
-
-        //    return adherents;
-        //}
-
-
-        //public static void Insert(Adherents a)
-        //{
-        //    var depot = new Adherents_Depot_DAL();
-        //    
-        //}
-
-        //public static Adherents Update(Adherents a)
-        //{
-        //}
-
-        //public static void Delete(Adherents a)
-        //{
-        //    var depot = new Adherents_Depot_DAL();
-        //    var adherents = new Adherents_DAL(a.ID,
-        //                                      a.Societe,
-        //                                      a.CiviliteContact,
-        //                                      a.NomContact,
-        //                                      a.PrenomContact,
-        //                                      a.Email,
-        //                                      a.Adresse,
-        //                                      a.DateAdhesion);
-        //    depot.Delete(adherents);
-
-        //}
-
         public List<Adherents> GetAllAdherents()
         {
             var result = new List<Adherents>();

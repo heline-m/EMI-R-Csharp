@@ -41,7 +41,7 @@ namespace EMI_RA.API.Controllers
             });
         }
 
-        [HttpPost("commande/{IdAdherent}")]
+        [HttpPost("commande/{IdAdherents}")]
         public void GenererListeAchat(int IdAdherent, IFormFile csvFile)
         {
             listeAchatService.genererListeAchat(IdAdherent, csvFile);

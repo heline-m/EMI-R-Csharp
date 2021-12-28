@@ -18,13 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Depot_DAL\Depot_DAL.cs">
+    <Compile Update="depot_DAL\Depot_DAL.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Update="PaniersGlobaux_DAL.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Depot_DAL\PaniersGlobaux_Depot_DAL.cs">
+    <Compile Update="depot_DAL\PaniersGlobaux_Depot_DAL.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

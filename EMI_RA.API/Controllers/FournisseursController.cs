@@ -1,5 +1,6 @@
 ﻿using EMI_RA.DAL;
 using EMI_RA.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,12 @@ namespace EMI_RA.API.Controllers
                 Email = f.Email,
                 Adresse = f.Adresse,
             });
+        }
+
+        [HttpPost("commande/{IdFournisseurs}")]
+        public void AlimenterCatalogue(int IdFournisseurs, IFormFile csvFile)
+        {
+            service.alimenterCatalogue(IdFournisseurs, csvFile);
         }
 
         [HttpPost]

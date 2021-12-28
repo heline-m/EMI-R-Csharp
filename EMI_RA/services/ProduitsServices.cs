@@ -16,7 +16,7 @@ namespace EMI_RA
             
             foreach (var p in depotProduits.GetAll())
             {
-                Produits produit = new Produits(p.ID, p.Libelle, p.Marque, p.IdFournisseurs, p.Reference);
+                Produits produit = new Produits(p.ID, p.Libelle, p.Marque, p.Reference, p.Disponible);
                 result.Add(produit);
             }
             return result;
@@ -61,7 +61,24 @@ namespace EMI_RA
         public Produits GetByRef(string reference)
         {
             var p = depotProduits.GetByRef(reference);
+           if(p == null)
+            {
+                return null;
+            }
             return new Produits(p.ID, p.Reference, p.Libelle, p.Marque);
+        }
+
+        public List<Produits> GetByIdFournisseur(int idFournisseurs)
+        {
+
+            var result = new List<Produits>();
+
+            foreach (var p in depotProduits.GetByIdFournisseur(idFournisseurs))
+            {
+                Produits produit = new Produits(p.ID, p.Libelle, p.Marque, p.Reference, p.Disponible);
+                result.Add(produit);
+            }
+            return result;
         }
     }
 }

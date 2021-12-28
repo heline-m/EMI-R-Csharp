@@ -26,10 +26,5 @@ namespace EMI_RA
             ID = id;
         }
 
-        //public Adherents(int iD)
-        //{
-        //    ID = iD;
-        //}
-
     }
 }

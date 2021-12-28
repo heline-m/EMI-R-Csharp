@@ -51,9 +51,16 @@ namespace EMI_RA.DAL
             return assoProduitsFournisseurs;
         }
 
-        public override void Delete(AssoProduitsFournisseurs_DAL item)
+        public void Delete(int idProduits, int idFournisseurs)
         {
-            throw new NotImplementedException();
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "delete from assoProduitsFournisseurs where idFournisseurs=@idFournisseurs and idProduits=@idProduits";
+            commande.Parameters.Add(new SqlParameter("@idProduits", idProduits));
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
+            commande.ExecuteNonQuery();
+
+            DetruireConnexionEtCommande();
         }
 
         public override AssoProduitsFournisseurs_DAL GetByID(int ID)
@@ -67,27 +74,30 @@ namespace EMI_RA.DAL
 
 
         }
-        public AssoProduitsFournisseurs_DAL GetByIdProduit(int idProduits)
+        public List<AssoProduitsFournisseurs_DAL> GetByIdProduit(int idProduits)
         {
+
             CreerConnexionEtCommande();
 
             commande.CommandText = "select idProduits, idFournisseurs from assoProduitsFournisseurs where idProduits=@idProduits ";
             commande.Parameters.Add(new SqlParameter("@idProduits", idProduits));
+            //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
-            var listeDeAssoProduitsFournisseurs = new List<AssoProduitsFournisseurs_DAL>();
+            var listeAssos = new List<AssoProduitsFournisseurs_DAL>();
 
-            AssoProduitsFournisseurs_DAL AssoProduitsFournisseurs;
-            if (reader.Read())
+            while (reader.Read())
             {
-                AssoProduitsFournisseurs = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(2));
+                var asso = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(2));
+
+                listeAssos.Add(asso);
             }
-            else
-                throw new Exception($"Pas association produit fournisseur dans la BDD avec l'ID produit  {idProduits}");
 
             DetruireConnexionEtCommande();
 
-            return AssoProduitsFournisseurs;
+            return listeAssos;
+
+
         }
 
         public AssoProduitsFournisseurs_DAL GetByIdFournisseurs(int idFournisseurs)
@@ -113,5 +123,9 @@ namespace EMI_RA.DAL
             return AssoProduitsFournisseurs;
         }
 
+        public override void Delete(AssoProduitsFournisseurs_DAL item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
