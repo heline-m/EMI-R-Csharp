@@ -29,7 +29,7 @@ namespace EMI_RA
         }
         public Produits Insert(Produits produit)
         {
-            var produitDal = new Produits_DAL(produit.Reference, produit.Libelle, produit.Marque);
+            var produitDal = new Produits_DAL(produit.Libelle, produit.Marque, produit.Reference, produit.Disponible);
             produit.ID = depotProduits.Insert(produitDal).ID;
 
             return produit;
@@ -37,7 +37,7 @@ namespace EMI_RA
 
         public void Update(Produits produit)
         {
-            var produitDal = new Produits_DAL(produit.ID, produit.Reference, produit.Libelle, produit.Marque);
+            var produitDal = new Produits_DAL(produit.ID, produit.Libelle, produit.Marque, produit.Reference, produit.Disponible);
             depotProduits.Update(produitDal);
         }
 

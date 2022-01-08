@@ -22,7 +22,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
             
-            commande.CommandText = "select idProduits, libelle, marque, reference from produits where disponible=1";
+            commande.CommandText = "select idProduits, libelle, marque, reference, disponible from produits where disponible=1";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -31,7 +31,7 @@ namespace EMI_RA.DAL
             while (reader.Read())
             {
                 //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = ID, 1 = Societe...
-                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                var produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetBoolean(4));
 
                 listeDeProduits.Add(produits);
             }
