@@ -6,9 +6,18 @@
         xmlns:local="clr-namespace:EMI_RA.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="suite" Content="Button" HorizontalAlignment="Left" Margin="27,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="-7.848,-5.673" Click="Suivant2"/>
+
+
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="BouttonAdherent" Click="voirAdherent">Adhérent</Button>
+            <Button x:Name="BouttonFournisseurs" Click="voirFournisseur">Fournisseurs</Button>
+            <Button x:Name="BouttonPanier" Click="voirPanier">Panier</Button>
+            <Button x:Name="BouttonPanier1" Click="voirPanier1">Panier</Button>
+        </StackPanel>
         <Frame x:Name="Main" Margin="-10,0,10,0" />
-    </Grid>
-    
+
+    </StackPanel>
+
 </Window>
