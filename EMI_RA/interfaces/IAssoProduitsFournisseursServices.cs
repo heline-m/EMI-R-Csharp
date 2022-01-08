@@ -10,8 +10,9 @@ namespace EMI_RA
     {
         public List<AssoProduitsFournisseurs> GetAll();
         public AssoProduitsFournisseurs GetByIdFournisseurs(int ID);
-        public AssoProduitsFournisseurs GetByIdProduit(int ID);
+        public List<AssoProduitsFournisseurs> GetByIdProduit(int ID);
         public AssoProduitsFournisseurs Insert(AssoProduitsFournisseurs a);
+        public void Delete(int idProduits, int idFournisseurs);
 
     }
 }

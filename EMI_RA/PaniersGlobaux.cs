@@ -16,5 +16,10 @@ namespace EMI_RA
                     => (NumeroSemaine, Annee) = (numeroSemaine, annee);
         public PaniersGlobaux(int idPaniersGlobaux, int numeroSemaine, int annee)
                     => (IDPaniersGlobaux, NumeroSemaine, Annee) = (idPaniersGlobaux, numeroSemaine, annee);
+       
+        public PaniersGlobaux(int id)
+        {
+            IDPaniersGlobaux = id;
+        }
     }
 }

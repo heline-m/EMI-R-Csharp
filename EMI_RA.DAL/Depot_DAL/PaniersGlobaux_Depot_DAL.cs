@@ -19,7 +19,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee, from paniersGlobaux";
+            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee from paniersGlobaux";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -27,7 +27,7 @@ namespace EMI_RA.DAL
 
             while (reader.Read())
             {
-                //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = idFournisseurs, 1 = societe...
+                //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = idPaniersGlobaux...
                 var listeDePanierGlobal = new PaniersGlobaux_DAL(reader.GetInt32(0),
                                                         reader.GetInt32(1),
                                                         reader.GetInt32(2));
@@ -111,7 +111,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "delete from panniersGlobaux where idpaniersGlobaux = @idpaniersGlobaux";
+            commande.CommandText = "delete from paniersGlobaux where idpaniersGlobaux = @idpaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idpaniersGlobaux", panierGlobal.IDPaniersGlobaux));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 

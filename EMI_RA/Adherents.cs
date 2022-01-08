@@ -18,17 +18,12 @@ namespace EMI_RA
         public String Adresse { get; set; }
         public DateTime? DateAdhesion { get; set; }
 
-        public Adherents(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
-                    => (Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (societe, civiliteContact, nomContact, prenomContact, email, adresse);
+        public Adherents(int idAdherents, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
+                    => (ID, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (idAdherents, societe, civiliteContact, nomContact, prenomContact, email, adresse);
 
-        public Adherents(int idAdherents, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse) : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
+        public Adherents(int id)
         {
-            ID = idAdherents;
-        }
-
-        public Adherents(int iD)
-        {
-            ID = iD;
+            ID = id;
         }
 
     }

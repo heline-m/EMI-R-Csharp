@@ -1,7 +1,9 @@
 ﻿using EMI_RA.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +17,12 @@ namespace EMI_RA.API.Controllers
     public class AdherentsController : Controller
     {
         private IAdherentsService service;
+        private IListeAchatService listeAchatService;
 
-        public AdherentsController(IAdherentsService srv)
+        public AdherentsController(IAdherentsService srv, IListeAchatService listeAchatService)
         {
             service = srv;
+            this.listeAchatService = listeAchatService;
         }
 
         // GET: api/<FournisseursController>
@@ -37,6 +41,11 @@ namespace EMI_RA.API.Controllers
             });
         }
 
+        [HttpPost("commande/{IdAdherents}")]
+        public void GenererListeAchat(int IdAdherent, IFormFile csvFile)
+        {
+            listeAchatService.genererListeAchat(IdAdherent, csvFile);
+        }
         [HttpPost]
         public Adherents_DTO Insert(Adherents_DTO a)
         {

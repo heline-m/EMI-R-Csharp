@@ -21,6 +21,6 @@ namespace EMI_RA.DAL
             (IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idProduits, quantites, idListesDAchats, idPaniers);
 
         public LignesPaniersGlobaux_DAL(int idLignesPaniersGlobaux, int idProduits, int quantites, int idListesDAchats, int idPaniers)
-                => (IDLignesPaniersGlobaux, IDProduits, Quantite, IDListesDAchats, IDPaniers) = (IDLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
+                => (IDLignesPaniersGlobaux, IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
     }
 }

@@ -1,6 +1,9 @@
 ﻿using EMI_RA.DAL;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +17,7 @@ namespace EMI_RA
         public List<ListeAchat> GetAllListeAchat()
         {
             var listeAchat = depot.GetAll()
-                .Select(l => new ListeAchat(l.IdListesDAchats,
+                .Select(l => new ListeAchat(l.ID,
                                             l.IdAdherents,
                                             l.IdPaniersGlobaux,
                                             l.Annee,
@@ -28,7 +31,7 @@ namespace EMI_RA
         {
             var listeAchat = depot.GetByID(idListeAchat);
 
-            return new ListeAchat(listeAchat.IdListesDAchats,
+            return new ListeAchat(listeAchat.ID,
                                   listeAchat.IdAdherents,
                                   listeAchat.IdPaniersGlobaux,
                                   listeAchat.Annee,
@@ -42,8 +45,8 @@ namespace EMI_RA
                                             l.IdPaniersGlobaux,
                                             l.Annee,
                                             l.NumeroSemaine);
-            depot.Insert(listeAchat);
-            l.IdListesDAchats = listeAchat.IdListesDAchats;
+            listeAchat = depot.Insert(listeAchat);
+            l.IdListesDAchats = listeAchat.ID;
 
             return l;
         }
@@ -69,7 +72,38 @@ namespace EMI_RA
                                             l.NumeroSemaine);
             depot.Delete(listeAchat);
         }
-        
+
+        public void genererListeAchat(int IdAdherent, IFormFile csvFile)
+        {
+
+            ProduitsServices produitsServices = new ProduitsServices();
+            LignesServices lignesServices = new LignesServices();
+
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date = DateTime.Now;
+            Calendar cal = dfi.Calendar;
+            var listeAchat = new ListeAchat(IdAdherent, date.Year, cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            listeAchat = Insert(listeAchat);
+
+            using (StreamReader reader = new StreamReader(csvFile.OpenReadStream()))
+            {
+                reader.ReadLine();
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    string reference = values[0];
+                    string quantite = values[1];
+
+                    Produits produits = produitsServices.GetByRef(reference);
+
+                    Lignes ligne = new Lignes(produits.ID, listeAchat.IdListesDAchats, Int32.Parse(quantite));
+                    lignesServices.Insert(ligne);
+                }
+            }
+        }
     }
     
 }
