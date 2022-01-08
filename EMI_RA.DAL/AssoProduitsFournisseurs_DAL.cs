@@ -18,5 +18,7 @@ namespace EMI_RA.DAL
         public AssoProduitsFournisseurs_DAL(int idFournisseurs, int idProduits)
             => (IdFournisseurs, IdProduits) = (idFournisseurs, idProduits);
 
+
     }
+    
 }
