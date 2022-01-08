@@ -14,7 +14,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats from lignesPaniersGlobaux";
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniers from lignesPaniersGlobaux";
             var reader = commande.ExecuteReader();
 
             var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
@@ -22,10 +22,10 @@ namespace EMI_RA.DAL
             while (reader.Read())
             {
                 var paniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetInt32(3),
-                                        reader.GetInt32(4));
+                                                                  reader.GetInt32(1),
+                                                                  reader.GetInt32(2),
+                                                                  reader.GetInt32(3),
+                                                                  reader.GetInt32(4));
 
                 listeDeLignesPaniersGlobaux.Add(paniersGlobaux);
             }
@@ -35,7 +35,7 @@ namespace EMI_RA.DAL
             return listeDeLignesPaniersGlobaux;
         }
 
-        public List<LignesPaniersGlobaux_DAL> GetAllByIdListeDAchats(int idProduits, int idPaniers, int idListesDAchats)
+        public List<LignesPaniersGlobaux_DAL> GetPaniersGlobauxByID(int idProduits, int idPaniers, int idListesDAchats)
         {
             CreerConnexionEtCommande();
 
@@ -79,10 +79,10 @@ namespace EMI_RA.DAL
             if (reader.Read())
             {
                 paniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
-                                        reader.GetInt32(2),
-                                        reader.GetInt32(3),
-                                        reader.GetInt32(4));
+                                                              reader.GetInt32(1),
+                                                              reader.GetInt32(2),
+                                                              reader.GetInt32(3),
+                                                              reader.GetInt32(4));
             }
             else
                 throw new Exception($"Pas de paniers globaux dans la BDD avec l'ID {idLignesPaniersGlobaux}");
@@ -116,8 +116,8 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idListesDAchats=@idListesDAchats, idPaniers=@idPaniers )"
-                                    + " where ID=@ID";
+            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idListesDAchats=@idListesDAchats, idPaniers=@idPaniers "
+                                    + " where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));

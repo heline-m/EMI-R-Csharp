@@ -44,6 +44,7 @@ namespace EMI_RA.DAL
             return listeDOffres;
         }
 
+
         public override Offres_DAL GetByID(int ID)
         {
             throw new NotImplementedException();

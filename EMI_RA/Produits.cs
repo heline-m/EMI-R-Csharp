@@ -9,14 +9,24 @@ namespace EMI_RA
     public class Produits
     {
         public int ID { get; set; }
-        public String Libelle { get; set; }
-        public String Marque { get; set; }
-        public String Reference { get; set; }
+        public string Libelle { get; set; }
+        public string Marque { get; set; }
+        public string Reference { get; set; }
         public int IdFournisseurs { get; set; }
+        public bool Disponible { get; set; }
 
-        public Produits(String libelle, String marque, int idFournisseurs, String reference)
-           => (Libelle, Marque, IdFournisseurs, Reference) = (libelle, marque, idFournisseurs, reference);
-        public Produits(int idProduits, String libelle, String marque, int idFournisseurs, String reference)
-             => (ID, Libelle, Marque, IdFournisseurs, Reference) = (idProduits, libelle, marque, idFournisseurs, reference);
+        public Produits(string libelle, string marque, string reference, bool disponible)
+           => (Libelle, Marque, Reference, Disponible) = (libelle, marque, reference, disponible);
+        public Produits(int idProduits, string libelle, string marque, string reference, bool disponible)
+             => (ID, Libelle, Marque, Reference, Disponible ) = (idProduits, libelle, marque, reference, disponible); 
+        public Produits(int idProduits, string reference, string libelle, string marque)
+              => (ID, Reference, Libelle, Marque) = (idProduits, reference, libelle, marque);
+        public Produits (string reference, string libelle, string marque)
+              => (Reference, Libelle, Marque) = (reference, libelle, marque);
+        public Produits(int id)
+        {
+            ID = id;
+        }
+
     }
 }

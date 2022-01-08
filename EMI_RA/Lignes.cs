@@ -15,6 +15,7 @@ namespace EMI_RA
 
         public Lignes(int idProduits, int idListesDAchats, int quantite)
             => (IdProduits, IdListesDAchats, Quantite) = (idProduits, idListesDAchats, quantite);
+
         public Lignes(int id, int idProduits, int idListesDAchats, int quantite)
                     => (ID, IdProduits, IdListesDAchats, Quantite) = (id, idProduits, idListesDAchats, quantite);
 

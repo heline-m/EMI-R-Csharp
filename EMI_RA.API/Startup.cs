@@ -34,7 +34,6 @@ namespace EMI_RA.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EMI_RA.API", Version = "v1" });
             });
 
-            //services.AddSingleton(typeof(IEmiraService), new EmiraService());
             services.AddSingleton(typeof(IProduitsService), new ProduitsServices());
             services.AddSingleton(typeof(IAssoProduitsFournisseursServices), new AssoProduitsFournisseursServices());
             services.AddSingleton(typeof(IFournisseursService), new FournisseursService());
@@ -43,14 +42,13 @@ namespace EMI_RA.API
             services.AddSingleton(typeof(IListeAchatService), new ListeAchatService());
             services.AddSingleton(typeof(IOffresService), new OffresService());
             services.AddSingleton(typeof(IPaniersGlobauxService), new PaniersGlobauxService());
-            
+            services.AddSingleton(typeof(IAdherentsService), new AdherentsService());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

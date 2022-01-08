@@ -19,10 +19,14 @@ namespace EMI_RA
         public Fournisseurs(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
                     => (Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (societe, civiliteContact, nomContact, prenomContact, email, adresse);
 
-        public Fournisseurs(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse) : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
+        public Fournisseurs(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse) 
+            : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
         {
             IdFournisseurs = iDFournisseurs;
         }
-
+        public Fournisseurs(int id)
+        {
+            IdFournisseurs = id;
+        }
     }
 }

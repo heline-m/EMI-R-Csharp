@@ -25,18 +25,18 @@ namespace EMI_RA
 
         public PaniersGlobaux GetPaniersGlobauxByID(int idPaniersGlobaux)
         {
-            var p = depot.GetByID(idPaniersGlobaux),
+            var p = depot.GetByID(idPaniersGlobaux);
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
-                                                p.NumeroSemaine,
-                                                p.Annee);
+                                      p.NumeroSemaine,
+                                      p.Annee);
         }
 
         public PaniersGlobaux Insert(PaniersGlobaux p)
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.IDPaniersGlobaux,
-                                                p.NumeroSemaine,
-                                                p.Annee);
+                                                        p.NumeroSemaine,
+                                                        p.Annee);
             depot.Insert(paniersGlobaux);
             p.IDPaniersGlobaux = paniersGlobaux.IDPaniersGlobaux;
 
@@ -46,8 +46,8 @@ namespace EMI_RA
         public PaniersGlobaux Update(PaniersGlobaux p)
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.IDPaniersGlobaux,
-                                                p.NumeroSemaine,
-                                                p.Annee);
+                                                        p.NumeroSemaine,
+                                                        p.Annee);
             depot.Update(paniersGlobaux);
 
             return p;

@@ -10,7 +10,7 @@ namespace EMI_RA
     public class AssoProduitsFournisseursServices : IAssoProduitsFournisseursServices
     {
         private AssoProduitsFournisseurs_Depot_DAL depot = new AssoProduitsFournisseurs_Depot_DAL();
-        
+
         public List<AssoProduitsFournisseurs> GetAll()
         {
             var assoProduits = depot.GetAll()
@@ -21,13 +21,19 @@ namespace EMI_RA
 
             return assoProduits;
         }
-        public AssoProduitsFournisseurs GetByIdProduit(int idProduits)
+        public List<AssoProduitsFournisseurs> GetByIdProduit(int idProduits)
         {
-            var a = depot.GetByIdProduit(idProduits);
 
-            return new AssoProduitsFournisseurs(a.IdFournisseurs,
+            var result = new List<AssoProduitsFournisseurs>();
+
+            foreach (var a in depot.GetByIdProduit(idProduits))
+            {
+                AssoProduitsFournisseurs asso = new AssoProduitsFournisseurs(a.IdFournisseurs,
                                         a.IdProduits
                               );
+                result.Add(asso);
+            }
+            return result;
         }
         public AssoProduitsFournisseurs GetByIdFournisseurs(int idFournisseurs)
         {
@@ -42,12 +48,15 @@ namespace EMI_RA
             var assoProduits = new AssoProduitsFournisseurs_DAL(a.IdFournisseurs,
                                         a.IdProduits);
             depot.Insert(assoProduits);
-            
+
 
             return a;
         }
 
+        public void Delete(int idProduits, int idFournisseurs)
+        {
+            depot.Delete(idProduits, idFournisseurs);
 
-
+        }
     }
 }

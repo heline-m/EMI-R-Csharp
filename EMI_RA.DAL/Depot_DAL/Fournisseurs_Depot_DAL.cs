@@ -20,7 +20,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteConctact, nomContact, prenomContact, email, adresse from fournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse from fournisseurs";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 

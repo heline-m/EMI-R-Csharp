@@ -70,5 +70,11 @@ namespace EMI_RA.WPF
         {
 
         }
+
+        private void Suivant2(object sender, RoutedEventArgs e)
+        {
+            var pageAdherents = new Fournisseurs();
+            Main.Navigate(pageAdherents);
+        }
     }
 }
