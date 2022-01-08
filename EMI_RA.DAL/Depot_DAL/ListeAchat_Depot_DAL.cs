@@ -70,10 +70,9 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into listesDAchats (idAdherents, idPaniersGlobaux, annee, numeroSemaine)"
-                                    + " values (@idAdherent, @idPaniersGlobaux, @annee, @numeroSemaine); select scope_identity()";
+            commande.CommandText = "insert into listesDAchats (idAdherents, annee, numeroSemaine)"
+                                    + " values (@idAdherent, @annee, @numeroSemaine); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@idAdherent", listeAchat.IdAdherents));
-            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", listeAchat.IdPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@annee", listeAchat.Annee));
             commande.Parameters.Add(new SqlParameter("@numeroSemaine", listeAchat.NumeroSemaine));
 
@@ -92,7 +91,7 @@ namespace EMI_RA.DAL
 
             commande.CommandText = "update listesDAchats set idAdherents = @idAdherent, idPaniersGlobaux = @idPaniersGlobaux, annee = @annee, numeroSemaine = @numeroSemaine)"
                                     + " where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", listeAchat.IdListesDAchats));
+            commande.Parameters.Add(new SqlParameter("@ID", listeAchat.ID));
             commande.Parameters.Add(new SqlParameter("@idAdherent", listeAchat.IdAdherents));
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", listeAchat.IdPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@annee", listeAchat.Annee));
@@ -114,12 +113,12 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "delete from listesDAchats where idListesDAchats = @ID";
-            commande.Parameters.Add(new SqlParameter("@ID", listeAchat.IdListesDAchats));
+            commande.Parameters.Add(new SqlParameter("@ID", listeAchat.ID));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de supprimer la liste d'achat avec l'ID {listeAchat.IdListesDAchats}");
+                throw new Exception($"Impossible de supprimer la liste d'achat avec l'ID {listeAchat.ID}");
             }
 
             DetruireConnexionEtCommande();

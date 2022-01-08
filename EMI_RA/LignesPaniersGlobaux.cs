@@ -18,6 +18,10 @@ namespace EMI_RA
             (IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idProduits, quantites, idListesDAchats, idPaniers);
 
         public LignesPaniersGlobaux(int idLignesPaniersGlobaux, int idProduits, int quantites, int idListesDAchats, int idPaniers)
-                => (IDLignesPaniersGlobaux, IDProduits, Quantite, IDListesDAchats, IDPaniers) = (IDLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
+                => (IDLignesPaniersGlobaux, IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
+        public LignesPaniersGlobaux(int id)
+        {
+            IDLignesPaniersGlobaux = id;
+        }
     }
 }

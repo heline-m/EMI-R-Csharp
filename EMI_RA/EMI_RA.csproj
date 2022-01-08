@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EMI_RA.DAL\EMI_RA.DAL.csproj" />
+    <ProjectReference Include="..\EMI_RA.DTO\EMI_RA.DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

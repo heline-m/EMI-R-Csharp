@@ -5,9 +5,9 @@ namespace EMI_RA.DTO
     public class Produits_DTO
     {
         public int ID { get; set; }
-        public String Libelle { get; set; }
-        public String Marque { get; set; }
-        public String Reference { get; set; }
+        public string Libelle { get; set; }
+        public string Marque { get; set; }
+        public string Reference { get; set; }
         public int IdFournisseurs { get; set; }
     }
 }
