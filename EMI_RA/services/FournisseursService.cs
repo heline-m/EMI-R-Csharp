@@ -24,7 +24,8 @@ namespace EMI_RA
                                               f.NomContact,
                                               f.PrenomContact,
                                               f.Email,
-                                              f.Adresse
+                                              f.Adresse,
+                                              f.DateAdhesion
                         ))
                 .ToList();
             
@@ -41,7 +42,8 @@ namespace EMI_RA
                                     f.NomContact,
                                     f.PrenomContact,
                                     f.Email,
-                                    f.Adresse);
+                                    f.Adresse,
+                                    f.DateAdhesion);
         }
 
         public Fournisseurs Insert(Fournisseurs f)
@@ -52,7 +54,8 @@ namespace EMI_RA
                                                    f.NomContact,
                                                    f.PrenomContact,
                                                    f.Email,
-                                                   f.Adresse);
+                                                   f.Adresse,
+                                                   DateTime.Now);
             depot.Insert(fournisseur);
             f.IdFournisseurs = fournisseur.IdFournisseurs;
 
@@ -67,7 +70,8 @@ namespace EMI_RA
                                                    f.NomContact,
                                                    f.PrenomContact,
                                                    f.Email,
-                                                   f.Adresse);
+                                                   f.Adresse,
+                                                   f.DateAdhesion);
             depot.Update(fournisseur);
 
             return f;
@@ -81,7 +85,8 @@ namespace EMI_RA
                                                       f.NomContact,
                                                       f.PrenomContact,
                                                       f.Email,
-                                                      f.Adresse);
+                                                      f.Adresse,
+                                                      f.DateAdhesion);
             depot.Delete(fournisseur);
 
         }

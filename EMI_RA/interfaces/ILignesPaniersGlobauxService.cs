@@ -8,10 +8,10 @@ namespace EMI_RA
 {
     public interface ILignesPaniersGlobauxService
     {
-        public List<LignesPaniersGlobaux> GetAllLignesPaniersGlobaux();
-        public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int IDLignesPaniersGlobaux);
+        //public List<LignesPaniersGlobaux> GetAllLignesPaniersGlobaux();
+        //public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int IDLignesPaniersGlobaux);
         public LignesPaniersGlobaux Insert(LignesPaniersGlobaux l);
-        public LignesPaniersGlobaux Update(LignesPaniersGlobaux l);
-        public void Delete(LignesPaniersGlobaux l);
+        //public LignesPaniersGlobaux Update(LignesPaniersGlobaux l);
+        //public void Delete(LignesPaniersGlobaux l);
     }
 }

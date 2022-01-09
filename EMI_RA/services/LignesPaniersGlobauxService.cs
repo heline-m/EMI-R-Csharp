@@ -11,64 +11,64 @@ namespace EMI_RA
     {
         private LignesPaniersGlobaux_Depot_DAL depot = new LignesPaniersGlobaux_Depot_DAL();
 
-        public List<LignesPaniersGlobaux> GetAllLignesPaniersGlobaux()
-        {
-            var lignePanierGlobaux = depot.GetAll()
-                .Select(l => new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers
-                                                      ))
-                .ToList();
+        //public List<LignesPaniersGlobaux> GetAllLignesPaniersGlobaux()
+        //{
+        //    var lignePanierGlobaux = depot.GetAll()
+        //        .Select(l => new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
+        //                                              l.IDProduits,
+        //                                              l.IDListesDAchats,
+        //                                              l.Quantite,
+        //                                              l.IDPaniers
+        //                                              ))
+        //        .ToList();
 
-            return lignePanierGlobaux;
-        }
+        //    return lignePanierGlobaux;
+        //}
 
-        public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int idLignesPaniersGlobaux)
-        {
-            var l = depot.GetByID(idLignesPaniersGlobaux);
+        //public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int idLignesPaniersGlobaux)
+        //{
+        //    var l = depot.GetByID(idLignesPaniersGlobaux);
 
-            return new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers);
-        }
+        //    return new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
+        //                                              l.IDProduits,
+        //                                              l.IDListesDAchats,
+        //                                              l.Quantite,
+        //                                              l.IDPaniers);
+        //}
 
         public LignesPaniersGlobaux Insert(LignesPaniersGlobaux l)
         {
-            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
+            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(
                                                       l.IDProduits,
-                                                      l.IDListesDAchats,
                                                       l.Quantite,
-                                                      l.IDPaniers);
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents);
             depot.Insert(lignePaniersGlobaux);
-            l.IDLignesPaniersGlobaux = lignePaniersGlobaux.IDLignesPaniersGlobaux;
+            l.ID = lignePaniersGlobaux.ID;
 
             return l;
         }
 
-        public LignesPaniersGlobaux Update(LignesPaniersGlobaux l)
-        {
-            var lignePanierGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers);
-            depot.Update(lignePanierGlobaux);
+        //public LignesPaniersGlobaux Update(LignesPaniersGlobaux l)
+        //{
+        //    var lignePanierGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
+        //                                              l.IDProduits,
+        //                                              l.IDListesDAchats,
+        //                                              l.Quantite,
+        //                                              l.IDPaniers);
+        //    depot.Update(lignePanierGlobaux);
 
-            return l;
-        }
+        //    return l;
+        //}
 
-        public void Delete(LignesPaniersGlobaux l)
-        {
-            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers);
-            depot.Delete(lignePaniersGlobaux);
-        }
+        //public void Delete(LignesPaniersGlobaux l)
+        //{
+        //    var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
+        //                                              l.IDProduits,
+        //                                              l.IDListesDAchats,
+        //                                              l.Quantite,
+        //                                              l.IDPaniers);
+        //    depot.Delete(lignePaniersGlobaux);
+        //}
     }
 }

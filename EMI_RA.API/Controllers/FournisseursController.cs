@@ -36,10 +36,11 @@ namespace EMI_RA.API.Controllers
                 PrenomContact = f.PrenomContact,
                 Email = f.Email,
                 Adresse = f.Adresse,
+                DateAdhesion = f.DateAdhesion,
             });
         }
 
-        [HttpPost("commande/{IdFournisseurs}")]
+        [HttpPost("catalogue/{IdFournisseurs}")]
         public void AlimenterCatalogue(int IdFournisseurs, IFormFile csvFile)
         {
             service.alimenterCatalogue(IdFournisseurs, csvFile);
@@ -54,7 +55,8 @@ namespace EMI_RA.API.Controllers
                                                            f.NomContact,
                                                            f.PrenomContact,
                                                            f.Email,
-                                                           f.Adresse));
+                                                           f.Adresse,
+                                                           f.DateAdhesion));
             //Je récupère l'ID
             f.IdFournisseurs = f_metier.IdFournisseurs;
             //je renvoie l'objet DTO
@@ -71,7 +73,8 @@ namespace EMI_RA.API.Controllers
                                                            f.NomContact,
                                                            f.PrenomContact,
                                                            f.Email,
-                                                           f.Adresse));
+                                                           f.Adresse,
+                                                           f.DateAdhesion));
             //Je récupère l'ID
             f.IdFournisseurs = f_metier.IdFournisseurs;
             //je renvoie l'objet DTO

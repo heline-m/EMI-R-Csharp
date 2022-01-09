@@ -37,11 +37,11 @@ namespace EMI_RA.API.Controllers
                 NomContact = a.NomContact,
                 PrenomContact = a.PrenomContact,
                 Email = a.Email,
-                Adresse = a.Adresse,
+                Adresse = a.Adresse
             });
         }
 
-        [HttpPost("commande/{IdAdherents}")]
+        [HttpPost("commande")]
         public void GenererListeAchat(int IdAdherent, IFormFile csvFile)
         {
             listeAchatService.genererListeAchat(IdAdherent, csvFile);

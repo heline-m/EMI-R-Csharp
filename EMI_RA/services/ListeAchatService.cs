@@ -12,78 +12,76 @@ namespace EMI_RA
 {
     public class ListeAchatService : IListeAchatService
     {
-        private ListeAchat_Depot_DAL depot = new ListeAchat_Depot_DAL();
+        private LignesPaniersGlobaux_Depot_DAL depot = new LignesPaniersGlobaux_Depot_DAL();
+        private PaniersGlobauxService paniersGlobauxService = new PaniersGlobauxService();
 
-        public List<ListeAchat> GetAllListeAchat()
-        {
-            var listeAchat = depot.GetAll()
-                .Select(l => new ListeAchat(l.ID,
-                                            l.IdAdherents,
-                                            l.IdPaniersGlobaux,
-                                            l.Annee,
-                                            l.NumeroSemaine
-                    ))
-                .ToList();
+        //public List<LignesPaniersGlobaux> GetAllListeAchat()
+        //{
+        //    var listeAchat = depot.GetAll()
+        //        .Select(l => new LignesPaniersGlobaux(l.ID,
+        //                                    l.IdAdherents,
+        //            ))
+        //        .ToList();
 
-            return listeAchat;
-        }
-        public ListeAchat GetListeAchatByID(int idListeAchat)
-        {
-            var listeAchat = depot.GetByID(idListeAchat);
+        //    return listeAchat;
+        //}
+        //public LignesPaniersGlobaux GetListeAchatByID(int idListeAchat)
+        //{
+        //    var listeAchat = depot.GetByID(idListeAchat);
 
-            return new ListeAchat(listeAchat.ID,
-                                  listeAchat.IdAdherents,
-                                  listeAchat.IdPaniersGlobaux,
-                                  listeAchat.Annee,
-                                  listeAchat.NumeroSemaine);
-        }
-        
-        public ListeAchat Insert(ListeAchat l)
-        {
-            var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
-                                            l.IdAdherents,
-                                            l.IdPaniersGlobaux,
-                                            l.Annee,
-                                            l.NumeroSemaine);
-            listeAchat = depot.Insert(listeAchat);
-            l.IdListesDAchats = listeAchat.ID;
+        //    return new LignesPaniersGlobaux(listeAchat.ID,
+        //                          listeAchat.IdAdherents,
+        //                          listeAchat.IdPaniersGlobaux,
+        //                          listeAchat.Annee,
+        //                          listeAchat.NumeroSemaine);
+        //}
 
-            return l;
-        }
+        //public LignesPaniersGlobaux Insert(LignesPaniersGlobaux l)
+        //{
+        //    var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
+        //                                    l.IdAdherents,
+        //                                    l.IdPaniersGlobaux,
+        //                                    l.Annee,
+        //                                    l.NumeroSemaine);
+        //    listeAchat = depot.Insert(listeAchat);
+        //    l.IdListesDAchats = listeAchat.ID;
 
-        public ListeAchat Update(ListeAchat l)
-        {
-            var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
-                                            l.IdAdherents,
-                                            l.IdPaniersGlobaux,
-                                            l.Annee,
-                                            l.NumeroSemaine);
-            depot.Update(listeAchat);
+        //    return l;
+        //}
 
-            return l;
-        }
+        //public LignesPaniersGlobaux Update(LignesPaniersGlobaux l)
+        //{
+        //    var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
+        //                                    l.IdAdherents,
+        //                                    l.IdPaniersGlobaux,
+        //                                    l.Annee,
+        //                                    l.NumeroSemaine);
+        //    depot.Update(listeAchat);
 
-        public void Delete(ListeAchat l)
-        {
-            var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
-                                            l.IdAdherents,
-                                            l.IdPaniersGlobaux,
-                                            l.Annee,
-                                            l.NumeroSemaine);
-            depot.Delete(listeAchat);
-        }
+        //    return l;
+        //}
+
+        //public void Delete(LignesPaniersGlobaux l)
+        //{
+        //    var listeAchat = new ListeAchat_DAL(l.IdListesDAchats,
+        //                                    l.IdAdherents,
+        //                                    l.IdPaniersGlobaux,
+        //                                    l.Annee,
+        //                                    l.NumeroSemaine);
+        //    depot.Delete(listeAchat);
+        //}
 
         public void genererListeAchat(int IdAdherent, IFormFile csvFile)
         {
 
             ProduitsServices produitsServices = new ProduitsServices();
-            LignesServices lignesServices = new LignesServices();
 
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             DateTime date = DateTime.Now;
             Calendar cal = dfi.Calendar;
-            var listeAchat = new ListeAchat(IdAdherent, date.Year, cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
-            listeAchat = Insert(listeAchat);
+
+            // récupération du panier global
+            PaniersGlobaux paniersGlobaux = paniersGlobauxService.getPanierGlobal();
 
             using (StreamReader reader = new StreamReader(csvFile.OpenReadStream()))
             {
@@ -99,11 +97,11 @@ namespace EMI_RA
 
                     Produits produits = produitsServices.GetByRef(reference);
 
-                    Lignes ligne = new Lignes(produits.ID, listeAchat.IdListesDAchats, Int32.Parse(quantite));
-                    lignesServices.Insert(ligne);
+                    var lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(produits.ID, Int32.Parse(quantite), paniersGlobaux.ID, IdAdherent);
+                    depot.Insert(lignesPaniersGlobaux);
                 }
             }
         }
     }
-    
+
 }

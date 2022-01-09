@@ -13,5 +13,6 @@ namespace EMI_RA
         public PaniersGlobaux Insert(PaniersGlobaux p);
         public PaniersGlobaux Update(PaniersGlobaux p);
         public void Delete(PaniersGlobaux p);
+        public PaniersGlobaux getPanierGlobal();
     }
 }

@@ -96,16 +96,16 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idListesDAchats, idPaniers)"
-                                    + " values (@idProduits, @quantite, @idListesDAchats, @idPaniers); select scope_identity()";
+            commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idPaniersGlobaux, idAdherents)"
+                                    + " values (@idProduits, @quantite, @idPaniersGlobaux, @idAdherents); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", lignePanierGlobal.IDPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idAdherents", lignePanierGlobal.IDAdherents));
 
             var idLignesPaniersGlobaux = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            lignePanierGlobal.IDLignesPaniersGlobaux = idLignesPaniersGlobaux;
+            lignePanierGlobal.ID = idLignesPaniersGlobaux;
 
             DetruireConnexionEtCommande();
 
@@ -116,18 +116,18 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idListesDAchats=@idListesDAchats, idPaniers=@idPaniers "
+            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idPaniersGlobaux=@idPaniersGlobaux, idAdherents=@idAdherents "
                                     + " where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.ID));
             commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", lignePanierGlobal.IDPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idAdherents", lignePanierGlobal.IDAdherents));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.ID}");
             }
 
             DetruireConnexionEtCommande();
@@ -140,12 +140,12 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "delete from LignesPaniersGlobaux where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.ID));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.ID}");
             }
 
             DetruireConnexionEtCommande();

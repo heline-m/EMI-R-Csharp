@@ -49,8 +49,7 @@ namespace EMI_RA
                                               a.NomContact,
                                               a.PrenomContact,
                                               a.Email,
-                                              a.Adresse,
-                                              a.DateAdhesion);
+                                              a.Adresse);
             depotAdherents.Insert(adherents);
 
             a.ID = adherents.ID;
@@ -66,8 +65,7 @@ namespace EMI_RA
                                               a.NomContact,
                                               a.PrenomContact,
                                               a.Email,
-                                              a.Adresse,
-                                              a.DateAdhesion);
+                                              a.Adresse);
             depotAdherents.Update(adherents);
 
             return a;
@@ -80,8 +78,7 @@ namespace EMI_RA
                                               a.NomContact,
                                               a.PrenomContact,
                                               a.Email,
-                                              a.Adresse,
-                                              a.DateAdhesion);
+                                              a.Adresse);
             depotAdherents.Delete(adherentDAL);
         }
     }

@@ -11,5 +11,6 @@ namespace EMI_RA.DTO
         public String PrenomContact { get; set; }
         public String Email { get; set; }
         public String Adresse { get; set; }
+        public DateTime DateAdhesion { get; set; }
     }
 }

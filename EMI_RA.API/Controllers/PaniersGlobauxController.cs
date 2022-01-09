@@ -27,7 +27,7 @@ namespace EMI_RA.API.Controllers
         {
             return service.GetAllPaniersGlobaux().Select(p => new PaniersGlobaux_DTO()
             {
-                IDPaniersGlobaux = p.IDPaniersGlobaux,
+                IDPaniersGlobaux = p.ID,
                 NumeroSemaine = p.NumeroSemaine,
                 Annee = p.Annee
             });

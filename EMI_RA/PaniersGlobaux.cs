@@ -8,18 +8,18 @@ namespace EMI_RA
 {
     public class PaniersGlobaux
     {
-        public int IDPaniersGlobaux { get; set; }
+        public int ID { get; set; }
         public int NumeroSemaine { get; set; }
         public int Annee { get; set; }
 
         public PaniersGlobaux(int numeroSemaine, int annee)
                     => (NumeroSemaine, Annee) = (numeroSemaine, annee);
         public PaniersGlobaux(int idPaniersGlobaux, int numeroSemaine, int annee)
-                    => (IDPaniersGlobaux, NumeroSemaine, Annee) = (idPaniersGlobaux, numeroSemaine, annee);
+                    => (ID, NumeroSemaine, Annee) = (idPaniersGlobaux, numeroSemaine, annee);
        
         public PaniersGlobaux(int id)
         {
-            IDPaniersGlobaux = id;
+            ID = id;
         }
     }
 }
