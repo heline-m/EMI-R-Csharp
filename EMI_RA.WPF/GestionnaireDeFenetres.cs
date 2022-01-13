@@ -10,7 +10,7 @@ namespace EMI_RA.WPF
     {
         static public MainWindow MainWindow { get; set; }
         static public Page1 Page1 { get; set; }
-        static public Page2 Page2 { get; set; }
+        static public Fournisseurs Fournisseurs { get; set; }
         static public PageParDefault pageParDefault { get; set; }
         // static public Page2 Page2 { get; set; }
 
