@@ -14,8 +14,13 @@ namespace EMI_RA
         public int IDPaniersGlobaux { get; set; }
         public int IDAdherents { get; set; }
 
+        public LignesPaniersGlobaux(int idProduits, int quantites) =>
+            (IDProduits, Quantite) = (idProduits, quantites);
         public LignesPaniersGlobaux(int idProduits, int quantites, int idPaniersGlobaux, int idAdherents) =>
             (IDProduits, Quantite, IDPaniersGlobaux, IDAdherents) = (idProduits, quantites, idPaniersGlobaux, idAdherents);
+
+        public LignesPaniersGlobaux(int id, int idProduits, int quantites, int idPaniersGlobaux, int idAdherents) =>
+            (ID, IDProduits, Quantite, IDPaniersGlobaux, IDAdherents) = (id, idProduits, quantites, idPaniersGlobaux, idAdherents);
 
 
     }

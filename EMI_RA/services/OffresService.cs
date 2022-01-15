@@ -14,10 +14,11 @@ namespace EMI_RA
         public List<Offres> GetAllOffres()
         {
             var offre = depot.GetAll()
-                .Select(o => new Offres(o.IdFournisseurs,
-                                        o.IdLignesPaniers,
-                                        o.Prix
-                                        ))
+                .Select(offre => new Offres(offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix))
                 .ToList();
 
             return offre;
@@ -25,33 +26,39 @@ namespace EMI_RA
 
         public Offres GetOffreByIDFournisseur(int idFournisseur)
         {
-            var o = depot.GetByIDFournisseur(idFournisseur);
+            var offre = depot.GetByIDFournisseur(idFournisseur);
 
-            return new Offres(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
+            return new Offres(offre.IdFournisseurs,
+                              offre.IdPaniers,
+                              offre.IdProduits,
+                              offre.Quantite,
+                              offre.Prix);
 
         }
 
         public Offres GetOffreByIDLignesPaniers(int idLignesPaniers)
         {
-            var o = depot.GetByIDLignesPaniers(idLignesPaniers);
+            var offre = depot.GetByIDLignesPaniers(idLignesPaniers);
 
-            return new Offres(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
+            return new Offres(offre.IdFournisseurs,
+                              offre.IdPaniers,
+                              offre.IdProduits,
+                              offre.Quantite,
+                              offre.Prix);
 
         }
 
-        public Offres Insert(Offres o)
+        public Offres Insert(Offres offres)
         {
-            var offre = new Offres_DAL(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
+            var offre = new Offres_DAL(offres.IdFournisseurs,
+                                       offres.IdPaniers,
+                                       offres.IdProduits,
+                                       offres.Quantite,
+                                       offres.Prix);
             depot.Insert(offre);
-            o.IdFournisseurs = offre.IdFournisseurs;
+            offre.IdFournisseurs = offre.IdFournisseurs;
 
-            return o;
+            return offres;
         }
 
 

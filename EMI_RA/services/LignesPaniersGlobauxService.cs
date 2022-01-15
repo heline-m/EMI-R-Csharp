@@ -25,16 +25,29 @@ namespace EMI_RA
         //    return lignePanierGlobaux;
         //}
 
-        //public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int idLignesPaniersGlobaux)
-        //{
-        //    var l = depot.GetByID(idLignesPaniersGlobaux);
+        public List<LignesPaniersGlobaux> GetLignesPaniersGlobauxByPanierGlobauxID(int idPaniersGlobaux)
+        {
+            var liste = depot.GetByPanierGlobauxID(idPaniersGlobaux).Select(l => new LignesPaniersGlobaux(l.ID,
+                                                      l.IDProduits,
+                                                      l.Quantite,
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents
+                                                      )).ToList();
 
-        //    return new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
-        //                                              l.IDProduits,
-        //                                              l.IDListesDAchats,
-        //                                              l.Quantite,
-        //                                              l.IDPaniers);
-        //}
+            return liste;
+        }
+
+        public List<LignesPaniersGlobaux> GetLignesPaniersGlobauxByPanierGlobauxIDAndFournisseurID(int idPaniersGlobaux, int idFournisseurs)
+        {
+            var liste = depot.GetByPanierGlobauxIDAndFournisseurID(idPaniersGlobaux, idFournisseurs).Select(l => new LignesPaniersGlobaux(l.ID,
+                                                      l.IDProduits,
+                                                      l.Quantite,
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents
+                                                      )).ToList();
+
+            return liste;
+        }
 
         public LignesPaniersGlobaux Insert(LignesPaniersGlobaux l)
         {

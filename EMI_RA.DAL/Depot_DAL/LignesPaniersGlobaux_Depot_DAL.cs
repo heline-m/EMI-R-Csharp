@@ -64,7 +64,7 @@ namespace EMI_RA.DAL
             return listeDeLignesPaniersGlobaux;
         }
 
-     
+
         public override LignesPaniersGlobaux_DAL GetByID(int idLignesPaniersGlobaux)
         {
             CreerConnexionEtCommande();
@@ -90,6 +90,64 @@ namespace EMI_RA.DAL
             DetruireConnexionEtCommande();
 
             return paniersGlobaux;
+        }
+
+
+        public List<LignesPaniersGlobaux_DAL> GetByPanierGlobauxID(int idPaniersGlobaux)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idPaniersGlobaux, idAdherents from lignesPaniersGlobaux where idPaniersGlobaux=@idPaniersGlobaux";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
+
+            while (reader.Read())
+            {
+                LignesPaniersGlobaux_DAL lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
+                                                              reader.GetInt32(1),
+                                                              reader.GetInt32(2),
+                                                              reader.GetInt32(3),
+                                                              reader.GetInt32(4));
+                listeDeLignesPaniersGlobaux.Add(lignesPaniersGlobaux);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLignesPaniersGlobaux;
+        }
+
+
+        public List<LignesPaniersGlobaux_DAL> GetByPanierGlobauxIDAndFournisseurID(int idPaniersGlobaux, int idFournisseurs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select lpg.idLignesPaniersGlobaux, lpg.idProduits, lpg.quantite, lpg.idPaniersGlobaux, lpg.idAdherents " +
+                "from lignesPaniersGlobaux lpg " +
+                "inner join produits p on lpg.idProduits = p.idProduits " +
+                "inner join assoProduitsFournisseurs a on p.idProduits = a.idProduits " +
+                "where lpg.idPaniersGlobaux=@idPaniersGlobaux " +
+                "and a.idFournisseurs=@idFournisseurs";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
+
+            while (reader.Read())
+            {
+                LignesPaniersGlobaux_DAL lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
+                                                              reader.GetInt32(1),
+                                                              reader.GetInt32(2),
+                                                              reader.GetInt32(3),
+                                                              reader.GetInt32(4));
+                listeDeLignesPaniersGlobaux.Add(lignesPaniersGlobaux);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLignesPaniersGlobaux;
         }
 
         public override LignesPaniersGlobaux_DAL Insert(LignesPaniersGlobaux_DAL lignePanierGlobal)

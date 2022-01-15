@@ -8,9 +8,10 @@ namespace EMI_RA
 {
     public interface IOffresService
     {
+        public Offres Insert(Offres offres);
         public List<Offres> GetAllOffres();
-        public Offres GetOffreByIDFournisseur(int IdFournisseur);
-        public Offres GetOffreByIDLignesPaniers(int IdLignesPaniers);
-        public Offres Insert(Offres o);
+        public Offres GetOffreByIDLignesPaniers(int idLignesPaniers);
+        public Offres GetOffreByIDFournisseur(int idFournisseur);
+        
     }
 }
