@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace EMI_RA
         public PaniersGlobaux getPanierGlobal();
         public Stream genererPanierStream(int annee, int semaine);
         public Stream genererPanierStream(int annee, int semaine, int idFournisseur);
+        public void Cloturer(int pgId);
+        public void genererListeAchat(int IdAdherent, IFormFile csvFile);
     }
 }

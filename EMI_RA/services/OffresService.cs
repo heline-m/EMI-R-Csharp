@@ -14,11 +14,13 @@ namespace EMI_RA
         public List<Offres> GetAllOffres()
         {
             var offre = depot.GetAll()
-                .Select(offre => new Offres(offre.IdFournisseurs,
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
                                             offre.IdPaniers,
                                             offre.IdProduits,
                                             offre.Quantite,
-                                            offre.Prix))
+                                            offre.Prix,
+                                            offre.Gagne))
                 .ToList();
 
             return offre;
@@ -28,23 +30,29 @@ namespace EMI_RA
         {
             var offre = depot.GetByIDFournisseur(idFournisseur);
 
-            return new Offres(offre.IdFournisseurs,
-                              offre.IdPaniers,
-                              offre.IdProduits,
-                              offre.Quantite,
-                              offre.Prix);
+            return new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne);
 
         }
 
-        public Offres GetOffreByIDLignesPaniers(int idLignesPaniers)
+        public List<Offres> GetOffreByIDPaniers(int idPaniers)
         {
-            var offre = depot.GetByIDLignesPaniers(idLignesPaniers);
+            var offre = depot.GetByIDPaniers(idPaniers)
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne))
+                .ToList();
 
-            return new Offres(offre.IdFournisseurs,
-                              offre.IdPaniers,
-                              offre.IdProduits,
-                              offre.Quantite,
-                              offre.Prix);
+            return offre;
 
         }
 
@@ -60,7 +68,32 @@ namespace EMI_RA
 
             return offres;
         }
+        public void Update(Offres offres)
+        {
+            var offre = new Offres_DAL(offres.IdOffres,
+                                        offres.IdFournisseurs,
+                                        offres.IdPaniers,
+                                        offres.IdProduits,
+                                        offres.Quantite,
+                                        offres.Prix,
+                                        offres.Gagne);
+            depot.Update(offre);
+        }
 
+        public List<Offres> GetMeilleursOffres(int idPaniers)
+        {
+            var offre = depot.GetGagneByIDPaniers(idPaniers)
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne))
+                .ToList();
+
+            return offre;
+        }
 
     }
 

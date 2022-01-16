@@ -1,11 +1,7 @@
-﻿using EMI_RA.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,69 +13,50 @@ namespace EMI_RA.API.Controllers
     public class AdherentsController : Controller
     {
         private IAdherentsService service;
-        private IListeAchatService listeAchatService;
+        private IPaniersGlobauxService paniersGlobauxService;
 
-        public AdherentsController(IAdherentsService srv, IListeAchatService listeAchatService)
+        public AdherentsController(IAdherentsService srv, IPaniersGlobauxService paniersGlobauxService)
         {
             service = srv;
-            this.listeAchatService = listeAchatService;
+            this.paniersGlobauxService = paniersGlobauxService;
         }
 
-        // GET: api/<FournisseursController>
         [HttpGet]
-        public IEnumerable<Adherents_DTO> GetAllAdherents()
+        public IEnumerable<Adherents> GetAllAdherents()
         {
-            return service.GetAllAdherents().Select(a => new Adherents_DTO()
-            {
-                ID = a.ID,
-                Societe = a.Societe,
-                CiviliteContact = a.CiviliteContact,
-                NomContact = a.NomContact,
-                PrenomContact = a.PrenomContact,
-                Email = a.Email,
-                Adresse = a.Adresse
-            });
+            return service.GetAllAdherents().Select(a => new Adherents(
+            
+                a.ID,
+                a.Societe,
+                a.CiviliteContact,
+                a.NomContact,
+                a.PrenomContact,
+                a.Email,
+                a.Adresse
+            ));
         }
 
         [HttpPost("commande")]
         public void GenererListeAchat(int IdAdherent, IFormFile csvFile)
         {
-            listeAchatService.genererListeAchat(IdAdherent, csvFile);
+            paniersGlobauxService.genererListeAchat(IdAdherent, csvFile);
         }
         [HttpPost]
-        public Adherents_DTO Insert(Adherents_DTO a)
+        public Adherents Insert(Adherents a)
         {
-            var a_metier = service.Insert(new Adherents(a.ID,
-                                                        a.Societe,
-                                                        a.CiviliteContact,
-                                                        a.NomContact,
-                                                        a.PrenomContact,
-                                                        a.Email,
-                                                        a.Adresse));
-            //Je récupère l'ID
-            a.ID = a_metier.ID;
-            //je renvoie l'objet DTO
-            return a;
+            var a_metier = service.Insert(a);
+            
+            return a_metier;
         }
 
-        // PUT api/<AdherentsController>/5
         [HttpPut]
-        public Adherents_DTO Update(Adherents_DTO a)
+        public Adherents Update(Adherents a)
         {
-            var a_metier = service.Update(new Adherents(a.ID,
-                                                        a.Societe,
-                                                        a.CiviliteContact,
-                                                        a.NomContact,
-                                                        a.PrenomContact,
-                                                        a.Email,
-                                                        a.Adresse));
-            //Je récupère l'ID
-            a.ID = a_metier.ID;
-            //je renvoie l'objet DTO
-            return a;
+            var a_metier = service.Update(a);
+            
+            return a_metier;
         }
     
-        // DELETE api/<AdherentsController>/5
         [HttpDelete ("{id}")]
         public void Delete([FromRoute] int id)
         {

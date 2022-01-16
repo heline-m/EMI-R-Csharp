@@ -1,4 +1,5 @@
 ﻿using EMI_RA.DAL;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,8 +13,11 @@ namespace EMI_RA
     public class PaniersGlobauxService : IPaniersGlobauxService
     {
         private PaniersGlobaux_Depot_DAL depot = new PaniersGlobaux_Depot_DAL();
+        private LignesPaniersGlobaux_Depot_DAL lignesPaniersGlobaux_depot = new LignesPaniersGlobaux_Depot_DAL();
         private LignesPaniersGlobauxService lignesPaniersGlobauxService = new LignesPaniersGlobauxService();
         private ProduitsServices produitsServices = new ProduitsServices();
+        private OffresService offresService = new OffresService();
+        private FournisseursService fournisseursService = new FournisseursService();
 
         public List<PaniersGlobaux> GetAllPaniersGlobaux()
         {
@@ -59,7 +63,9 @@ namespace EMI_RA
         public PaniersGlobaux GetPanierSemainePrecedente()
         {
             int annee = DateTime.Now.AddDays(-7).Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), 
+                                                                              CalendarWeekRule.FirstFullWeek, 
+                                                                              DayOfWeek.Monday);
 
             return this.getGlobal(annee, semaine);
         }
@@ -84,7 +90,9 @@ namespace EMI_RA
         public PaniersGlobaux getPanierGlobal()
         {
             int annee = DateTime.Now.Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, 
+                                                                              CalendarWeekRule.FirstFullWeek, 
+                                                                              DayOfWeek.Monday);
 
             return this.getGlobal(annee, semaine);
         }
@@ -156,6 +164,61 @@ namespace EMI_RA
             byte[] bytes = Encoding.ASCII.GetBytes(contentBuilder.ToString());
             MemoryStream stream = new MemoryStream(bytes);
             return stream;
+        }
+
+
+        public void Cloturer(int pgId)
+        {
+            List<Offres> listeOffres = offresService.GetOffreByIDPaniers(pgId);
+
+            List<int> idProduits = listeOffres
+                .Select(offre => offre.IdProduits).Distinct()
+                .ToList();
+
+            foreach(int idProduit in idProduits)
+            {
+                float prixMin = listeOffres.Where(offre => offre.IdProduits == idProduit).Select(offre => offre.Prix).Min();
+
+                Offres offreGagnante = 
+                    listeOffres
+                    .Where(offre => offre.IdProduits == idProduit && offre.Prix == prixMin)
+                    .OrderBy(offre => fournisseursService.GetFournisseursByID(offre.IdFournisseurs).DateAdhesion)
+                    .First();
+
+                offreGagnante.Gagne = true;
+                offresService.Update(offreGagnante);
+            }
+        }
+        public void genererListeAchat(int IdAdherent, IFormFile csvFile)
+        {
+
+            ProduitsServices produitsServices = new ProduitsServices();
+
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date = DateTime.Now;
+            Calendar cal = dfi.Calendar;
+
+            // récupération du panier global
+            PaniersGlobaux paniersGlobaux = this.getPanierGlobal();
+
+            using (StreamReader reader = new StreamReader(csvFile.OpenReadStream()))
+            {
+                reader.ReadLine();
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    string reference = values[0];
+                    string quantite = values[1];
+
+                    Produits produits = produitsServices.GetByRef(reference);
+
+                    var lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(produits.ID, Int32.Parse(quantite), paniersGlobaux.ID, IdAdherent);
+                    lignesPaniersGlobaux_depot.Insert(lignesPaniersGlobaux);
+                }
+            }
         }
     }
 }

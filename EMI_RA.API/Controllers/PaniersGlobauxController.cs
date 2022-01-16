@@ -1,5 +1,4 @@
-﻿using EMI_RA.DTO;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EMI_RA.API.Controllers
 {
-    
+
     [ApiController]
     [Route("[controller]")]
     public class PaniersGlobauxController : Controller
@@ -25,16 +24,14 @@ namespace EMI_RA.API.Controllers
             service = srv;
         }
 
-        // GET: api/<PaniersGlobauxController>
         [HttpGet]
-        public IEnumerable<PaniersGlobaux_DTO> GetAllPaniersGlobaux()
+        public IEnumerable<PaniersGlobaux> GetAllPaniersGlobaux()
         {
-            return service.GetAllPaniersGlobaux().Select(p => new PaniersGlobaux_DTO()
-            {
-                IDPaniersGlobaux = p.ID,
-                NumeroSemaine = p.NumeroSemaine,
-                Annee = p.Annee
-            });
+            return service.GetAllPaniersGlobaux().Select(p => new PaniersGlobaux(
+                p.ID,
+                p.NumeroSemaine,
+                p.Annee
+            ));
         }
 
         [HttpGet("panier")]
@@ -67,6 +64,14 @@ namespace EMI_RA.API.Controllers
             {
                 FileDownloadName = filename
             };
+        }
+
+        [HttpPost("cloturer")]
+        public void Cloturer(int pgId)
+        {
+
+
+             service.Cloturer(pgId);
         }
     }
 }

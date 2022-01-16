@@ -10,8 +10,11 @@ namespace EMI_RA
     {
         public Offres Insert(Offres offres);
         public List<Offres> GetAllOffres();
-        public Offres GetOffreByIDLignesPaniers(int idLignesPaniers);
+        public List<Offres> GetOffreByIDPaniers(int idPaniers);
         public Offres GetOffreByIDFournisseur(int idFournisseur);
-        
+        public void Update(Offres offres);
+        public List<Offres> GetMeilleursOffres(int idPaniers);
+
+
     }
 }

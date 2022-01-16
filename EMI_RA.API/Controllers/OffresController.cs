@@ -1,5 +1,4 @@
-﻿using EMI_RA.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +29,12 @@ namespace EMI_RA.API.Controllers
             return service.GetAllOffres();
         }
 
-        // GET api/<ProduitsController>/5
+        [HttpGet("offre/meilleursPrix")]
+        public List<Offres> GetMeilleursOffres(int IdPanier)
+        {
+            return service.GetMeilleursOffres(IdPanier);
+        }
+
         [HttpGet("offre/fournisseur")]
         public Offres GetOffreByIDFournisseur(int IdFournisseur)
         {
@@ -53,26 +57,15 @@ namespace EMI_RA.API.Controllers
                     int quantite = int.Parse(values[1]);
                     float prix = float.Parse(values[2]);
 
-                    PaniersGlobaux paniersGlobaux = paniersGlobauxService.GetPanierSemainePrecedente();
-                    Produits produits = produitsServices.GetByRef(reference);
+                    if (prix != 0) { 
+                        PaniersGlobaux paniersGlobaux = paniersGlobauxService.GetPanierSemainePrecedente();
+                        Produits produits = produitsServices.GetByRef(reference);
 
-                    Offres offre = new Offres(IdFournisseurs, paniersGlobaux.ID, produits.ID, quantite, prix);
-                    offresService.Insert(offre);
+                        Offres offre = new Offres(IdFournisseurs, paniersGlobaux.ID, produits.ID, quantite, prix);
+                        offresService.Insert(offre);
+                    }
                 }
             }
         }
-
-        // DELETE api/<ProduitsController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete([FromRoute] int id)
-        //{
-        //    service.Delete(id);
-        //}
-
-        //[HttpDelete]
-        //public void Delete()
-        //{
-        //    service.DeleteAll();
-        //}
     }
 }
