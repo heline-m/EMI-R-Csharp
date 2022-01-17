@@ -16,7 +16,6 @@ namespace EMI_RA
         public String PrenomContact { get; set; }
         public String Email { get; set; }
         public String Adresse { get; set; }
-        public DateTime? DateAdhesion { get; set; }
 
         public Adherents(int idAdherents, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
                     => (ID, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (idAdherents, societe, civiliteContact, nomContact, prenomContact, email, adresse);

@@ -7,40 +7,17 @@ namespace EMI_RA.DAL
 {
     public class Offres_DAL
     {
-        public List<Offres_DAL> Offres { get; set; }
+        public int IdOffres { get; set; }
         public int IdFournisseurs { get; set; }
-        public int IdLignesPaniers { get; set; }
-        public int Prix { get; set; }
+        public int IdPaniers { get; set; }
+        public int IdProduits { get; set; }
+        public int Quantite { get; set; }
+        public float Prix { get; set; }
+        public Boolean Gagne { get; set; }
 
-
-        public Offres_DAL(int idFournisseurs, int idLignesPaniers, int prix)
-                    => (IdFournisseurs, IdLignesPaniers, Prix) = (idFournisseurs, idLignesPaniers, prix);
-
-
-        public void Insert()
-        {
-            var chaineConnexion = @"Data Source=localhost\sql2019;Initial Catalog=EMI-r;Integrated Security=True";
-
-            //Créer une connexion
-            using (var connexion = new SqlConnection(chaineConnexion))
-            {
-                //ouvrir la connexion
-                connexion.Open();
-
-                //créer une commande pour l'instruction SQL à executer
-                using (var commande = new SqlCommand())
-                {
-                    //définir la connexion à utiliser
-                    commande.Connection = connexion;
-
-                    //TODO finir cette ligne 
-                    commande.CommandText = "insert into offres () values ;";
-                                            
-                }
-
-                //fermer la connexion
-                connexion.Close();
-            }
-        }
-    }
+        public Offres_DAL(int idFournisseurs, int idPaniers, int idProduits, int quantite, float prix)
+                    => (IdFournisseurs, IdPaniers, IdProduits, Quantite, Prix) = (idFournisseurs, idPaniers, idProduits, quantite, prix);
+        public Offres_DAL(int idOffres, int idFournisseurs, int idPaniers, int idProduits, int quantite, float prix, Boolean gagne)
+                    => (IdOffres, IdFournisseurs, IdPaniers, IdProduits, Quantite, Prix, Gagne) = (idOffres, idFournisseurs, idPaniers, idProduits, quantite, prix, gagne);
+    }   
 }

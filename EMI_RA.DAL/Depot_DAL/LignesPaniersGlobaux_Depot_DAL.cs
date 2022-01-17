@@ -64,7 +64,7 @@ namespace EMI_RA.DAL
             return listeDeLignesPaniersGlobaux;
         }
 
-     
+
         public override LignesPaniersGlobaux_DAL GetByID(int idLignesPaniersGlobaux)
         {
             CreerConnexionEtCommande();
@@ -92,20 +92,78 @@ namespace EMI_RA.DAL
             return paniersGlobaux;
         }
 
+
+        public List<LignesPaniersGlobaux_DAL> GetByPanierGlobauxID(int idPaniersGlobaux)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idPaniersGlobaux, idAdherents from lignesPaniersGlobaux where idPaniersGlobaux=@idPaniersGlobaux";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
+
+            while (reader.Read())
+            {
+                LignesPaniersGlobaux_DAL lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
+                                                              reader.GetInt32(1),
+                                                              reader.GetInt32(2),
+                                                              reader.GetInt32(3),
+                                                              reader.GetInt32(4));
+                listeDeLignesPaniersGlobaux.Add(lignesPaniersGlobaux);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLignesPaniersGlobaux;
+        }
+
+
+        public List<LignesPaniersGlobaux_DAL> GetByPanierGlobauxIDAndFournisseurID(int idPaniersGlobaux, int idFournisseurs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select lpg.idLignesPaniersGlobaux, lpg.idProduits, lpg.quantite, lpg.idPaniersGlobaux, lpg.idAdherents " +
+                "from lignesPaniersGlobaux lpg " +
+                "inner join produits p on lpg.idProduits = p.idProduits " +
+                "inner join assoProduitsFournisseurs a on p.idProduits = a.idProduits " +
+                "where lpg.idPaniersGlobaux=@idPaniersGlobaux " +
+                "and a.idFournisseurs=@idFournisseurs";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
+
+            while (reader.Read())
+            {
+                LignesPaniersGlobaux_DAL lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(reader.GetInt32(0),
+                                                              reader.GetInt32(1),
+                                                              reader.GetInt32(2),
+                                                              reader.GetInt32(3),
+                                                              reader.GetInt32(4));
+                listeDeLignesPaniersGlobaux.Add(lignesPaniersGlobaux);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLignesPaniersGlobaux;
+        }
+
         public override LignesPaniersGlobaux_DAL Insert(LignesPaniersGlobaux_DAL lignePanierGlobal)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idListesDAchats, idPaniers)"
-                                    + " values (@idProduits, @quantite, @idListesDAchats, @idPaniers); select scope_identity()";
+            commande.CommandText = "insert into lignesPaniersGlobaux(idProduits, quantite, idPaniersGlobaux, idAdherents)"
+                                    + " values (@idProduits, @quantite, @idPaniersGlobaux, @idAdherents); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", lignePanierGlobal.IDPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idAdherents", lignePanierGlobal.IDAdherents));
 
             var idLignesPaniersGlobaux = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            lignePanierGlobal.IDLignesPaniersGlobaux = idLignesPaniersGlobaux;
+            lignePanierGlobal.ID = idLignesPaniersGlobaux;
 
             DetruireConnexionEtCommande();
 
@@ -116,18 +174,18 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idListesDAchats=@idListesDAchats, idPaniers=@idPaniers "
+            commande.CommandText = "update lignesPaniersGlobaux set idProduits=@idProduits, quantite=@quantite, idPaniersGlobaux=@idPaniersGlobaux, idAdherents=@idAdherents "
                                     + " where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.ID));
             commande.Parameters.Add(new SqlParameter("@idProduits", lignePanierGlobal.IDProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", lignePanierGlobal.Quantite));
-            commande.Parameters.Add(new SqlParameter("@idListesDAchats", lignePanierGlobal.IDListesDAchats));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", lignePanierGlobal.IDPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", lignePanierGlobal.IDPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idAdherents", lignePanierGlobal.IDAdherents));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de mettre à jour la ligne du panier global d'ID {lignePanierGlobal.ID}");
             }
 
             DetruireConnexionEtCommande();
@@ -140,12 +198,12 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "delete from LignesPaniersGlobaux where idLignesPaniersGlobaux=@idLignesPaniersGlobaux";
-            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.IDLignesPaniersGlobaux));
+            commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", lignePanierGlobal.ID));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.IDLignesPaniersGlobaux}");
+                throw new Exception($"Impossible de supprimer la ligne du panier global d'ID {lignePanierGlobal.ID}");
             }
 
             DetruireConnexionEtCommande();
