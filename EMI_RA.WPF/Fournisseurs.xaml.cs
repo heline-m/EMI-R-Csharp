@@ -33,11 +33,21 @@ namespace EMI_RA.WPF
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
             //le async et le await c'est de la programmation asynchrone en C#
-            var adherents = await clientApi.FournisseursAllAsync();
+            var fournisseurs = await clientApi.FournisseursAllAsync();
 
-            liste.ItemsSource = adherents;
+            liste.ItemsSource = fournisseurs;
         }
 
-        
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GestionnaireDeFenetres.MainWindow.View_Button();
+        }
     }
 }
