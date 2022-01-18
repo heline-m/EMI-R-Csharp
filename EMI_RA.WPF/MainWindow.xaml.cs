@@ -46,13 +46,13 @@ namespace EMI_RA.WPF
         }
         void voirFournisseur(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.Page2 == null)
+            if (GestionnaireDeFenetres.Fournisseurs == null)
             {
-                GestionnaireDeFenetres.Page2 = new Page2();
+                GestionnaireDeFenetres.Fournisseurs = new Fournisseurs();
             }
             //w.Show();
             // MessageBox.Show("hello");
-            Main.Navigate(GestionnaireDeFenetres.Page2);
+            Main.Navigate(GestionnaireDeFenetres.Fournisseurs);
         }
         void voirPanier(object sender, RoutedEventArgs e)
         {

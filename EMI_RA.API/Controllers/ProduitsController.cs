@@ -1,5 +1,4 @@
-﻿using EMI_RA.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +25,6 @@ namespace EMI_RA.API.Controllers
             return service.GetAll();
         }
 
-        // GET api/<ProduitsController>/5
         [HttpGet("{id}")]
         public Produits GetProduitsById(int id)
         {
@@ -56,7 +54,6 @@ namespace EMI_RA.API.Controllers
             }
         }
 
-        // DELETE api/<ProduitsController>/5
         [HttpDelete("{id}")]
         public void Delete([FromRoute] int id)
         {

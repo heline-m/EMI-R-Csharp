@@ -8,11 +8,11 @@ namespace EMI_RA.WPF
 {
     public static class GestionnaireDeFenetres
     {
-        public static MainWindow MainWindow;
-        public static Page1 Page1;
-        public static Fournisseurs Fournisseurs;
-        public static PageParDefault pageParDefault;
-        // static public Page2 Page2 { get; set; }
+
+        static public MainWindow MainWindow { get; set; }
+        static public Page1 Page1 { get; set; }
+        static public Fournisseurs Fournisseurs { get; set; }
+        static public PageParDefault pageParDefault { get; set; }
 
     }
 }

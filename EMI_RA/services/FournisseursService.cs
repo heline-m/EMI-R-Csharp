@@ -24,7 +24,8 @@ namespace EMI_RA
                                               f.NomContact,
                                               f.PrenomContact,
                                               f.Email,
-                                              f.Adresse
+                                              f.Adresse,
+                                              f.DateAdhesion
                         ))
                 .ToList();
             
@@ -41,7 +42,8 @@ namespace EMI_RA
                                     f.NomContact,
                                     f.PrenomContact,
                                     f.Email,
-                                    f.Adresse);
+                                    f.Adresse,
+                                    f.DateAdhesion);
         }
 
         public Fournisseurs Insert(Fournisseurs f)
@@ -52,7 +54,8 @@ namespace EMI_RA
                                                    f.NomContact,
                                                    f.PrenomContact,
                                                    f.Email,
-                                                   f.Adresse);
+                                                   f.Adresse,
+                                                   DateTime.Now);
             depot.Insert(fournisseur);
             f.IdFournisseurs = fournisseur.IdFournisseurs;
 
@@ -67,7 +70,8 @@ namespace EMI_RA
                                                    f.NomContact,
                                                    f.PrenomContact,
                                                    f.Email,
-                                                   f.Adresse);
+                                                   f.Adresse,
+                                                   f.DateAdhesion);
             depot.Update(fournisseur);
 
             return f;
@@ -81,7 +85,8 @@ namespace EMI_RA
                                                       f.NomContact,
                                                       f.PrenomContact,
                                                       f.Email,
-                                                      f.Adresse);
+                                                      f.Adresse,
+                                                      f.DateAdhesion);
             depot.Delete(fournisseur);
 
         }
@@ -99,9 +104,18 @@ namespace EMI_RA
             // pour les produits du csv qui n'existent pas en BDD -> création du produit en BDD et de la liaison
             foreach (var produitCsv in produitsCsvListe)
             {
-                List<Produits> produitsCorrespondants = produitsExistantsListe.Where(p => p.Reference.Equals(produitCsv.Reference)).ToList();
+                Produits produitsCorrespondant = null;
+                //List<Produits> produitsCorrespondants = produitsExistantsListe.Where(p => p.Reference.Equals(produitCsv.Reference)).ToList();
+                foreach(var produitBdd in produitsExistantsListe)
+                {
+                    if (produitBdd.Reference.Equals(produitCsv.Reference)){
+                        produitsCorrespondant = produitBdd;
+                        break;
+                    }
+                }
 
-                if(produitsCorrespondants.Count == 0)
+                //if(produitsCorrespondants.Count == 0)
+                if (produitsCorrespondant == null)
                 {
                     Produits produitALier = produitsService.GetByRef(produitCsv.Reference);
                     if (produitALier == null)
@@ -120,9 +134,18 @@ namespace EMI_RA
             // les produits qui sont dans la BDD et non dans le fichier -> suppression du lien BDD
             foreach (var produitExistant in produitsExistantsListe)
             {
-                List<Produits> produitCorrespondant = produitsCsvListe.Where(p => p.Reference.Equals(produitExistant.Reference)).ToList();
+                //List<Produits> produitCorrespondant = produitsCsvListe.Where(p => p.Reference.Equals(produitExistant.Reference)).ToList();
+                bool exists = false;
+                foreach (var produitCsv in produitsCsvListe)
+                {
+                    if (produitCsv.Reference.Equals(produitExistant.Reference))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
 
-                if (produitCorrespondant.Count == 0)
+                if (!exists)
                 {
                     assoProduitsFournisseursServices.Delete(produitExistant.ID, idFournisseurs);
                     List<AssoProduitsFournisseurs> assoProduitsFournisseursListe = assoProduitsFournisseursServices.GetByIdProduit(produitExistant.ID);

@@ -1,6 +1,9 @@
 ﻿using EMI_RA.DAL;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,61 +17,53 @@ namespace EMI_RA
         public List<LignesPaniersGlobaux> GetAllLignesPaniersGlobaux()
         {
             var lignePanierGlobaux = depot.GetAll()
-                .Select(l => new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
+                .Select(l => new LignesPaniersGlobaux(l.ID,
                                                       l.IDProduits,
-                                                      l.IDListesDAchats,
                                                       l.Quantite,
-                                                      l.IDPaniers
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents
                                                       ))
                 .ToList();
 
             return lignePanierGlobaux;
         }
 
-        public LignesPaniersGlobaux GetLignesPaniersGlobauxByID(int idLignesPaniersGlobaux)
+        public List<LignesPaniersGlobaux> GetLignesPaniersGlobauxByPanierGlobauxID(int idPaniersGlobaux)
         {
-            var l = depot.GetByID(idLignesPaniersGlobaux);
-
-            return new LignesPaniersGlobaux(l.IDLignesPaniersGlobaux,
+            var liste = depot.GetByPanierGlobauxID(idPaniersGlobaux).Select(l => new LignesPaniersGlobaux(l.ID,
                                                       l.IDProduits,
-                                                      l.IDListesDAchats,
                                                       l.Quantite,
-                                                      l.IDPaniers);
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents
+                                                      )).ToList();
+
+            return liste;
+        }
+
+        public List<LignesPaniersGlobaux> GetLignesPaniersGlobauxByPanierGlobauxIDAndFournisseurID(int idPaniersGlobaux, int idFournisseurs)
+        {
+            var liste = depot.GetByPanierGlobauxIDAndFournisseurID(idPaniersGlobaux, idFournisseurs).Select(l => new LignesPaniersGlobaux(l.ID,
+                                                      l.IDProduits,
+                                                      l.Quantite,
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents
+                                                      )).ToList();
+
+            return liste;
         }
 
         public LignesPaniersGlobaux Insert(LignesPaniersGlobaux l)
         {
-            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
+            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(
                                                       l.IDProduits,
-                                                      l.IDListesDAchats,
                                                       l.Quantite,
-                                                      l.IDPaniers);
+                                                      l.IDPaniersGlobaux,
+                                                      l.IDAdherents);
             depot.Insert(lignePaniersGlobaux);
-            l.IDLignesPaniersGlobaux = lignePaniersGlobaux.IDLignesPaniersGlobaux;
+            l.ID = lignePaniersGlobaux.ID;
 
             return l;
         }
 
-        public LignesPaniersGlobaux Update(LignesPaniersGlobaux l)
-        {
-            var lignePanierGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers);
-            depot.Update(lignePanierGlobaux);
-
-            return l;
-        }
-
-        public void Delete(LignesPaniersGlobaux l)
-        {
-            var lignePaniersGlobaux = new LignesPaniersGlobaux_DAL(l.IDLignesPaniersGlobaux,
-                                                      l.IDProduits,
-                                                      l.IDListesDAchats,
-                                                      l.Quantite,
-                                                      l.IDPaniers);
-            depot.Delete(lignePaniersGlobaux);
-        }
     }
 }

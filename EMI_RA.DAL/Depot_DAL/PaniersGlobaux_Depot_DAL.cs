@@ -122,5 +122,28 @@ namespace EMI_RA.DAL
 
             DetruireConnexionEtCommande();
         }
+
+        public PaniersGlobaux_DAL GetByYearAndWeek(int annee, int semaine)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee from paniersGlobaux where annee = @annee and numeroSemaine = @semaine";
+            commande.Parameters.Add(new SqlParameter("@annee", annee));
+            commande.Parameters.Add(new SqlParameter("@semaine", semaine));
+            var reader = commande.ExecuteReader();
+
+            var listeDePaniersGlobaux = new List<PaniersGlobaux_DAL>();
+
+            PaniersGlobaux_DAL panierGlobal = null;
+            if (reader.Read())
+            {
+                panierGlobal = new PaniersGlobaux_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2));
+            }
+            DetruireConnexionEtCommande();
+
+            return panierGlobal;
+        }
     }
 }

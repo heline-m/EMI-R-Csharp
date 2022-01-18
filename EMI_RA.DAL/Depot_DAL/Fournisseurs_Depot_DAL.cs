@@ -20,7 +20,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse from fournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -34,8 +34,9 @@ namespace EMI_RA.DAL
                                                         reader.GetString(2), 
                                                         reader.GetString(3), 
                                                         reader.GetString(4), 
-                                                        reader.GetString(5), 
-                                                        reader.GetString(6));
+                                                        reader.GetString(5),
+                                                        reader.GetString(6),
+                                                        reader.GetDateTime(7));
 
                 listeDeFournisseurs.Add(fournisseur);
             }
@@ -49,7 +50,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse from fournisseurs where idFournisseurs = @idFournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs where idFournisseurs = @idFournisseurs";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
             var reader = commande.ExecuteReader();
 
@@ -64,7 +65,8 @@ namespace EMI_RA.DAL
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetString(5),
-                                        reader.GetString(6));
+                                        reader.GetString(6),
+                                        reader.GetDateTime(7));
             }
             else
                 throw new Exception($"Pas de fournisseur dans la BDD avec l'ID {idFournisseurs}");
@@ -78,14 +80,15 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse)"
-                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse); select scope_identity()";
+            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion)"
+                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
             commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
             commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
             commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
+            commande.Parameters.Add(new SqlParameter("@dateAdhesion", fournisseur.DateAdhesion));
 
             var idFournisseurs = Convert.ToInt32((decimal)commande.ExecuteScalar());
 

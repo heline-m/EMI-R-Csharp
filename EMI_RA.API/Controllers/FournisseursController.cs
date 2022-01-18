@@ -1,11 +1,7 @@
-﻿using EMI_RA.DAL;
-using EMI_RA.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,64 +19,42 @@ namespace EMI_RA.API.Controllers
             service = srv;
         }
 
-        // GET: api/<FournisseursController>
         [HttpGet]
-        public IEnumerable<Fournisseurs_DTO> GetAllFournisseurs()
+        public IEnumerable<Fournisseurs> GetAllFournisseurs()
         {
-            
-            return service.GetAllFournisseurs().Select(f => new Fournisseurs_DTO()
-            {
-                IdFournisseurs = f.IdFournisseurs,
-                Societe = f.Societe,
-                CiviliteContact = f.CiviliteContact,
-                NomContact = f.NomContact,
-                PrenomContact = f.PrenomContact,
-                Email = f.Email,
-                Adresse = f.Adresse,
-            });
-            
+            return service.GetAllFournisseurs().Select(f => new Fournisseurs(
+                f.IdFournisseurs,
+                f.Societe,
+                f.CiviliteContact,
+                f.NomContact,
+                f.PrenomContact,
+                f.Email,
+                f.Adresse,
+                f.DateAdhesion));
         }
 
-        [HttpPost("commande/{IdFournisseurs}")]
+        [HttpPost("catalogue/{IdFournisseurs}")]
         public void AlimenterCatalogue(int IdFournisseurs, IFormFile csvFile)
         {
             service.alimenterCatalogue(IdFournisseurs, csvFile);
         }
 
         [HttpPost]
-        public Fournisseurs_DTO Insert(Fournisseurs_DTO f)
+        public Fournisseurs Insert(Fournisseurs f)
         {
-            var f_metier = service.Insert(new Fournisseurs(f.IdFournisseurs,
-                                                           f.Societe,
-                                                           f.CiviliteContact,
-                                                           f.NomContact,
-                                                           f.PrenomContact,
-                                                           f.Email,
-                                                           f.Adresse));
-            //Je récupère l'ID
-            f.IdFournisseurs = f_metier.IdFournisseurs;
-            //je renvoie l'objet DTO
-            return f;
+            var f_metier = service.Insert(f);
+
+            return f_metier;
         }
 
-        // PUT api/<FournisseursController>/5
         [HttpPut]
-        public Fournisseurs_DTO Update(Fournisseurs_DTO f)
+        public Fournisseurs Update(Fournisseurs f)
         {
-            var f_metier = service.Update(new Fournisseurs(f.IdFournisseurs,
-                                                           f.Societe,
-                                                           f.CiviliteContact,
-                                                           f.NomContact,
-                                                           f.PrenomContact,
-                                                           f.Email,
-                                                           f.Adresse));
-            //Je récupère l'ID
-            f.IdFournisseurs = f_metier.IdFournisseurs;
-            //je renvoie l'objet DTO
-            return f;
+            var f_metier = service.Update(f);
+
+            return f_metier;
         }
 
-        // DELETE api/<FournisseursController>/5
         [HttpDelete("{id}")]
         public void Delete([FromRoute] int id)
         {
