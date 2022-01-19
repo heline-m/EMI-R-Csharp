@@ -12,15 +12,15 @@ namespace EMI_RA.DAL
     {
         public int IDProduits { get;  set; }
         public int Quantite { get;  set; }
-        public int IDListesDAchats { get; set; }
-        public int IDPaniers { get; set; }
+        public int IDPaniersGlobaux { get; set; }
+        public int IDAdherents { get; set; }
 
-        public int IDLignesPaniersGlobaux { get; set; }
+        public int ID { get; set; }
 
-        public LignesPaniersGlobaux_DAL(int idProduits, int quantites, int idListesDAchats, int idPaniers) => 
-            (IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idProduits, quantites, idListesDAchats, idPaniers);
+        public LignesPaniersGlobaux_DAL(int idProduits, int quantites, int idPaniersGlobaux, int idAdherents) => 
+            (IDProduits, Quantite, IDPaniersGlobaux, IDAdherents) = (idProduits, quantites, idPaniersGlobaux, idAdherents);
 
-        public LignesPaniersGlobaux_DAL(int idLignesPaniersGlobaux, int idProduits, int quantites, int idListesDAchats, int idPaniers)
-                => (IDLignesPaniersGlobaux, IDProduits, Quantite, IDListesDAchats, IDPaniers) = (idLignesPaniersGlobaux, idProduits, quantites, idListesDAchats, idPaniers);
+        public LignesPaniersGlobaux_DAL(int idLignesPaniersGlobaux, int idProduits, int quantites, int idPaniersGlobaux, int idAdherents)
+                => (ID, IDProduits, Quantite, IDPaniersGlobaux, IDAdherents) = (idLignesPaniersGlobaux, idProduits, quantites, idPaniersGlobaux, idAdherents);
     }
 }

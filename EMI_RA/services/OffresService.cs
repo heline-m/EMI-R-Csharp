@@ -14,10 +14,13 @@ namespace EMI_RA
         public List<Offres> GetAllOffres()
         {
             var offre = depot.GetAll()
-                .Select(o => new Offres(o.IdFournisseurs,
-                                        o.IdLignesPaniers,
-                                        o.Prix
-                                        ))
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne))
                 .ToList();
 
             return offre;
@@ -25,35 +28,72 @@ namespace EMI_RA
 
         public Offres GetOffreByIDFournisseur(int idFournisseur)
         {
-            var o = depot.GetByIDFournisseur(idFournisseur);
+            var offre = depot.GetByIDFournisseur(idFournisseur);
 
-            return new Offres(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
-
-        }
-
-        public Offres GetOffreByIDLignesPaniers(int idLignesPaniers)
-        {
-            var o = depot.GetByIDLignesPaniers(idLignesPaniers);
-
-            return new Offres(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
+            return new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne);
 
         }
 
-        public Offres Insert(Offres o)
+        public List<Offres> GetOffreByIDPaniers(int idPaniers)
         {
-            var offre = new Offres_DAL(o.IdFournisseurs,
-                              o.IdLignesPaniers,
-                              o.Prix);
+            var offre = depot.GetByIDPaniers(idPaniers)
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne))
+                .ToList();
+
+            return offre;
+
+        }
+
+        public Offres Insert(Offres offres)
+        {
+            var offre = new Offres_DAL(offres.IdFournisseurs,
+                                       offres.IdPaniers,
+                                       offres.IdProduits,
+                                       offres.Quantite,
+                                       offres.Prix);
             depot.Insert(offre);
-            o.IdFournisseurs = offre.IdFournisseurs;
+            offre.IdFournisseurs = offre.IdFournisseurs;
 
-            return o;
+            return offres;
+        }
+        public void Update(Offres offres)
+        {
+            var offre = new Offres_DAL(offres.IdOffres,
+                                        offres.IdFournisseurs,
+                                        offres.IdPaniers,
+                                        offres.IdProduits,
+                                        offres.Quantite,
+                                        offres.Prix,
+                                        offres.Gagne);
+            depot.Update(offre);
         }
 
+        public List<Offres> GetMeilleursOffres(int idPaniers)
+        {
+            var offre = depot.GetGagneByIDPaniers(idPaniers)
+                .Select(offre => new Offres(offre.IdOffres,
+                                            offre.IdFournisseurs,
+                                            offre.IdPaniers,
+                                            offre.IdProduits,
+                                            offre.Quantite,
+                                            offre.Prix,
+                                            offre.Gagne))
+                .ToList();
+
+            return offre;
+        }
 
     }
 

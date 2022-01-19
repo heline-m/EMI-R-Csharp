@@ -38,8 +38,6 @@ namespace EMI_RA.API
             services.AddSingleton(typeof(IAssoProduitsFournisseursServices), new AssoProduitsFournisseursServices());
             services.AddSingleton(typeof(IFournisseursService), new FournisseursService());
             services.AddSingleton(typeof(ILignesPaniersGlobauxService), new LignesPaniersGlobauxService());
-            services.AddSingleton(typeof(ILignesService), new LignesServices());
-            services.AddSingleton(typeof(IListeAchatService), new ListeAchatService());
             services.AddSingleton(typeof(IOffresService), new OffresService());
             services.AddSingleton(typeof(IPaniersGlobauxService), new PaniersGlobauxService());
             services.AddSingleton(typeof(IAdherentsService), new AdherentsService());

@@ -7,17 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Grid>
 
-
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="BouttonAdherent" Click="voirAdherent">Adhérent</Button>
-            <Button x:Name="BouttonFournisseurs" Click="voirFournisseur">Fournisseurs</Button>
-            <Button x:Name="BouttonPanier" Click="voirPanier">Panier</Button>
-            <Button x:Name="BouttonPanier1" Click="voirPanier1">Panier</Button>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35">
+            <!--<Button Content="Reference" MinWidth="100" Click="BtnClickRef"/>-->
+            <Button Content="Adherent" MinWidth="100" Margin="10,0,0,0" Click="voirAdherent"/>
+            <Button Content="Fournisseur" MinWidth="100" Margin="10,0,0,0" Click="voirFournisseur"/>
+            <Button Content="Panier" MinWidth="100" Margin="10,0,0,0" Click="voirPanier"/>
         </StackPanel>
-        <Frame x:Name="Main" Margin="-10,0,10,0" />
 
-    </StackPanel>
+        <Frame x:Name="Main" Margin="0,35,0,35" NavigationUIVisibility="Hidden"/>
 
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35">
+            <Button Content="Ajouter" MinWidth="100" Click="Ajouter_Click"/>
+            <Button Content="Supprimer" MinWidth="100" Margin="10,0,0,0" Click="Delete_Click" />
+            <Button Name="modif" Content="Modifier" MinWidth="100" Margin="10,0,0,0" Visibility="Hidden" Click="Modif_Click"/>
+        </StackPanel>
+    </Grid>
 </Window>
