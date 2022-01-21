@@ -24,6 +24,9 @@ namespace EMI_RA
         {
             ID = id;
         }
-
+        public Adherents()
+        {
+         
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniers from lignesPaniersGlobaux";
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idPaniersGlobaux, idAdherents from lignesPaniersGlobaux";
             var reader = commande.ExecuteReader();
 
             var listeDeLignesPaniersGlobaux = new List<LignesPaniersGlobaux_DAL>();
