@@ -103,9 +103,9 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse)"
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse"
                                     + " where idFournisseurs=@idFournisseurs";
-            commande.Parameters.Add(new SqlParameter("@ID", fournisseur.IdFournisseurs));
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
             commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
