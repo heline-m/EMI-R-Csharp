@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EMI_RA.API.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +22,48 @@ namespace EMI_RA.WPF
     /// </summary>
     public partial class AjouterAdhérent : Page
     {
+        String Societe = "";
+        String CiviliteContact = "";
+        String NomContact = "";
+        String PrenomContact = "";
+        String Email = "";
+        String Adresse = "";
+
         public AjouterAdhérent()
         {
             InitializeComponent();
+            
+
         }
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Societe = societe.Text;
+            CiviliteContact = civilite.Text;
+            NomContact = nom.Text;
+            PrenomContact = prenom.Text;
+            Email = email.Text;
+            Adresse = adresse.Text;
+
+
+            var clientApi = new Client("https://localhost:44313/", new HttpClient());
+
+            var adherentDTO = new Adherents_DTO()
+            {
+
+                Societe = Societe,
+                CiviliteContact = CiviliteContact,
+                NomContact = NomContact,
+                PrenomContact = PrenomContact,
+                Email = Email,
+                Adresse = Adresse
+
+            };
+            var adherent = await clientApi.AdherentsPOSTAsync(adherentDTO);
+            MessageBox.Show("L'adhérent a été enregistré");
+
+
+        }
+
+      
     }
 }
