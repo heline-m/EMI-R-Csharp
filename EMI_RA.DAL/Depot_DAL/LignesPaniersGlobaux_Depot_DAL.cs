@@ -35,13 +35,13 @@ namespace EMI_RA.DAL
             return listeDeLignesPaniersGlobaux;
         }
 
-        public List<LignesPaniersGlobaux_DAL> GetPaniersGlobauxByID(int idProduits, int idPaniers, int idListesDAchats)
+        public List<LignesPaniersGlobaux_DAL> GetPaniersGlobauxByID(int idProduits, int idPaniersGlobaux, int idListesDAchats)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniers from lignesPaniersGlobaux where idProduits=@idProduits";
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniersGlobaux from lignesPaniersGlobaux where idProduits=@idProduits";
             commande.Parameters.Add(new SqlParameter("@idProduits", idProduits));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", idPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@idListesDAchats", idListesDAchats));
 
             var reader = commande.ExecuteReader();
@@ -69,7 +69,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniers from lignesPaniersGlobaux where idPaniers=@idPaniers";
+            commande.CommandText = "select idLignesPaniersGlobaux, idProduits, quantite, idListesDAchats, idPaniersGlobaux from lignesPaniersGlobaux where idPaniersGlobaux=@idPaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idLignesPaniersGlobaux", idLignesPaniersGlobaux));
             var reader = commande.ExecuteReader();
 

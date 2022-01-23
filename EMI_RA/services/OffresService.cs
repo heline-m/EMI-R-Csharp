@@ -16,7 +16,7 @@ namespace EMI_RA
             var offre = depot.GetAll()
                 .Select(offre => new Offres(offre.IdOffres,
                                             offre.IdFournisseurs,
-                                            offre.IdPaniers,
+                                            offre.IdPaniersGlobaux,
                                             offre.IdProduits,
                                             offre.Quantite,
                                             offre.Prix,
@@ -32,7 +32,7 @@ namespace EMI_RA
 
             return new Offres(offre.IdOffres,
                                             offre.IdFournisseurs,
-                                            offre.IdPaniers,
+                                            offre.IdPaniersGlobaux,
                                             offre.IdProduits,
                                             offre.Quantite,
                                             offre.Prix,
@@ -40,12 +40,12 @@ namespace EMI_RA
 
         }
 
-        public List<Offres> GetOffreByIDPaniers(int idPaniers)
+        public List<Offres> GetOffreByIDPaniers(int idPaniersGlobaux)
         {
-            var offre = depot.GetByIDPaniers(idPaniers)
+            var offre = depot.GetByIDPaniers(idPaniersGlobaux)
                 .Select(offre => new Offres(offre.IdOffres,
                                             offre.IdFournisseurs,
-                                            offre.IdPaniers,
+                                            offre.IdPaniersGlobaux,
                                             offre.IdProduits,
                                             offre.Quantite,
                                             offre.Prix,
@@ -59,7 +59,7 @@ namespace EMI_RA
         public Offres Insert(Offres offres)
         {
             var offre = new Offres_DAL(offres.IdFournisseurs,
-                                       offres.IdPaniers,
+                                       offres.IdPaniersGlobaux,
                                        offres.IdProduits,
                                        offres.Quantite,
                                        offres.Prix);
@@ -72,7 +72,7 @@ namespace EMI_RA
         {
             var offre = new Offres_DAL(offres.IdOffres,
                                         offres.IdFournisseurs,
-                                        offres.IdPaniers,
+                                        offres.IdPaniersGlobaux,
                                         offres.IdProduits,
                                         offres.Quantite,
                                         offres.Prix,
@@ -80,12 +80,12 @@ namespace EMI_RA
             depot.Update(offre);
         }
 
-        public List<Offres> GetMeilleursOffres(int idPaniers)
+        public List<Offres> GetMeilleursOffres(int idPaniersGlobaux)
         {
-            var offre = depot.GetGagneByIDPaniers(idPaniers)
+            var offre = depot.GetGagneByIDPaniers(idPaniersGlobaux)
                 .Select(offre => new Offres(offre.IdOffres,
                                             offre.IdFournisseurs,
-                                            offre.IdPaniers,
+                                            offre.IdPaniersGlobaux,
                                             offre.IdProduits,
                                             offre.Quantite,
                                             offre.Prix,
