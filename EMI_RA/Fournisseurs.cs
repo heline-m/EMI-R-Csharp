@@ -32,5 +32,9 @@ namespace EMI_RA
         {
             IdFournisseurs = id;
         }
+        public Fournisseurs()
+        {
+            
+        }
     }
 }
