@@ -47,7 +47,7 @@ namespace EMI_RA.WPF
 
         private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GestionnaireDeFenetres.MainWindow.View_Button();
+           // GestionnaireDeFenetres.MainWindow.View_Button();
         }
     }
 }
