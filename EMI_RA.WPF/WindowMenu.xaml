@@ -15,7 +15,7 @@
                 <Menu Height="24" Width="800">
                     <MenuItem Header="Adérent" Height="20" Width="54">
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
-                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" />
+                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemAjouterAdherent_click" />
                         <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
                     </MenuItem>
                     <MenuItem Header="Fournisseurs" Height="20" Width="79">

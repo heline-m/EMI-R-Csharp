@@ -20,9 +20,9 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into offres (idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne)"
-                                    + " values (@idFournisseurs, @idPaniers,@idProduits, @quantite, @prix, 0);  SELECT SCOPE_IDENTITY();";
+                                    + " values (@idFournisseurs, @idPaniersGlobaux,@idProduits, @quantite, @prix, 0);  SELECT SCOPE_IDENTITY();";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", offre.IdFournisseurs));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", offre.IdPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", offre.IdPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@idProduits", offre.IdProduits));
             commande.Parameters.Add(new SqlParameter("@quantite", offre.Quantite));
             commande.Parameters.Add(new SqlParameter("@prix", offre.Prix));
@@ -38,7 +38,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, idPaniers, idProduits, quantite, prix from offres";
+            commande.CommandText = "select idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix from offres";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -86,12 +86,12 @@ namespace EMI_RA.DAL
             return offre;
         }
 
-        public List<Offres_DAL> GetByIDPaniers(int idPaniers)
+        public List<Offres_DAL> GetByIDPaniers(int idPaniersGlobaux)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres where idPaniersGlobaux=@idPaniers";
-            commande.Parameters.Add(new SqlParameter("@idPaniers", idPaniers));
+            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres where idPaniersGlobaux=@idPaniersGlobaux";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
             var listeOffre = new List<Offres_DAL>();
@@ -111,9 +111,9 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update offres set idPaniersGlobaux = @idPaniers, prix = @prix, quantite = @quantite, idProduits = @idProduits, gagne = @gagne, idFournisseurs = @idFournisseurs where idOffres=@idOffres";
+            commande.CommandText = "update offres set idPaniersGlobaux = @idPaniersGlobaux, prix = @prix, quantite = @quantite, idProduits = @idProduits, gagne = @gagne, idFournisseurs = @idFournisseurs where idOffres=@idOffres";
             commande.Parameters.Add(new SqlParameter("@idOffres", offre.IdOffres));
-            commande.Parameters.Add(new SqlParameter("@idPaniers", offre.IdPaniers));
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", offre.IdPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@prix", offre.Prix));
             commande.Parameters.Add(new SqlParameter("@quantite", offre.Quantite));
             commande.Parameters.Add(new SqlParameter("@idProduits", offre.IdProduits));
@@ -135,12 +135,12 @@ namespace EMI_RA.DAL
             throw new NotImplementedException();
         }
 
-        public List<Offres_DAL> GetGagneByIDPaniers(int idPaniers)
+        public List<Offres_DAL> GetGagneByIDPaniers(int idPaniersGlobaux)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres where idPaniersGlobaux=@idPaniers and gagne=1";
-            commande.Parameters.Add(new SqlParameter("@idPaniers", idPaniers));
+            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres where idPaniersGlobaux=@idPaniersGlobaux and gagne=1";
+            commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
             var listeOffre = new List<Offres_DAL>();

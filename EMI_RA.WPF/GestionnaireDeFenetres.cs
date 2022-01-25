@@ -13,6 +13,7 @@ namespace EMI_RA.WPF
         static public Page1 Page1 { get; set; }
         static public Fournisseurs Fournisseurs { get; set; }
         static public PageParDefault pageParDefault { get; set; }
+        static public AjouterAdhérent ajouterAdhérent { get; set; }
 
     }
 }

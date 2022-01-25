@@ -39,17 +39,29 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.Fournisseurs);
 
         }
-       /* private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
+        /* private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
+         {
+             if (GestionnaireDeFenetres.Page1 == null)
+             {
+                 GestionnaireDeFenetres.Page1 = new Page1();
+             }
+             //w.Show();
+             // MessageBox.Show("hello");
+             Main.Navigate(GestionnaireDeFenetres.Page1);
+             // this.Hide();
+
+         }*/
+
+        private void MenuItemAjouterAdherent_click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.Page1 == null)
+            if (GestionnaireDeFenetres.ajouterAdhérent == null)
             {
-                GestionnaireDeFenetres.Page1 = new Page1();
+                GestionnaireDeFenetres.ajouterAdhérent = new AjouterAdhérent();
             }
             //w.Show();
             // MessageBox.Show("hello");
-            Main.Navigate(GestionnaireDeFenetres.Page1);
-            // this.Hide();
+            Main.Navigate(GestionnaireDeFenetres.ajouterAdhérent);
 
-        }*/
+        }
     }
 }
