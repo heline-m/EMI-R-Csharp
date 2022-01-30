@@ -13,17 +13,18 @@
         <StackPanel Margin="0,0,0,17">
             <StackPanel>
                 <Menu Height="24" Width="800">
-                    <MenuItem Header="Adérent" Height="20" Width="54">
+                    <MenuItem Header="Adérent" Height="20" Width="56">
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemAjouterAdherent_click" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
+                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierAdherent_click"/>
+                        <MenuItem Header="Commande" HorizontalAlignment="Left" Height="20" Width="160" Click="MenuItemModifierCommande_click"/>
                     </MenuItem>
                     <MenuItem Header="Fournisseurs" Height="20" Width="79">
                         <MenuItem x:Name="MenuItemVoirFournisseurs" Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemVoirFournisseurs_click"/>
-                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
+                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140"  Click="MenuItemAjouterFournisseurs_click" />
+                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierFournisseurs_click"/>
                     </MenuItem>
-                    <MenuItem Header="Panier" Height="20" Width="54">
+                    <MenuItem Header="Panier" Height="20" Width="69">
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" />
                         <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
