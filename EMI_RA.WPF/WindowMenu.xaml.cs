@@ -63,5 +63,50 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.ajouterAdhérent);
 
         }
+        private void MenuItemModifierAdherent_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.modifierAdherent == null)
+            {
+                GestionnaireDeFenetres.modifierAdherent = new ModifierAdherent();
+            }
+            //w.Show();
+            // MessageBox.Show("hello");
+            Main.Navigate(GestionnaireDeFenetres.modifierAdherent);
+
+        }
+        
+             private void MenuItemAjouterFournisseurs_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.AjouterFournisseurs == null)
+            {
+                GestionnaireDeFenetres.AjouterFournisseurs = new AjouterFournisseurs();
+            }
+   
+            Main.Navigate(GestionnaireDeFenetres.AjouterFournisseurs);
+
+        }
+        
+               private void MenuItemModifierFournisseurs_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.modifierFournisseur == null)
+            {
+                GestionnaireDeFenetres.modifierFournisseur = new ModifierFournisseur();
+            }
+
+            Main.Navigate(GestionnaireDeFenetres.modifierFournisseur);
+
+        }
+        private void MenuItemModifierCommande_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.Commande == null)
+            {
+                GestionnaireDeFenetres.Commande = new Commande();
+            }
+
+            Main.Navigate(GestionnaireDeFenetres.Commande);
+
+        }
+
+        
     }
 }
