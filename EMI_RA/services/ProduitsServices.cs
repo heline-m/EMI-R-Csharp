@@ -25,7 +25,7 @@ namespace EMI_RA
         public Produits GetProduitsByID(int idProduits)
         {
             var p = depotProduits.GetByID(idProduits);
-            return new Produits(p.ID, p.Reference, p.Libelle, p.Marque);
+            return new Produits(p.ID, p.Libelle, p.Marque, p.Reference, p.Disponible);
         }
         public Produits Insert(Produits produit)
         {
@@ -41,17 +41,6 @@ namespace EMI_RA
             depotProduits.Update(produitDal);
         }
 
-        public void Delete(int id)
-        {
-            Produits_DAL Produit;
-            Produit = depotProduits.GetByID(id);
-            depotProduits.Delete(Produit);
-        }
-
-        public void DeleteAll()
-        {
-            throw new NotImplementedException();
-        }
         public void AssoProdFournisseurs(Produits produit, int idFournisseur)
         {
             var associations = new AssoProduitsFournisseurs_DAL((int)produit.ID, idFournisseur);

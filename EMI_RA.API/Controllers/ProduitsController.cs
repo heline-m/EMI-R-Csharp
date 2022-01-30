@@ -30,40 +30,5 @@ namespace EMI_RA.API.Controllers
         {
             return service.GetProduitsByID(id);
         }
-
-        [HttpPost("{IdFournisseurs}")]
-        public void Insert(int IdFournisseurs, IFormFile csvFile)
-        {
-            using (StreamReader reader = new StreamReader(csvFile.OpenReadStream()))
-            {
-                reader.ReadLine();
-              
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
-
-                    string reference = values[0];
-                    string libelle = values[1];
-                    string marque = values[2];
-
-                    var produit = new Produits(marque, libelle, reference);
-                    service.Insert(produit);
-                    service.AssoProdFournisseurs(produit, IdFournisseurs);
-                }
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete([FromRoute] int id)
-        {
-            service.Delete(id);
-        }
-
-        [HttpDelete]
-        public void Delete()
-        {
-            service.DeleteAll();
-        }
     }
 }

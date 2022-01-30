@@ -17,6 +17,8 @@ namespace EMI_RA.DAL
 
         public Offres_DAL(int idFournisseurs, int idPaniersGlobaux, int idProduits, int quantite, float prix)
                     => (IdFournisseurs, IdPaniersGlobaux, IdProduits, Quantite, Prix) = (idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix);
+        public Offres_DAL(int idOffres, int idFournisseurs, int idPaniersGlobaux, int idProduits, int quantite, float prix)
+                    => (IdOffres, IdFournisseurs, IdPaniersGlobaux, IdProduits, Quantite, Prix) = (idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix);
         public Offres_DAL(int idOffres, int idFournisseurs, int idPaniersGlobaux, int idProduits, int quantite, float prix, Boolean gagne)
                     => (IdOffres, IdFournisseurs, IdPaniersGlobaux, IdProduits, Quantite, Prix, Gagne) = (idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne);
     }   

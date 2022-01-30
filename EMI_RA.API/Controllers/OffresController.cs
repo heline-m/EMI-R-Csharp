@@ -35,12 +35,6 @@ namespace EMI_RA.API.Controllers
             return service.GetMeilleursOffres(IdPanier);
         }
 
-        [HttpGet("offre/fournisseur")]
-        public Offres GetOffreByIDFournisseur(int IdFournisseur)
-        {
-            return service.GetOffreByIDFournisseur(IdFournisseur);
-        }
-
         [HttpPost("{IdFournisseurs}")]
         public void insert(int IdFournisseurs, IFormFile csvfile)
         {

@@ -12,7 +12,6 @@ namespace EMI_RA
         public string Libelle { get; set; }
         public string Marque { get; set; }
         public string Reference { get; set; }
-        public int IdFournisseurs { get; set; }
         public bool Disponible { get; set; }
 
         public Produits(string libelle, string marque, string reference, bool disponible)
