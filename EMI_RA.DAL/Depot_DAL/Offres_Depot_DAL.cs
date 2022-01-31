@@ -38,7 +38,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix from offres";
+            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -47,7 +47,7 @@ namespace EMI_RA.DAL
             while (reader.Read())
             {
                 //dans reader.GetInt32 on met la colonne que l'on souhaite récupérer ici 0 = ID, 1 = Societe...
-                var offre = new Offres_DAL(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetFloat(4));
+                var offre = new Offres_DAL(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetFloat(5), reader.GetBoolean(6));
 
                 listeDOffres.Add(offre);
             }

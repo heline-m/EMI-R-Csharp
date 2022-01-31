@@ -12,8 +12,6 @@ namespace EMI_RA
         public Produits GetProduitsByID(int ID);
         public Produits Insert(Produits p);
         public void Update(Produits p);
-        public void Delete(int produitId);
-        public void DeleteAll();
         public void AssoProdFournisseurs(Produits produit, int IdFournisseurs);
     }
 }

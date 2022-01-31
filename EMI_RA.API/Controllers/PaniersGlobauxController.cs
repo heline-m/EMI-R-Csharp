@@ -69,8 +69,6 @@ namespace EMI_RA.API.Controllers
         [HttpPost("cloturer")]
         public void Cloturer(int pgId)
         {
-
-
              service.Cloturer(pgId);
         }
     }
