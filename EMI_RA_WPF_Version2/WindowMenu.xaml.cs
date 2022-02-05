@@ -22,11 +22,7 @@ namespace EMI_RA.WPF
         public WindowMenu()
         {
             InitializeComponent();
-            var pageParDefault = new PageParDefault();
-            Main.Navigate(pageParDefault);
 
-            GestionnaireDeFenetres.pageParDefault = new PageParDefault();
-            Main.Navigate(GestionnaireDeFenetres.pageParDefault);
         }
         private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
         {
@@ -106,7 +102,18 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.Commande);
 
         }
-
         
+            private void MenuItemEnregistrerPrix_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.enregistrerPrixFournisseurs == null)
+            {
+                GestionnaireDeFenetres.enregistrerPrixFournisseurs = new EMI_RA_WPF.EnregistrerPrixFournisseurs();
+            }
+
+            Main.Navigate(GestionnaireDeFenetres.enregistrerPrixFournisseurs);
+
+        }
+
+
     }
 }

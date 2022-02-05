@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EMI_RA_WPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,12 @@ namespace EMI_RA.WPF
     public static class GestionnaireDeFenetres
     {
 
-        static public MainWindow MainWindow { get; set; }
-        static public Page1 Page1 { get; set; }
         static public Fournisseurs Fournisseurs { get; set; }
-        static public PageParDefault pageParDefault { get; set; }
         static public AjouterAdhérent ajouterAdhérent { get; set; }
         static public ModifierAdherent modifierAdherent { get; set; }
         static public ModifierFournisseur modifierFournisseur { get; set; }
         static public AjouterFournisseurs AjouterFournisseurs { get; set; }
         static public Commande Commande { get; set; }
-
+        static public EnregistrerPrixFournisseurs enregistrerPrixFournisseurs { get; set; }
     }
 }

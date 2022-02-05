@@ -45,7 +45,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idProduits, libelle, marque, reference from produits where idProduits = @idProduits";
+            commande.CommandText = "select idProduits, libelle, marque, reference, disponible from produits where idProduits = @idProduits";
             commande.Parameters.Add(new SqlParameter("@idProduits", ID));
             var reader = commande.ExecuteReader();
 
@@ -54,7 +54,7 @@ namespace EMI_RA.DAL
             Produits_DAL produits;
             if (reader.Read())
             {
-                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                produits = new Produits_DAL(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetBoolean(4));
             }
             else
                 throw new Exception($"Pas de produit dans la BDD avec l'ID {ID}");
@@ -74,8 +74,6 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@reference", produits.Reference));
             commande.Parameters.Add(new SqlParameter("@disponible", produits.Disponible));
             var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
-
-
 
             produits.ID = ID;
 
