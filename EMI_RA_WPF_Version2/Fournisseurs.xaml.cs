@@ -36,6 +36,7 @@ namespace EMI_RA.WPF
             var fournisseurs = await clientApi.FournisseursAllAsync();
 
             liste.ItemsSource = fournisseurs;
+
         }
 
 

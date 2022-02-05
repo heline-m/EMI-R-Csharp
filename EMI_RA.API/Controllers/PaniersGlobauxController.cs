@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using EMI_RA.DTO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EMI_RA.API.Controllers
@@ -65,6 +65,31 @@ namespace EMI_RA.API.Controllers
                 FileDownloadName = filename
             };
         }
+        [HttpGet("panier/Version test {idFournisseur}")]
+        public List<String> getPanierVersionTest([FromRoute] int idFournisseur)
+        {
+            int annee = DateTime.Now.AddDays(-7).Year;
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+
+            String filename = "Panier_" + annee + "_S" + semaine + ".csv";
+
+
+
+            List<String> Panier = service.genererPanierString(annee, semaine, idFournisseur);
+            var commande_DTO = new Commande_DTO()
+            {
+                FichierCsv = Panier
+            };
+            return Panier;
+ 
+    }
+
+            
+            /*return new FileStreamResult(stream, "application/csv")
+            {
+                FileDownloadName = filename
+            };*/
+        
 
         [HttpPost("cloturer")]
         public void Cloturer(int pgId)

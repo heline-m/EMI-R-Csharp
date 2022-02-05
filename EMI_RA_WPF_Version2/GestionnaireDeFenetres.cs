@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EMI_RA_WPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,6 @@ namespace EMI_RA.WPF
         static public ModifierFournisseur modifierFournisseur { get; set; }
         static public AjouterFournisseurs AjouterFournisseurs { get; set; }
         static public Commande Commande { get; set; }
-
+        static public EnregistrerPrixFournisseurs enregistrerPrixFournisseurs { get; set; }
     }
 }
