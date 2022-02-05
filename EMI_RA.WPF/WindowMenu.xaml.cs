@@ -1,6 +1,9 @@
-﻿using System;
+﻿using EMI_RA.API.Client;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,32 +14,47 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static EMI_RA.WPF.GestionnaireDeFenetres;
 
 namespace EMI_RA.WPF
 {
     /// <summary>
     /// Logique d'interaction pour WindowMenu.xaml
     /// </summary>
-    public partial class WindowMenu : Window
+    public partial class WindowMenu : Window, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public WindowMenu()
         {
             InitializeComponent();
-            var pageParDefault = new PageParDefault();
-            Main.Navigate(pageParDefault);
+            //var pageParDefault = new PageParDefault();
+            //Main.Navigate(pageParDefault);
 
-            GestionnaireDeFenetres.pageParDefault = new PageParDefault();
-            Main.Navigate(GestionnaireDeFenetres.pageParDefault);
+            //GestionnaireDeFenetres.pageParDefault = new PageParDefault();
+            //Main.Content= GestionnaireDeFenetres.pageParDefault;
         }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Ca serait mieux de mettre l'URL dans un fichier de config plutôt qu'en dur ici
+            var clientApi = new Client("https://localhost:44355/", new HttpClient());
+
+            //le async et le await c'est de la programmation asynchrone en C#
+            GestionnaireDeFenetres.WindowMenu = this;
+        }
+
         private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.Fournisseurs == null)
-            {
-                GestionnaireDeFenetres.Fournisseurs = new Fournisseurs();
-            }
-            //w.Show();
-            // MessageBox.Show("hello");
-            Main.Navigate(GestionnaireDeFenetres.Fournisseurs);
+            GestionnaireDeFenetres.Fournisseurs = new Fournisseurs();
+            Main.Content = GestionnaireDeFenetres.Fournisseurs;
 
         }
         /* private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
@@ -52,6 +70,16 @@ namespace EMI_RA.WPF
 
          }*/
 
+        public void Hide_Button()
+        {
+            modifier.Visibility = Visibility.Hidden;
+        }
+
+        public void View_Button()
+        {
+            modifier.Visibility = Visibility.Visible;
+        }
+
         private void MenuItemAjouterAdherent_click(object sender, RoutedEventArgs e)
         {
             if (GestionnaireDeFenetres.ajouterAdhérent == null)
@@ -63,50 +91,21 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.ajouterAdhérent);
 
         }
-        private void MenuItemModifierAdherent_click(object sender, RoutedEventArgs e)
+
+        private void modifier_Click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.modifierAdherent == null)
+            if (Main.Content != null)
             {
-                GestionnaireDeFenetres.modifierAdherent = new ModifierAdherent();
-            }
-            //w.Show();
-            // MessageBox.Show("hello");
-            Main.Navigate(GestionnaireDeFenetres.modifierAdherent);
+                if (Main.Content.GetType() == typeof(Fournisseurs))
+                {
+                    //Main.Content = new modifierFournisseur();
+                }
 
-        }
-        
-             private void MenuItemAjouterFournisseurs_click(object sender, RoutedEventArgs e)
-        {
-            if (GestionnaireDeFenetres.AjouterFournisseurs == null)
+            } else if (Main.Content == null)
             {
-                GestionnaireDeFenetres.AjouterFournisseurs = new AjouterFournisseurs();
+
             }
-   
-            Main.Navigate(GestionnaireDeFenetres.AjouterFournisseurs);
-
-        }
-        
-               private void MenuItemModifierFournisseurs_click(object sender, RoutedEventArgs e)
-        {
-            if (GestionnaireDeFenetres.modifierFournisseur == null)
-            {
-                GestionnaireDeFenetres.modifierFournisseur = new ModifierFournisseur();
-            }
-
-            Main.Navigate(GestionnaireDeFenetres.modifierFournisseur);
-
-        }
-        private void MenuItemModifierCommande_click(object sender, RoutedEventArgs e)
-        {
-            if (GestionnaireDeFenetres.Commande == null)
-            {
-                GestionnaireDeFenetres.Commande = new Commande();
-            }
-
-            Main.Navigate(GestionnaireDeFenetres.Commande);
-
         }
 
-        
     }
 }
