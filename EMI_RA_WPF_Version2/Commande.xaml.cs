@@ -55,13 +55,13 @@ namespace EMI_RA.WPF
                 String[] substring = ligne.Split(' ');
                 foreach (String s in substring)
                 {
-                    Console.WriteLine(s);
+                    resultatPanier.Text = s;
                 }
                 compteur++;
             }
-           // FileParameter file = new FileParameter(open);
+            FileParameter file = new FileParameter(open);
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
-           // var adherent =  clientApi.CommandeAsync(1,file);
+           var adherent =  clientApi.CommandeAsync(1,file);
             //clientApi.CommandeAsync(1, file);
 
             /*   using(OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel 97-2003 Workbook|*.xls|Excel Workbook|*.xlsx"})
@@ -71,28 +71,7 @@ namespace EMI_RA.WPF
 
                    }
                }*/
-
-
-        }
-        private void Choisir2_Click(object sender, RoutedEventArgs e)
-        {
-           
-            string fileText = "reference ;quantite ;prix unitaire HT";
-
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "Panier";
-            dlg.DefaultExt = ".csv";
-            dlg.Filter = "Text documents (.csv)|*.csv";
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                // Save document
-                // string filename = dlg.FileName;
-                File.WriteAllText(dlg.FileName, fileText);
-            }
-
+          
         }
     }
 }

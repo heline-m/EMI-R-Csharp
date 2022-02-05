@@ -166,7 +166,41 @@ namespace EMI_RA
             return stream;
         }
 
+        public List<String> genererPanierString(int annee, int semaine, int idFournisseur)
+        {
+            StringBuilder contentBuilder = new StringBuilder("reference;quantite;prix unitaire HT\n");
 
+            PaniersGlobaux paniersGlobaux = this.getGlobal(annee, semaine);
+            List<LignesPaniersGlobaux> lignesPaniersGlobaux = lignesPaniersGlobauxService.GetLignesPaniersGlobauxByPanierGlobauxIDAndFournisseurID(paniersGlobaux.ID, idFournisseur);
+
+            List<LignesPaniersGlobaux> lignesAgregees = lignesPaniersGlobaux
+                            .GroupBy(l => l.IDProduits)
+                            .Select(ligneGroupe => new LignesPaniersGlobaux(ligneGroupe.Select(p => p.IDProduits).First(),
+                                                                            ligneGroupe.Sum(p => p.Quantite)))
+                            .ToList();
+            List<String> liste = new List<String>();
+            
+            foreach (var ligne in lignesAgregees)
+            {
+                Produits produits = produitsServices.GetProduitsByID(ligne.IDProduits);
+
+                contentBuilder
+                    .Append(produits.Reference)
+                    .Append(";")
+                    .Append(ligne.Quantite)
+                    .Append(";0")
+                    .Append("\n");
+                string uneLigne = produits.Reference + "; " + ligne.Quantite + "; 0" + "\n";
+                liste.Add(uneLigne);
+
+
+            }
+
+           // byte[] bytes = Encoding.ASCII.GetBytes(contentBuilder.ToString());
+           // var resultat = contentBuilder.ToString();
+           // MemoryStream stream = new MemoryStream(bytes);
+            return liste;
+        }
         public void Cloturer(int pgId)
         {
             List<Offres> listeOffres = offresService.GetOffreByIDPaniers(pgId);
