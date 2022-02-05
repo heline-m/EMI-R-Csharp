@@ -51,17 +51,19 @@ namespace EMI_RA.WPF
                 txt.Text = File.ReadAllText(opfd.FileName);
             }
                 StreamReader reader = new StreamReader(open);
+            List<String> liste = new List<String>();
             while ((ligne = reader.ReadLine()) != null){
                 String[] substring = ligne.Split(' ');
                 foreach (String s in substring)
                 {
+                    liste.Add(s);
                     resultatPanier.Text = s;
                 }
                 compteur++;
             }
             FileParameter file = new FileParameter(open);
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
-           var adherent =  clientApi.CommandeAsync(1,file);
+           //var adherent =  clientApi.CommandeAsync(1,liste);
             //clientApi.CommandeAsync(1, file);
 
             /*   using(OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel 97-2003 Workbook|*.xls|Excel Workbook|*.xlsx"})
