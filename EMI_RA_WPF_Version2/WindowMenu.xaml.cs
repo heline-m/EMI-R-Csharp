@@ -22,7 +22,6 @@ namespace EMI_RA.WPF
         public WindowMenu()
         {
             InitializeComponent();
-
         }
 
         private void MenuItemVoirAdherents_click(object sender, RoutedEventArgs e)
@@ -118,7 +117,7 @@ namespace EMI_RA.WPF
         {
             if (GestionnaireDeFenetres.Commande == null)
             {
-                GestionnaireDeFenetres.Commande = new Commande();
+               GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherent.liste.SelectedItem);
             }
 
             Main.Navigate(GestionnaireDeFenetres.Commande);

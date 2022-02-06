@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EMI_RA.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,15 @@ namespace EMI_RA.API.Controllers
         {
             paniersGlobauxService.genererListeAchat(IdAdherent, csvFile);
         }
+
+        [HttpPost("commandeVersion2")]
+        public void GenererListeAchatString(int IdAdherent, IEnumerable<string> csvFile)
+        {
+            paniersGlobauxService.genererListeAchatString(IdAdherent, csvFile);
+
+
+        }
+
         [HttpPost]
         public Adherents Insert(Adherents a)
         {
