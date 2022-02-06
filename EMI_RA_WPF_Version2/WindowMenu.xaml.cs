@@ -35,18 +35,18 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.Fournisseurs);
 
         }
-        /* private void MenuItemVoirFournisseurs_click(object sender, RoutedEventArgs e)
+         private void MenuItemVoirAdherent_click(object sender, RoutedEventArgs e)
          {
-             if (GestionnaireDeFenetres.Page1 == null)
+             if (GestionnaireDeFenetres.Adherent == null)
              {
-                 GestionnaireDeFenetres.Page1 = new Page1();
+                 GestionnaireDeFenetres.Adherent = new Adherent();
              }
              //w.Show();
              // MessageBox.Show("hello");
-             Main.Navigate(GestionnaireDeFenetres.Page1);
+             Main.Navigate(GestionnaireDeFenetres.Adherent);
              // this.Hide();
 
-         }*/
+         }
 
         private void MenuItemAjouterAdherent_click(object sender, RoutedEventArgs e)
         {
@@ -104,7 +104,7 @@ namespace EMI_RA.WPF
         {
             if (GestionnaireDeFenetres.Commande == null)
             {
-                GestionnaireDeFenetres.Commande = new Commande();
+               GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherent.liste.SelectedItem);
             }
 
             Main.Navigate(GestionnaireDeFenetres.Commande);

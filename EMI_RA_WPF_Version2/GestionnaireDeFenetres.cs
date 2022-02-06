@@ -17,5 +17,7 @@ namespace EMI_RA.WPF
         public static AjouterFournisseurs AjouterFournisseurs { get; set; }
         public static Commande Commande { get; set; }
         public static EnregistrerPrixFournisseurs EnregistrerPrixFournisseurs { get; set; }
+        public static Adherent Adherent { get; set; }
+
     }
 }

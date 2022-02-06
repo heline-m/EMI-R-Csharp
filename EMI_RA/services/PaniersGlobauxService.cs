@@ -186,7 +186,7 @@ namespace EMI_RA
 
                 contentBuilder
                     .Append(produits.Reference)
-                    .Append(";")
+                    .Append(";")    
                     .Append(ligne.Quantite)
                     .Append(";0")
                     .Append("\n");
@@ -254,5 +254,38 @@ namespace EMI_RA
                 }
             }
         }
-    }
-}
+        public void genererListeAchatString(int IdAdherent, IEnumerable<String> csvFile)
+        {
+
+            ProduitsServices produitsServices = new ProduitsServices();
+
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date = DateTime.Now;
+            Calendar cal = dfi.Calendar;
+
+            //  List<String> liste = new List<String>();
+           // string liste = csvFile;
+  
+            // récupération du panier global
+            PaniersGlobaux paniersGlobaux = this.getPanierGlobal();
+
+         
+            
+            //var tes1 = test[0];
+
+            for (int i = 0; i < csvFile.Count();i++ )
+            {
+             var liste = csvFile.ElementAt(i).Split(';');
+                //var values = liste.ElementAt(i).ToString().Split(';');
+            string reference = liste[0];
+            string quantite = liste[1];
+
+            Produits produits = produitsServices.GetByRef(reference);
+
+            var lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(produits.ID, Int32.Parse(quantite), paniersGlobaux.ID, IdAdherent);
+            lignesPaniersGlobaux_depot.Insert(lignesPaniersGlobaux);
+                    }
+                }
+            }
+        }
+
