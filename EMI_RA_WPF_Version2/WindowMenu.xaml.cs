@@ -117,7 +117,7 @@ namespace EMI_RA.WPF
         {
             if (GestionnaireDeFenetres.Commande == null)
             {
-               GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherent.liste.SelectedItem);
+               GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherents.liste.SelectedItem);
             }
 
             Main.Navigate(GestionnaireDeFenetres.Commande);
@@ -142,7 +142,24 @@ namespace EMI_RA.WPF
            
 
         }
+        private void MenuItemCatalogue_click(object sender, RoutedEventArgs e)
+        {
+            if (GestionnaireDeFenetres.Fournisseurs == null || GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem == null)
+            {
+                MessageBox.Show("Voyez selectionner un fournisseur dans la liste");
+            }
+            else
+            {
+                if (GestionnaireDeFenetres.Catalogue == null)
+                {
+                    GestionnaireDeFenetres.Catalogue = new EMI_RA_WPF.Catalogue((API.Client.Fournisseurs)GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem);
+                }
 
+                Main.Navigate(GestionnaireDeFenetres.Catalogue);
+            }
+
+
+        }
         private void MenuItemVoirPanierSelectionne_click(object sender, RoutedEventArgs e)
         {
             if (GestionnaireDeFenetres.Panier == null || GestionnaireDeFenetres.Panier.liste.SelectedItem == null)

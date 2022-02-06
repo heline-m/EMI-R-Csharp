@@ -38,6 +38,11 @@ namespace EMI_RA.API.Controllers
         {
             service.alimenterCatalogue(IdFournisseurs, csvFile);
         }
+        [HttpPost("catalogueVersion2/{IdFournisseurs}")]
+        public void AlimenterCatalogueString(int IdFournisseurs, List<string> csvFile)
+        {
+            service.alimenterCatalogueVersion2(IdFournisseurs, csvFile);
+        }
 
         [HttpPost]
         public Fournisseurs Insert(Fournisseurs f)

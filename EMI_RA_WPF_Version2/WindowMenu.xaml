@@ -25,6 +25,7 @@
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140"  Click="MenuItemAjouterFournisseurs_click" />
                         <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierFournisseurs_click"/>
                         <MenuItem Header="EnregistrerPrix" HorizontalAlignment="Left" Height="20" Width="165" Click="MenuItemEnregistrerPrix_click"/>
+                        <MenuItem Header="Catalogue" HorizontalAlignment="Left" Height="20" Width="165" Click="MenuItemCatalogue_click"/>
                     </MenuItem>
                     <MenuItem Header="Panier" Height="20" Width="69">
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Click="MenuItemVoirPanier_click"/>

@@ -20,5 +20,6 @@ namespace EMI_RA.WPF
         public static EnregistrerPrixFournisseurs EnregistrerPrixFournisseurs { get; set; }
         public static Panier Panier { get; set; }
         public static CloturerPanier CloturerPanier { get; set; }
+        public static Catalogue Catalogue { get; set; }
     }
 }
