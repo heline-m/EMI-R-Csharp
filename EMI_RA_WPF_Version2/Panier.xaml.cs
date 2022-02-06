@@ -17,21 +17,38 @@ using System.Windows.Shapes;
 
 namespace EMI_RA.WPF
 {
-    public partial class Fournisseurs : Page
+    /// <summary>
+    /// Logique d'interaction pour Fournisseurs.xaml
+    /// </summary>
+    public partial class Panier : Page
     {
-        public Fournisseurs()
+        public Panier()
         {
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Ca serait mieux de mettre l'URL dans un fichier de config plutôt qu'en dur ici
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
-            var fournisseurs = await clientApi.FournisseursAllAsync();
+            //le async et le await c'est de la programmation asynchrone en C#
+            var panier = await clientApi.PaniersGlobauxAsync();
 
-            liste.ItemsSource = fournisseurs;
+            liste.ItemsSource = panier;
 
+        }
+
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           // GestionnaireDeFenetres.MainWindow.View_Button();
         }
     }
 }

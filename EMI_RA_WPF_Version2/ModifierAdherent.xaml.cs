@@ -23,40 +23,31 @@ namespace EMI_RA.WPF
     /// </summary>
     public partial class ModifierAdherent : Page
     {
-        int ID;
-        String Societe = "";
-        String CiviliteContact = "";
-        String NomContact = "";
-        String PrenomContact = "";
-        String Email = "";
-        String Adresse = "";
 
-        public ModifierAdherent()
+        public ModifierAdherent(API.Client.Adherents adherent)
         {
             InitializeComponent();
+            id.Text = adherent.Id.ToString();
+            societe.Text = adherent.Societe;
+            civilite.Text = adherent.CiviliteContact;
+            nom.Text = adherent.NomContact;
+            prenom.Text = adherent.PrenomContact;
+            email.Text = adherent.Email;
+            adresse.Text = adherent.Adresse;
         }
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            ID = int.Parse(id.Text);
-            Societe = societe.Text;
-            CiviliteContact = civilite.Text;
-            NomContact = nom.Text;
-            PrenomContact = prenom.Text;
-            Email = email.Text;
-            Adresse = adresse.Text;
-
-
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
-            var adherentDTO = new EMI_RA.API.Client.Adherents()
+            var adherentDTO = new API.Client.Adherents()
             {
-                Id = ID,
-                Societe = Societe,
-                CiviliteContact = CiviliteContact,
-                NomContact = NomContact,
-                PrenomContact = PrenomContact,
-                Email = Email,
-                Adresse = Adresse
+                Id = Int32.Parse(id.Text),
+                Societe = societe.Text,
+                CiviliteContact = civilite.Text,
+                NomContact = nom.Text,
+                PrenomContact = prenom.Text,
+                Email = email.Text,
+                Adresse = adresse.Text
 
             };
             var adherent = await clientApi.AdherentsPUTAsync(adherentDTO);

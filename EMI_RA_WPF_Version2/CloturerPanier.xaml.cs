@@ -1,6 +1,7 @@
 ﻿using EMI_RA.API.Client;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,23 +16,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EMI_RA.WPF
+namespace EMI_RA_WPF
 {
-    public partial class Fournisseurs : Page
+    public partial class CloturerPanier : Page
     {
-        public Fournisseurs()
+        PaniersGlobaux panier;
+        public CloturerPanier(PaniersGlobaux unPanier)
         {
             InitializeComponent();
+            panier = unPanier;
         }
-
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
-
-            var fournisseurs = await clientApi.FournisseursAllAsync();
-
-            liste.ItemsSource = fournisseurs;
-
+            var cloturerPanier = clientApi.CloturerAsync(panier.Id);
         }
     }
 }

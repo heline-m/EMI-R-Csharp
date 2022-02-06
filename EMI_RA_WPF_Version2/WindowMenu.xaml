@@ -14,7 +14,7 @@
             <StackPanel>
                 <Menu Height="24" Width="800">
                     <MenuItem Header="Adérent" Height="20" Width="56">
-                        <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
+                        <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemVoirAdherents_click"/>
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemAjouterAdherent_click" />
                         <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierAdherent_click"/>
                         <MenuItem Header="Commande" HorizontalAlignment="Left" Height="20" Width="160" Click="MenuItemModifierCommande_click"/>
@@ -26,9 +26,9 @@
                         <MenuItem Header="EnregistrerPrix" HorizontalAlignment="Left" Height="20" Width="165" Click="MenuItemEnregistrerPrix_click"/>
                     </MenuItem>
                     <MenuItem Header="Panier" Height="20" Width="69">
-                        <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
-                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
+                        <MenuItem Header="Voir" HorizontalAlignment="Left" Click="MenuItemVoirPanier_click"/>
+                        <MenuItem Header="Cloturer le panier selectionné" HorizontalAlignment="Left" Click="MenuItemCloturerPanierSelectionne_click"/>
+                        <MenuItem Header="Voir le panier selectionné" HorizontalAlignment="Left" Click="MenuItemVoirPanierSelectionne_click"/>
                     </MenuItem>
 
                 </Menu>
