@@ -23,9 +23,11 @@ namespace EMI_RA_WPF
     /// </summary>
     public partial class EnregistrerPrixFournisseurs : Page
     {
-        public EnregistrerPrixFournisseurs()
+        Fournisseurs founisseur;
+        public EnregistrerPrixFournisseurs(EMI_RA.API.Client.Fournisseurs unfournisseur)
         {
             InitializeComponent();
+            founisseur = unfournisseur;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -40,10 +42,10 @@ namespace EMI_RA_WPF
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
             var fichier = "https://localhost:44313/PaniersGlobaux/panier/1";
 
-            var adherent = clientApi.PanierAllAsync(1);
+            var lefounisseur = clientApi.PanierAllAsync(founisseur.IdFournisseurs);
 
 
-            var list = adherent.Result;
+            var list = lefounisseur.Result;
             string liste2 = "reference ;quantite ;prix unitaire HT ;\n";
             for (int i = 0; i < list.Count(); i++)
             {

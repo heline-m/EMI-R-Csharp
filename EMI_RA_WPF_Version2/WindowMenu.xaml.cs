@@ -81,17 +81,25 @@ namespace EMI_RA.WPF
             Main.Navigate(GestionnaireDeFenetres.AjouterFournisseurs);
 
         }
-        
-               private void MenuItemModifierFournisseurs_click(object sender, RoutedEventArgs e)
+
+        private void MenuItemModifierFournisseurs_click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.modifierFournisseur == null)
+
+            if (Main.Content != null)
             {
-                GestionnaireDeFenetres.modifierFournisseur = new ModifierFournisseur();
+                if (Main.Content.GetType() == typeof(Fournisseurs))
+                {
+                    if (GestionnaireDeFenetres.modifierFournisseur == null)
+                    {
+                        GestionnaireDeFenetres.modifierFournisseur = new ModifierFournisseur((API.Client.Fournisseurs)GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem);
+                    }
+
+                    Main.Navigate(GestionnaireDeFenetres.modifierFournisseur);
+
+                }
             }
-
-            Main.Navigate(GestionnaireDeFenetres.modifierFournisseur);
-
         }
+
         private void MenuItemModifierCommande_click(object sender, RoutedEventArgs e)
         {
             if (GestionnaireDeFenetres.Commande == null)
@@ -105,12 +113,12 @@ namespace EMI_RA.WPF
         
             private void MenuItemEnregistrerPrix_click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.enregistrerPrixFournisseurs == null)
+            if (GestionnaireDeFenetres.EnregistrerPrixFournisseurs == null)
             {
-                GestionnaireDeFenetres.enregistrerPrixFournisseurs = new EMI_RA_WPF.EnregistrerPrixFournisseurs();
+                GestionnaireDeFenetres.EnregistrerPrixFournisseurs = new EMI_RA_WPF.EnregistrerPrixFournisseurs((API.Client.Fournisseurs)GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem);
             }
 
-            Main.Navigate(GestionnaireDeFenetres.enregistrerPrixFournisseurs);
+            Main.Navigate(GestionnaireDeFenetres.EnregistrerPrixFournisseurs);
 
         }
 

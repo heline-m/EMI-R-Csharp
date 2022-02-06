@@ -1,4 +1,5 @@
 ﻿using EMI_RA.API.Client;
+using EMI_RA.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,42 +23,39 @@ namespace EMI_RA.WPF
     /// </summary>
     public partial class ModifierFournisseur : Page
     {
-        int ID;
-        String Societe = "";
-        String CiviliteContact = "";
-        String NomContact = "";
-        String PrenomContact = "";
-        String Email = "";
-        String Adresse = "";
 
-        public ModifierFournisseur()
+        public ModifierFournisseur(API.Client.Fournisseurs fournisseur)
         {
             InitializeComponent();
+            id.Text = fournisseur.IdFournisseurs.ToString();
+            societe.Text = fournisseur.Societe;
+            civilite.Text = fournisseur.CiviliteContact;
+            nom.Text = fournisseur.NomContact;
+            prenom.Text = fournisseur.PrenomContact;
+            email.Text = fournisseur.Email;
+            adresse.Text = fournisseur.Adresse;
+
+
+
         }
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            ID = int.Parse(id.Text);
-            Societe = societe.Text;
-            CiviliteContact = civilite.Text;
-            NomContact = nom.Text;
-            PrenomContact = prenom.Text;
-            Email = email.Text;
-            Adresse = adresse.Text;
 
-
+            
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
-            var fournisseurDTO = new EMI_RA.API.Client.Fournisseurs()
+            var fournisseurDTO = new API.Client.Fournisseurs()
             {
-                IdFournisseurs = ID,
-                Societe = Societe,
-                CiviliteContact = CiviliteContact,
-                NomContact = NomContact,
-                PrenomContact = PrenomContact,
-                Email = Email,
-                Adresse = Adresse
+                IdFournisseurs = Int32.Parse(id.Text),
+                Societe = societe.Text,
+                CiviliteContact = civilite.Text,
+                NomContact = nom.Text,
+                PrenomContact = prenom.Text,
+                Email = email.Text,
+                Adresse = adresse.Text
 
             };
+
             var fournisseur = await clientApi.FournisseursPUTAsync(fournisseurDTO);
             MessageBox.Show("Le fournisseur a été modifié");
         }
