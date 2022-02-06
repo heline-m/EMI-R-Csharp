@@ -147,7 +147,7 @@ namespace EMI_RA.DAL
 
             while (reader.Read())
             {
-                Offres_DAL offre = new Offres_DAL(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetFloat(4));
+                Offres_DAL offre = new Offres_DAL(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetFloat(3));
                 listeOffre.Add(offre);
             }
 
