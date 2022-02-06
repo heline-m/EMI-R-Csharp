@@ -22,20 +22,20 @@ namespace EMI_RA.WPF
     /// </summary>
     public partial class VoirItemsPanier: Page
     {
-        public VoirItemsPanier(API.Client.Fournisseurs fournisseur)
+        PaniersGlobaux panier;
+        public VoirItemsPanier(API.Client.PaniersGlobaux lepanier)
         {
             InitializeComponent();
+            panier = lepanier;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Ca serait mieux de mettre l'URL dans un fichier de config plutôt qu'en dur ici
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
-            //le async et le await c'est de la programmation asynchrone en C#
-            //var items = await clientApi.PanierAllAsync();
+            var items = await clientApi.MeilleursPrixAsync(panier.Id);
 
-            //liste.ItemsSource = items;
+            liste.ItemsSource = items;
 
         }
 
