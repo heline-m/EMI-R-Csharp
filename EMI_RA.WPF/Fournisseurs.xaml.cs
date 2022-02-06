@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static EMI_RA.WPF.GestionnaireDeFenetres;
 
 namespace EMI_RA.WPF
 {
@@ -45,9 +46,10 @@ namespace EMI_RA.WPF
 
         }
 
-        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // GestionnaireDeFenetres.MainWindow.View_Button();
+            GestionnaireDeFenetres.WindowMenu = new WindowMenu();
+            GestionnaireDeFenetres.WindowMenu.View_Button();
         }
     }
 }

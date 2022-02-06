@@ -16,19 +16,14 @@
                     <MenuItem Header="Adérent" Height="20" Width="56">
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemAjouterAdherent_click" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierAdherent_click"/>
-                        <MenuItem Header="Commande" HorizontalAlignment="Left" Height="20" Width="160" Click="MenuItemModifierCommande_click"/>
-                    </MenuItem>
-                    <MenuItem Header="Fournisseurs" Height="20" Width="79">
-                        <MenuItem x:Name="MenuItemVoirFournisseurs" Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemVoirFournisseurs_click"/>
-                        <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140"  Click="MenuItemAjouterFournisseurs_click" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierFournisseurs_click"/>
-                    </MenuItem>
-                    <MenuItem Header="Panier" Height="20" Width="69">
+
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" />
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" />
-                        <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" />
+                        
                     </MenuItem>
+                    <MenuItem Header="Modifier" Name="modifier" Height="20" Width="54" Visibility="{Binding Visibility}" Click="modifier_Click" />
+                    <!--<MenuItem Header="Supprimer" Name="supprimer" Height="20" Width="67" Visibility="Visible" Click="supprimer_Click" />
+                    <MenuItem Header="AjoutCatalogue" Name="ajoutcatalogue" Height="20" Width="92" Visibility="Visible" Click="modifier_Click" />-->
 
                 </Menu>
             </StackPanel>
