@@ -88,7 +88,7 @@ namespace EMI_RA.DAL
 
             while (reader.Read())
             {
-                var asso = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(2));
+                var asso = new AssoProduitsFournisseurs_DAL(reader.GetInt32(0), reader.GetInt32(1));
 
                 listeAssos.Add(asso);
             }

@@ -14,6 +14,7 @@
             <StackPanel>
                 <Menu Height="24" Width="800">
                     <MenuItem Header="Adérent" Height="20" Width="56">
+
                         <MenuItem Header="Voir" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemVoirAdherents_click"/>
                         <MenuItem Header="Ajouter" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemAjouterAdherent_click" />
                         <MenuItem Header="Modifier" HorizontalAlignment="Left" Height="20" Width="140" Click="MenuItemModifierAdherent_click"/>
