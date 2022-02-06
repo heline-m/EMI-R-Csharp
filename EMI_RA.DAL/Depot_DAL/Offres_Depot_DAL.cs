@@ -139,7 +139,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idOffres, idFournisseurs, idPaniersGlobaux, idProduits, quantite, prix, gagne from offres where idPaniersGlobaux=@idPaniersGlobaux and gagne=1";
+            commande.CommandText = "select societe, libelle, quantite, prix from offres join produits on offres.idProduits = produits.idProduits join fournisseurs on offres.idFournisseurs = fournisseurs.idFournisseurs where idPaniersGlobaux = @idPaniersGlobaux and gagne = 1";
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
@@ -147,7 +147,7 @@ namespace EMI_RA.DAL
 
             while (reader.Read())
             {
-                Offres_DAL offre = new Offres_DAL(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetFloat(5), reader.GetBoolean(6));
+                Offres_DAL offre = new Offres_DAL(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetFloat(4));
                 listeOffre.Add(offre);
             }
 

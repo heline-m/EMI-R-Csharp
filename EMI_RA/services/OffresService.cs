@@ -83,13 +83,10 @@ namespace EMI_RA
         public List<Offres> GetMeilleursOffres(int idPaniersGlobaux)
         {
             var offre = depot.GetGagneByIDPaniers(idPaniersGlobaux)
-                .Select(offre => new Offres(offre.IdOffres,
-                                            offre.IdFournisseurs,
-                                            offre.IdPaniersGlobaux,
-                                            offre.IdProduits,
+                .Select(offre => new Offres(offre.NomFournisseur,
+                                            offre.NomProduit,
                                             offre.Quantite,
-                                            offre.Prix,
-                                            offre.Gagne))
+                                            offre.Prix))
                 .ToList();
 
             return offre;

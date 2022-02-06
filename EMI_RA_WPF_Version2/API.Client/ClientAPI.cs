@@ -2229,8 +2229,14 @@ namespace EMI_RA.API.Client
         [Newtonsoft.Json.JsonProperty("idFournisseurs", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int IdFournisseurs { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("nomFournisseur", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NomFournisseur { get; set; }
+
         [Newtonsoft.Json.JsonProperty("idPaniersGlobaux", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int IdPaniersGlobaux { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("nomProduit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string NomProduit { get; set; }
 
         [Newtonsoft.Json.JsonProperty("idProduits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int IdProduits { get; set; }
