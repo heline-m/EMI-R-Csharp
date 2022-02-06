@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EMI_RA.API.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -168,12 +170,12 @@ namespace EMI_RA.WPF
             }
             else
             {
-                if (GestionnaireDeFenetres.EnregistrerPrixFournisseurs == null)
+                if (GestionnaireDeFenetres.voirItemsPanier == null)
                 {
-                    GestionnaireDeFenetres.EnregistrerPrixFournisseurs = new EMI_RA_WPF.EnregistrerPrixFournisseurs((API.Client.Fournisseurs)GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem);
+                    GestionnaireDeFenetres.voirItemsPanier = new EMI_RA.WPF.VoirItemsPanier((API.Client.PaniersGlobaux)GestionnaireDeFenetres.Panier.liste.SelectedItem);
                 }
 
-                Main.Navigate(GestionnaireDeFenetres.EnregistrerPrixFournisseurs);
+                Main.Navigate(GestionnaireDeFenetres.voirItemsPanier);
             }
 
 
@@ -181,18 +183,21 @@ namespace EMI_RA.WPF
         
         private void MenuItemCloturerPanierSelectionne_click(object sender, RoutedEventArgs e)
         {
+
             if (GestionnaireDeFenetres.Panier == null || GestionnaireDeFenetres.Panier.liste.SelectedItem == null)
             {
                 MessageBox.Show("Voyez selectionner un panier dans la liste");
             }
             else
             {
-                if (GestionnaireDeFenetres.EnregistrerPrixFournisseurs == null)
-                {
-                    GestionnaireDeFenetres.EnregistrerPrixFournisseurs = new EMI_RA_WPF.EnregistrerPrixFournisseurs((API.Client.Fournisseurs)GestionnaireDeFenetres.Fournisseurs.liste.SelectedItem);
-                }
+                PaniersGlobaux paniers;
+                paniers = (PaniersGlobaux)GestionnaireDeFenetres.Panier.liste.SelectedItem;
 
-                Main.Navigate(GestionnaireDeFenetres.EnregistrerPrixFournisseurs);
+                var clientApi = new Client("https://localhost:44313/", new HttpClient());
+                var cloturerPanier = clientApi.CloturerAsync(paniers.Id);
+
+                MessageBox.Show("Le panier a été cloturé");
+
             }
 
 
