@@ -45,7 +45,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee from paniersGlobaux where idPaniersGlobaux = @idPaniersGlobaux";
+            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee, societe from paniersGlobaux join fournisseurs on panier where idPaniersGlobaux = @idPaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
@@ -145,5 +145,6 @@ namespace EMI_RA.DAL
 
             return panierGlobal;
         }
+
     }
 }
