@@ -26,7 +26,7 @@ namespace EMI_RA.WPF
     /// </summary>
     public partial class Commande : System.Windows.Controls.Page
     {
-        Adherents adherent;
+        EMI_RA.API.Client.Adherents adherent;
         public Commande(EMI_RA.API.Client.Adherents unAdherent)
         {
             InitializeComponent();
