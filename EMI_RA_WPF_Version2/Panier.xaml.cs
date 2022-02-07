@@ -14,16 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static EMI_RA.WPF.GestionnaireDeFenetres;
 
 namespace EMI_RA.WPF
 {
     /// <summary>
     /// Logique d'interaction pour Fournisseurs.xaml
     /// </summary>
-    public partial class Fournisseurs : Page
+    public partial class Panier : Page
     {
-        public Fournisseurs()
+        public Panier()
         {
             InitializeComponent();
         }
@@ -34,9 +33,10 @@ namespace EMI_RA.WPF
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
             //le async et le await c'est de la programmation asynchrone en C#
-            var fournisseurs = await clientApi.FournisseursAllAsync();
+            var panier = await clientApi.PaniersGlobauxAsync();
 
-            liste.ItemsSource = fournisseurs;
+            liste.ItemsSource = panier;
+
         }
 
 
@@ -46,10 +46,9 @@ namespace EMI_RA.WPF
 
         }
 
-        private void Liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GestionnaireDeFenetres.WindowMenu = new WindowMenu();
-            GestionnaireDeFenetres.WindowMenu.View_Button();
+           // GestionnaireDeFenetres.MainWindow.View_Button();
         }
     }
 }

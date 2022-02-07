@@ -24,7 +24,8 @@ namespace EMI_RA
             var paniersGlobaux = depot.GetAll()
                 .Select(p => new PaniersGlobaux(p.IDPaniersGlobaux,
                                                 p.NumeroSemaine,
-                                                p.Annee
+                                                p.Annee,
+                                                p.Cloture
                                                 ))
                 .ToList();
 
@@ -37,7 +38,8 @@ namespace EMI_RA
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
                                       p.NumeroSemaine,
-                                      p.Annee);
+                                      p.Annee,
+                                      p.Cloture);
         }
 
         public PaniersGlobaux GetPaniersGlobauxByID(int annee, int semaine)
@@ -46,14 +48,16 @@ namespace EMI_RA
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
                                       p.NumeroSemaine,
-                                      p.Annee);
+                                      p.Annee,
+                                      p.Cloture);
         }
 
         public PaniersGlobaux Insert(PaniersGlobaux p)
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                         p.NumeroSemaine,
-                                                        p.Annee);
+                                                        p.Annee,
+                                                        p.Cloture);
             depot.Insert(paniersGlobaux);
             p.ID = paniersGlobaux.IDPaniersGlobaux;
 
@@ -63,7 +67,7 @@ namespace EMI_RA
         public PaniersGlobaux GetPanierSemainePrecedente()
         {
             int annee = DateTime.Now.AddDays(-7).Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), 
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(1), 
                                                                               CalendarWeekRule.FirstFullWeek, 
                                                                               DayOfWeek.Monday);
 
@@ -74,8 +78,19 @@ namespace EMI_RA
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                         p.NumeroSemaine,
-                                                        p.Annee);
+                                                        p.Annee,
+                                                        p.Cloture);
             depot.Update(paniersGlobaux);
+
+            return p;
+        }
+        public PaniersGlobaux UpdateCloture(PaniersGlobaux p)
+        {
+            var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
+                                                        p.NumeroSemaine,
+                                                        p.Annee,
+                                                        p.Cloture);
+            depot.UpdateCloture(paniersGlobaux);
 
             return p;
         }
@@ -84,7 +99,8 @@ namespace EMI_RA
         {
             var panierGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                        p.NumeroSemaine,
-                                                       p.Annee);
+                                                       p.Annee,
+                                                       p.Cloture); ;
             depot.Delete(panierGlobaux);
         }
         public PaniersGlobaux getPanierGlobal()
@@ -105,7 +121,7 @@ namespace EMI_RA
                 paniersGlobauxDAL = new PaniersGlobaux_DAL(semaine, annee);
                 depot.Insert(paniersGlobauxDAL);
             }
-            return new PaniersGlobaux(paniersGlobauxDAL.IDPaniersGlobaux, paniersGlobauxDAL.NumeroSemaine, paniersGlobauxDAL.Annee);
+            return new PaniersGlobaux(paniersGlobauxDAL.IDPaniersGlobaux, paniersGlobauxDAL.NumeroSemaine, paniersGlobauxDAL.Annee, paniersGlobauxDAL.Cloture);
         }
         public Stream genererPanierStream(int annee, int semaine)
         {
@@ -186,7 +202,7 @@ namespace EMI_RA
 
                 contentBuilder
                     .Append(produits.Reference)
-                    .Append(";")
+                    .Append(";")    
                     .Append(ligne.Quantite)
                     .Append(";0")
                     .Append("\n");
@@ -222,6 +238,9 @@ namespace EMI_RA
                 offreGagnante.Gagne = true;
                 offresService.Update(offreGagnante);
             }
+            PaniersGlobaux paniersGlobaux = GetPaniersGlobauxByID(pgId);
+            UpdateCloture(paniersGlobaux);
+
         }
         public void genererListeAchat(int IdAdherent, IFormFile csvFile)
         {
@@ -254,5 +273,38 @@ namespace EMI_RA
                 }
             }
         }
-    }
-}
+        public void genererListeAchatString(int IdAdherent, IEnumerable<String> csvFile)
+        {
+
+            ProduitsServices produitsServices = new ProduitsServices();
+
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date = DateTime.Now;
+            Calendar cal = dfi.Calendar;
+
+            //  List<String> liste = new List<String>();
+           // string liste = csvFile;
+  
+            // récupération du panier global
+            PaniersGlobaux paniersGlobaux = this.getPanierGlobal();
+
+         
+            
+            //var tes1 = test[0];
+
+            for (int i = 0; i < csvFile.Count();i++ )
+            {
+             var liste = csvFile.ElementAt(i).Split(';');
+                //var values = liste.ElementAt(i).ToString().Split(';');
+            string reference = liste[0];
+            string quantite = liste[1];
+
+            Produits produits = produitsServices.GetByRef(reference);
+
+            var lignesPaniersGlobaux = new LignesPaniersGlobaux_DAL(produits.ID, Int32.Parse(quantite), paniersGlobaux.ID, IdAdherent);
+            lignesPaniersGlobaux_depot.Insert(lignesPaniersGlobaux);
+                    }
+                }
+            }
+        }
+

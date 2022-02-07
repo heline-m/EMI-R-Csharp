@@ -9,13 +9,13 @@
       Title="Commande">
 
     <Grid>
-        <Button Content="Choisir un fichier" HorizontalAlignment="Left" Margin="369,277,0,0" VerticalAlignment="Top" Click="Choisir_Click"/>
+        <Button Content="Choisir un fichier" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" Click="Choisir_Click"/>
 
 
-        <TextBlock HorizontalAlignment="Center" Margin="0,183,0,0" TextWrapping="Wrap" Text="TextBlock" Name="txt" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,113,0,0" TextWrapping="Wrap" Text="Rentrez votre fichier de commande" Name="txt" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="474,10,0,0" TextWrapping="Wrap"  Name="resultatPanier" VerticalAlignment="Top" Width="120" Height="222"/>
         
+
 
 
     </Grid>

@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace EMI_RA.WPF
 {
-    public static class GestionnaireDeFenetres
+    static class GestionnaireDeFenetres
     {
-
-        static public MainWindow MainWindow { get; set; }
-        static public Page1 Page1 { get; set; }
-        static public Fournisseurs Fournisseurs { get; set; }
-        static public PageParDefault pageParDefault { get; set; }
-        static public AjouterAdhérent ajouterAdhérent { get; set; }
-        static public ModifierAdherent modifierAdherent { get; set; }
-        static public ModifierFournisseur modifierFournisseur { get; set; }
-        static public AjouterFournisseurs AjouterFournisseurs { get; set; }
-        static public Commande Commande { get; set; }
+        public static WindowMenu WindowMenu { get; set; }
+        public static MainWindow MainWindow { get; set; }
+        public static Page1 Page1 { get; set; }
+        public static Fournisseurs Fournisseurs { get; set; }
+        public static PageParDefault pageParDefault { get; set; }
+        public static AjouterAdhérent ajouterAdhérent { get; set; }
 
     }
 }

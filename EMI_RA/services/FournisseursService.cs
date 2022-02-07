@@ -55,7 +55,8 @@ namespace EMI_RA
                                                    f.PrenomContact,
                                                    f.Email,
                                                    f.Adresse,
-                                                   DateTime.Now);
+                                                   DateTime.Now
+                                                   );
             depot.Insert(fournisseur);
             f.IdFournisseurs = fournisseur.IdFournisseurs;
 
@@ -157,6 +158,74 @@ namespace EMI_RA
                 }
             }
         }
+        public void alimenterCatalogueVersion2(int idFournisseurs, IEnumerable<String> csvFile)
+        {
+            Fournisseurs fournisseurs = this.GetFournisseursByID(idFournisseurs);
+
+            // récupérer les produits en lien avec le fournisseur
+            List<Produits> produitsExistantsListe = produitsService.GetByIdFournisseur(idFournisseurs);
+
+            // récupérer les produits du fichier csv
+            List<Produits> produitsCsvListe = recupProduitsCsvString(csvFile, idFournisseurs);
+
+            // pour les produits du csv qui n'existent pas en BDD -> création du produit en BDD et de la liaison
+            foreach (var produitCsv in produitsCsvListe)
+            {
+                Produits produitsCorrespondant = null;
+                //List<Produits> produitsCorrespondants = produitsExistantsListe.Where(p => p.Reference.Equals(produitCsv.Reference)).ToList();
+                foreach (var produitBdd in produitsExistantsListe)
+                {
+                    if (produitBdd.Reference.Equals(produitCsv.Reference))
+                    {
+                        produitsCorrespondant = produitBdd;
+                        break;
+                    }
+                }
+
+                //if(produitsCorrespondants.Count == 0)
+                if (produitsCorrespondant == null)
+                {
+                    Produits produitALier = produitsService.GetByRef(produitCsv.Reference);
+                    if (produitALier == null)
+                    {
+                        produitALier = produitsService.Insert(produitCsv);
+                    }
+                    else if (!produitALier.Disponible)
+                    {
+                        // Si le produits n'était pas disponible, on le rend disponible
+                        produitALier.Disponible = true;
+                        produitsService.Update(produitALier);
+                    }
+                    // pour les produits qui sont dans le fichier et non en BDD -> création du lien
+                    assoProduitsFournisseursServices.Insert(new AssoProduitsFournisseurs(idFournisseurs, produitALier.ID));
+                }
+            }
+            // les produits qui sont dans la BDD et non dans le fichier -> suppression du lien BDD
+            foreach (var produitExistant in produitsExistantsListe)
+            {
+                //List<Produits> produitCorrespondant = produitsCsvListe.Where(p => p.Reference.Equals(produitExistant.Reference)).ToList();
+                bool exists = false;
+                foreach (var produitCsv in produitsCsvListe)
+                {
+                    if (produitCsv.Reference.Equals(produitExistant.Reference))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                {
+                    assoProduitsFournisseursServices.Delete(produitExistant.ID, idFournisseurs);
+                    List<AssoProduitsFournisseurs> assoProduitsFournisseursListe = assoProduitsFournisseursServices.GetByIdProduit(produitExistant.ID);
+                    if (assoProduitsFournisseursListe.Count == 0)
+                    {
+                        produitExistant.Disponible = false;
+                        produitsService.Update(produitExistant);
+                    }
+                }
+            }
+        }
 
         private List<Produits> recupProduitsCsv(IFormFile csvFile, int idFournisseurs)
         {
@@ -177,6 +246,23 @@ namespace EMI_RA
                     Produits produits = new Produits(libelle, marque, reference, true);
                     produitsListe.Add(produits);
                 }
+            }
+
+            return produitsListe;
+        }
+        private List<Produits> recupProduitsCsvString(IEnumerable<String> csvFile, int idFournisseurs)
+        {
+            List<Produits> produitsListe = new List<Produits>();
+
+            for (int i = 0; i < csvFile.Count(); i++)
+            {
+                var liste = csvFile.ElementAt(i).Split(';');
+                string reference = liste[0];
+                string libelle = liste[1];
+                string marque = liste[2];
+
+                Produits produits = new Produits(libelle, marque, reference, true);
+                produitsListe.Add(produits);
             }
 
             return produitsListe;

@@ -10,7 +10,7 @@
 
     <Grid>
         <Button Content="Valider" HorizontalAlignment="Left" Margin="385,252,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox HorizontalAlignment="Left" Margin="297,75,0,0"  Name="id" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" Width="217" />
+        <TextBox HorizontalAlignment="Left" Margin="297,75,0,0"  Name="id" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" Width="217" Visibility="Hidden"/>
         <TextBox HorizontalAlignment="Left" Margin="297,98,0,0"  Name="societe" TextWrapping="Wrap" Text="Societe" VerticalAlignment="Top" Width="217" />
         <TextBox HorizontalAlignment="Left" Margin="297,121,0,0"  Name="civilite" TextWrapping="Wrap" Text="Civilite" VerticalAlignment="Top" Width="217" />
         <TextBox HorizontalAlignment="Left" Margin="297,144,0,0"  Name="nom" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Width="217" />

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -59,6 +61,28 @@ namespace EMI_RA.API.Controllers
                         offresService.Insert(offre);
                     }
                 }
+            }
+        }
+        [HttpPost("version2{IdFournisseurs}")]
+        public void insertString(int IdFournisseurs, IEnumerable<String> csvfile)
+        {
+            for (int i = 0; i < csvfile.Count(); i++)
+            {
+                var liste = csvfile.ElementAt(i).Split(';');
+                //var values = liste.ElementAt(i).ToString().Split(';');
+                string reference = liste[0];
+                int quantite = int.Parse(liste[1]);
+                float prix = float.Parse(liste[2]);
+
+                if (prix != 0)
+                {
+                    PaniersGlobaux paniersGlobaux = paniersGlobauxService.GetPanierSemainePrecedente();
+                    Produits produits = produitsServices.GetByRef(reference);
+
+                    Offres offre = new Offres(IdFournisseurs, paniersGlobaux.ID, produits.ID, quantite, prix);
+                    offresService.Insert(offre);
+                }
+            
             }
         }
     }

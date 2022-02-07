@@ -9,8 +9,11 @@
       Title="EnregistrerPrixFournisseurs">
 
     <Grid>
-        <Button Content="Cliquez" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" Margin="0,197,0,0"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,129,0,0" TextWrapping="Wrap" Text="Cliquez pour obtenir le fichier csv où vous pouvez rentrez vos prix" VerticalAlignment="Top"/>
+        <Button Content="Cliquez" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" Margin="0,149,0,0"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,81,0,0" TextWrapping="Wrap" Text="Cliquez pour obtenir le fichier csv où vous pouvez rentrez vos prix" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Cliquez pour rentrer le fichier csv où vous avez rentrez vos prix" VerticalAlignment="Top" Margin="0,213,0,0"/>
+
+        <Button Content="Cliquez" HorizontalAlignment="Center" Margin="0,279,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
 
     </Grid>
 </Page>

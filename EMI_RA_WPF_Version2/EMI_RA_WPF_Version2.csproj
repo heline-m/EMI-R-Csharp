@@ -2,10 +2,14 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Raminagrobis.JPG" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
@@ -14,6 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EMI_RA.DTO\EMI_RA.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="image\Raminagrobis.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +72,19 @@
     <Page Update="Commande.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Adherents.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="CloturerPanier.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="VoirItemsPanier.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Panier.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Fournisseurs.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

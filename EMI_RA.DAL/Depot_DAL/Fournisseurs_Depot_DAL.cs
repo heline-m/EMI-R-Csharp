@@ -36,7 +36,9 @@ namespace EMI_RA.DAL
                                                         reader.GetString(4), 
                                                         reader.GetString(5),
                                                         reader.GetString(6),
-                                                        reader.GetDateTime(7));
+                                                        reader.GetDateTime(7)
+                                                       
+                                                        );
 
                 listeDeFournisseurs.Add(fournisseur);
             }
@@ -66,7 +68,9 @@ namespace EMI_RA.DAL
                                         reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6),
-                                        reader.GetDateTime(7));
+                                        reader.GetDateTime(7)
+                                       
+                                         );
             }
             else
                 throw new Exception($"Pas de fournisseur dans la BDD avec l'ID {idFournisseurs}");
@@ -90,9 +94,9 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
             commande.Parameters.Add(new SqlParameter("@dateAdhesion", fournisseur.DateAdhesion));
 
-            var idFournisseurs = Convert.ToInt32((decimal)commande.ExecuteScalar());
+            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            fournisseur.IdFournisseurs = idFournisseurs;
+            fournisseur.IdFournisseurs = ID;
 
             DetruireConnexionEtCommande();
 
@@ -103,7 +107,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse"
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse "
                                     + " where idFournisseurs=@idFournisseurs";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
@@ -112,6 +116,30 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
             commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
+            var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
+
+            if (nombreDeLignesAffectees != 1)
+            {
+                throw new Exception($"Impossible de mettre à jour le fournisseur avec l'ID  {fournisseur.IdFournisseurs}");
+            }
+
+            DetruireConnexionEtCommande();
+
+            return fournisseur;
+        }
+        public  Fournisseurs_DAL UpdateDelete(Fournisseurs_DAL fournisseur)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse";
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
+            commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
+            commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
+            commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
+            commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
+            commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
+            commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
+        
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)

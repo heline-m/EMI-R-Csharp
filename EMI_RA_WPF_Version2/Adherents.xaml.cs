@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 
 namespace EMI_RA.WPF
 {
-    public partial class Fournisseurs : Page
+    public partial class Adherents : Page
     {
-        public Fournisseurs()
+        public Adherents()
         {
             InitializeComponent();
         }
@@ -28,9 +28,9 @@ namespace EMI_RA.WPF
         {
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
 
-            var fournisseurs = await clientApi.FournisseursAllAsync();
+            var adherents = await clientApi.AdherentsAllAsync();
 
-            liste.ItemsSource = fournisseurs;
+            liste.ItemsSource = adherents;
 
         }
     }

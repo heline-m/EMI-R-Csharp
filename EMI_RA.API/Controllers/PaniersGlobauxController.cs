@@ -30,7 +30,8 @@ namespace EMI_RA.API.Controllers
             return service.GetAllPaniersGlobaux().Select(p => new PaniersGlobaux(
                 p.ID,
                 p.NumeroSemaine,
-                p.Annee
+                p.Annee, 
+                p.Cloture
             ));
         }
 
@@ -69,7 +70,7 @@ namespace EMI_RA.API.Controllers
         public List<String> getPanierVersionTest([FromRoute] int idFournisseur)
         {
             int annee = DateTime.Now.AddDays(-7).Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(1), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
             String filename = "Panier_" + annee + "_S" + semaine + ".csv";
 
@@ -82,14 +83,7 @@ namespace EMI_RA.API.Controllers
             };
             return Panier;
  
-    }
-
-            
-            /*return new FileStreamResult(stream, "application/csv")
-            {
-                FileDownloadName = filename
-            };*/
-        
+        }
 
         [HttpPost("cloturer")]
         public void Cloturer(int pgId)
