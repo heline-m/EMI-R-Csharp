@@ -39,16 +39,5 @@ namespace EMI_RA.WPF
 
         }
 
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           // GestionnaireDeFenetres.MainWindow.View_Button();
-        }
     }
 }

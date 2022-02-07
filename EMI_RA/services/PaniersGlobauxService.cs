@@ -24,7 +24,8 @@ namespace EMI_RA
             var paniersGlobaux = depot.GetAll()
                 .Select(p => new PaniersGlobaux(p.IDPaniersGlobaux,
                                                 p.NumeroSemaine,
-                                                p.Annee
+                                                p.Annee,
+                                                p.Cloture
                                                 ))
                 .ToList();
 
@@ -37,7 +38,8 @@ namespace EMI_RA
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
                                       p.NumeroSemaine,
-                                      p.Annee);
+                                      p.Annee,
+                                      p.Cloture);
         }
 
         public PaniersGlobaux GetPaniersGlobauxByID(int annee, int semaine)
@@ -46,14 +48,16 @@ namespace EMI_RA
 
             return new PaniersGlobaux(p.IDPaniersGlobaux,
                                       p.NumeroSemaine,
-                                      p.Annee);
+                                      p.Annee,
+                                      p.Cloture);
         }
 
         public PaniersGlobaux Insert(PaniersGlobaux p)
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                         p.NumeroSemaine,
-                                                        p.Annee);
+                                                        p.Annee,
+                                                        p.Cloture);
             depot.Insert(paniersGlobaux);
             p.ID = paniersGlobaux.IDPaniersGlobaux;
 
@@ -74,7 +78,18 @@ namespace EMI_RA
         {
             var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                         p.NumeroSemaine,
-                                                        p.Annee);
+                                                        p.Annee,
+                                                        p.Cloture);
+            depot.Update(paniersGlobaux);
+
+            return p;
+        }
+        public PaniersGlobaux UpdateCloture(PaniersGlobaux p)
+        {
+            var paniersGlobaux = new PaniersGlobaux_DAL(p.ID,
+                                                        p.NumeroSemaine,
+                                                        p.Annee,
+                                                        p.Cloture);
             depot.Update(paniersGlobaux);
 
             return p;
@@ -84,7 +99,8 @@ namespace EMI_RA
         {
             var panierGlobaux = new PaniersGlobaux_DAL(p.ID,
                                                        p.NumeroSemaine,
-                                                       p.Annee);
+                                                       p.Annee,
+                                                       p.Cloture); ;
             depot.Delete(panierGlobaux);
         }
         public PaniersGlobaux getPanierGlobal()
@@ -105,7 +121,7 @@ namespace EMI_RA
                 paniersGlobauxDAL = new PaniersGlobaux_DAL(semaine, annee);
                 depot.Insert(paniersGlobauxDAL);
             }
-            return new PaniersGlobaux(paniersGlobauxDAL.IDPaniersGlobaux, paniersGlobauxDAL.NumeroSemaine, paniersGlobauxDAL.Annee);
+            return new PaniersGlobaux(paniersGlobauxDAL.IDPaniersGlobaux, paniersGlobauxDAL.NumeroSemaine, paniersGlobauxDAL.Annee, paniersGlobauxDAL.Cloture);
         }
         public Stream genererPanierStream(int annee, int semaine)
         {
@@ -222,6 +238,9 @@ namespace EMI_RA
                 offreGagnante.Gagne = true;
                 offresService.Update(offreGagnante);
             }
+            PaniersGlobaux paniersGlobaux = GetPaniersGlobauxByID(pgId);
+            UpdateCloture(paniersGlobaux);
+
         }
         public void genererListeAchat(int IdAdherent, IFormFile csvFile)
         {

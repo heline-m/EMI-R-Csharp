@@ -14,6 +14,7 @@ namespace EMI_RA
         public PaniersGlobaux GetPaniersGlobauxByID(int IDPanierGlobaux);
         public PaniersGlobaux Insert(PaniersGlobaux p);
         public PaniersGlobaux Update(PaniersGlobaux p);
+        public PaniersGlobaux UpdateCloture(PaniersGlobaux p);
         public void Delete(PaniersGlobaux p);
         public PaniersGlobaux getPanierGlobal();
         public Stream genererPanierStream(int annee, int semaine);
