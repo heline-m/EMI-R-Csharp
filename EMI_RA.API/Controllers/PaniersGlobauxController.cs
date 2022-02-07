@@ -70,7 +70,7 @@ namespace EMI_RA.API.Controllers
         public List<String> getPanierVersionTest([FromRoute] int idFournisseur)
         {
             int annee = DateTime.Now.AddDays(-7).Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(1), CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
 
             String filename = "Panier_" + annee + "_S" + semaine + ".csv";
 

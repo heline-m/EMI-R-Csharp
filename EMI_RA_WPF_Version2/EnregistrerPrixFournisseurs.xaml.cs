@@ -43,7 +43,7 @@ namespace EMI_RA_WPF
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
             var fichier = "https://localhost:44313/PaniersGlobaux/panier/1";
 
-            var lefounisseur = clientApi.PanierAllAsync(fournisseur.IdFournisseurs);
+            var lefounisseur = clientApi.PanierAllAsync(1);
 
 
             var list = lefounisseur.Result;
@@ -90,7 +90,7 @@ namespace EMI_RA_WPF
             //  txt.Text = fichier.ElementAt(1) ;
 
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
-            var commande = clientApi.Offres2Async(fournisseur.IdFournisseurs, fichier);
+            //var commande = clientApi.Offres2Async(fournisseur.IdFournisseurs, fichier);
         }
     }
 }

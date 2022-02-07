@@ -20,7 +20,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver from fournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -36,8 +36,8 @@ namespace EMI_RA.DAL
                                                         reader.GetString(4), 
                                                         reader.GetString(5),
                                                         reader.GetString(6),
-                                                        reader.GetDateTime(7),
-                                                        reader.GetBoolean(8)
+                                                        reader.GetDateTime(7)
+                                                       
                                                         );
 
                 listeDeFournisseurs.Add(fournisseur);
@@ -52,7 +52,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver from fournisseurs where idFournisseurs = @idFournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs where idFournisseurs = @idFournisseurs";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
             var reader = commande.ExecuteReader();
 
@@ -68,8 +68,8 @@ namespace EMI_RA.DAL
                                         reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6),
-                                        reader.GetDateTime(7),
-                                        reader.GetBoolean(8)
+                                        reader.GetDateTime(7)
+                                       
                                          );
             }
             else
@@ -84,7 +84,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver)"
+            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion)"
                                     + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion, 0); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
@@ -131,8 +131,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse, desactiver = @desactiver  "
-                                    + " where idFournisseurs=@idFournisseurs";
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
@@ -140,7 +139,7 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
             commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
-            commande.Parameters.Add(new SqlParameter("@desactiver", fournisseur.Desactiver));
+        
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)

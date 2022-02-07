@@ -45,7 +45,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee, societe, cloture from paniersGlobaux join fournisseurs on panier where idPaniersGlobaux = @idPaniersGlobaux and cloture=0";
+            commande.CommandText = "select idPaniersGlobaux, numeroSemaine, annee, cloture from paniersGlobaux where idPaniersGlobaux = @idPaniersGlobaux ";
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", idPaniersGlobaux));
             var reader = commande.ExecuteReader();
 
@@ -60,7 +60,7 @@ namespace EMI_RA.DAL
                                         reader.GetBoolean(3));
             }
             else
-                throw new Exception($"Pas de fournisseur dans la BDD avec l'ID {idPaniersGlobaux}");
+                throw new Exception($"Pas de panier dans la BDD avec l'ID {idPaniersGlobaux}");
 
             DetruireConnexionEtCommande();
 
@@ -90,8 +90,8 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update paniersGlobaux set numeroSemaine = @numeroSemaine, annee = @annee"
-                                    + " where idFournisseurs=@idFournisseurs";
+            commande.CommandText = "update paniersGlobaux set numeroSemaine = @numeroSemaine, annee = @annee";
+                                   
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", panierGlobal.IDPaniersGlobaux));
             commande.Parameters.Add(new SqlParameter("@numeroSemaine", panierGlobal.NumeroSemaine));
             commande.Parameters.Add(new SqlParameter("@annee", panierGlobal.Annee));
@@ -112,7 +112,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update paniersGlobaux set cloture=1"
+            commande.CommandText = "update paniersGlobaux set cloture='true'"
                                     + " where idPaniersGlobaux=@idPaniersGlobaux";
             commande.Parameters.Add(new SqlParameter("@idPaniersGlobaux", panierGlobal.IDPaniersGlobaux));
 

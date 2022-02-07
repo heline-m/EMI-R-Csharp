@@ -90,7 +90,7 @@ namespace EMI_RA
                                                         p.NumeroSemaine,
                                                         p.Annee,
                                                         p.Cloture);
-            depot.Update(paniersGlobaux);
+            depot.UpdateCloture(paniersGlobaux);
 
             return p;
         }

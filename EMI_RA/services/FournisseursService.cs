@@ -55,7 +55,8 @@ namespace EMI_RA
                                                    f.PrenomContact,
                                                    f.Email,
                                                    f.Adresse,
-                                                   DateTime.Now);
+                                                   DateTime.Now
+                                                   );
             depot.Insert(fournisseur);
             f.IdFournisseurs = fournisseur.IdFournisseurs;
 
