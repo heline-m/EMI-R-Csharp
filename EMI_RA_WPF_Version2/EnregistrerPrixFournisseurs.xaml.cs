@@ -1,4 +1,5 @@
 ﻿using EMI_RA.API.Client;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,11 +24,11 @@ namespace EMI_RA_WPF
     /// </summary>
     public partial class EnregistrerPrixFournisseurs : Page
     {
-        Fournisseurs founisseur;
+        Fournisseurs fournisseur;
         public EnregistrerPrixFournisseurs(EMI_RA.API.Client.Fournisseurs unfournisseur)
         {
             InitializeComponent();
-            founisseur = unfournisseur;
+            fournisseur = unfournisseur;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -42,7 +43,7 @@ namespace EMI_RA_WPF
             var clientApi = new Client("https://localhost:44313/", new HttpClient());
             var fichier = "https://localhost:44313/PaniersGlobaux/panier/1";
 
-            var lefounisseur = clientApi.PanierAllAsync(founisseur.IdFournisseurs);
+            var lefounisseur = clientApi.PanierAllAsync(fournisseur.IdFournisseurs);
 
 
             var list = lefounisseur.Result;
@@ -62,6 +63,34 @@ namespace EMI_RA_WPF
                 // string filename = dlg.FileName;
                 File.WriteAllText(dlg.FileName, liste2);
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+
+            OpenFileDialog opfd = new OpenFileDialog();
+            opfd.Filter = "CSV files (*.csv)|*.csv|XML files (*.xml)|*.xml";
+            opfd.ShowDialog();
+            var liste = File.ReadAllText(opfd.FileName);
+
+
+            //var open = OpenFileDialog1.OpenFile();
+
+            var fichiercsv = File.ReadLines(opfd.FileName);
+            List<string> fichier = fichiercsv.Skip(1).Take(fichiercsv.Count() - 1).ToList();
+
+          
+            for (int i = 1; i < fichiercsv.Count(); i++)
+            {
+                fichier.ToList().Add(fichiercsv.ElementAt(i));
+            }
+
+
+            //  txt.Text = fichier.ElementAt(1) ;
+
+            var clientApi = new Client("https://localhost:44313/", new HttpClient());
+            var commande = clientApi.Offres2Async(fournisseur.IdFournisseurs, fichier);
         }
     }
 }

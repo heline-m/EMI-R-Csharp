@@ -20,7 +20,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver from fournisseurs";
             //pour lire les lignes une par une
             var reader = commande.ExecuteReader();
 
@@ -36,7 +36,9 @@ namespace EMI_RA.DAL
                                                         reader.GetString(4), 
                                                         reader.GetString(5),
                                                         reader.GetString(6),
-                                                        reader.GetDateTime(7));
+                                                        reader.GetDateTime(7),
+                                                        reader.GetBoolean(8)
+                                                        );
 
                 listeDeFournisseurs.Add(fournisseur);
             }
@@ -50,7 +52,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion from fournisseurs where idFournisseurs = @idFournisseurs";
+            commande.CommandText = "select idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver from fournisseurs where idFournisseurs = @idFournisseurs";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", idFournisseurs));
             var reader = commande.ExecuteReader();
 
@@ -66,7 +68,9 @@ namespace EMI_RA.DAL
                                         reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6),
-                                        reader.GetDateTime(7));
+                                        reader.GetDateTime(7),
+                                        reader.GetBoolean(8)
+                                         );
             }
             else
                 throw new Exception($"Pas de fournisseur dans la BDD avec l'ID {idFournisseurs}");
@@ -80,8 +84,8 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion)"
-                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion); select scope_identity()";
+            commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, desactiver)"
+                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion, 0); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
             commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
@@ -103,7 +107,7 @@ namespace EMI_RA.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse"
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse "
                                     + " where idFournisseurs=@idFournisseurs";
             commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
@@ -112,6 +116,31 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
             commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
+            var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
+
+            if (nombreDeLignesAffectees != 1)
+            {
+                throw new Exception($"Impossible de mettre à jour le fournisseur avec l'ID  {fournisseur.IdFournisseurs}");
+            }
+
+            DetruireConnexionEtCommande();
+
+            return fournisseur;
+        }
+        public  Fournisseurs_DAL UpdateDelete(Fournisseurs_DAL fournisseur)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "update fournisseurs set societe = @societe, civiliteContact = @civiliteContact, nomContact = @nomContact, prenomContact = @prenomContact, email = @email, adresse = @adresse, desactiver = @desactiver  "
+                                    + " where idFournisseurs=@idFournisseurs";
+            commande.Parameters.Add(new SqlParameter("@idFournisseurs", fournisseur.IdFournisseurs));
+            commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
+            commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
+            commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
+            commande.Parameters.Add(new SqlParameter("@prenomContact", fournisseur.PrenomContact));
+            commande.Parameters.Add(new SqlParameter("@email", fournisseur.Email));
+            commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
+            commande.Parameters.Add(new SqlParameter("@desactiver", fournisseur.Desactiver));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
