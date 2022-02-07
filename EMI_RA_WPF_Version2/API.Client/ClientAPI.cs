@@ -2298,32 +2298,17 @@ namespace EMI_RA.API.Client
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v11.0.0.0))")]
     public partial class Offres
     {
-        [Newtonsoft.Json.JsonProperty("idOffres", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int IdOffres { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("idFournisseurs", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int IdFournisseurs { get; set; }
-
+        
         [Newtonsoft.Json.JsonProperty("nomFournisseur", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NomFournisseur { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("idPaniersGlobaux", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int IdPaniersGlobaux { get; set; }
-
         [Newtonsoft.Json.JsonProperty("nomProduit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NomProduit { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("idProduits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int IdProduits { get; set; }
-
         [Newtonsoft.Json.JsonProperty("quantite", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Quantite { get; set; }
 
         [Newtonsoft.Json.JsonProperty("prix", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public float Prix { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("gagne", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool Gagne { get; set; }
 
     }
 

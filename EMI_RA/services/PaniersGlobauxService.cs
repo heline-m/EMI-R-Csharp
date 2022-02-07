@@ -67,7 +67,7 @@ namespace EMI_RA
         public PaniersGlobaux GetPanierSemainePrecedente()
         {
             int annee = DateTime.Now.AddDays(-7).Year;
-            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(-7), 
+            int semaine = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now.AddDays(1), 
                                                                               CalendarWeekRule.FirstFullWeek, 
                                                                               DayOfWeek.Monday);
 

@@ -85,7 +85,7 @@ namespace EMI_RA.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into fournisseurs (societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion)"
-                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion, 0); select scope_identity()";
+                                    + " values (@societe, @civiliteContact, @nomContact, @prenomContact, @email, @adresse, @dateAdhesion); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@societe", fournisseur.Societe));
             commande.Parameters.Add(new SqlParameter("@civiliteContact", fournisseur.CiviliteContact));
             commande.Parameters.Add(new SqlParameter("@nomContact", fournisseur.NomContact));
@@ -94,9 +94,9 @@ namespace EMI_RA.DAL
             commande.Parameters.Add(new SqlParameter("@adresse", fournisseur.Adresse));
             commande.Parameters.Add(new SqlParameter("@dateAdhesion", fournisseur.DateAdhesion));
 
-            var idFournisseurs = Convert.ToInt32((decimal)commande.ExecuteScalar());
+            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            fournisseur.IdFournisseurs = idFournisseurs;
+            fournisseur.IdFournisseurs = ID;
 
             DetruireConnexionEtCommande();
 

@@ -11,6 +11,7 @@
     <Grid>
 
         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Raminagrobis" VerticalAlignment="Top" Width="120" Margin="0,175,0,0"/>
+        <Image Source="image/Raminagrobis.JPG" Margin="18,31,18,31"/>
 
     </Grid>
 </Page>
