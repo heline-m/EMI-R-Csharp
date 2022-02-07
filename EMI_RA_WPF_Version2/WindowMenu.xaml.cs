@@ -111,8 +111,6 @@ namespace EMI_RA.WPF
             {
                 GestionnaireDeFenetres.Panier = new Panier();
             }
-            //w.Show();
-            // MessageBox.Show("hello");
             Main.Navigate(GestionnaireDeFenetres.Panier);
 
         }
