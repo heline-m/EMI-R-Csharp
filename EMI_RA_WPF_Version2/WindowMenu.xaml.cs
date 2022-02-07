@@ -117,12 +117,20 @@ namespace EMI_RA.WPF
 
         private void MenuItemModifierCommande_click(object sender, RoutedEventArgs e)
         {
-            if (GestionnaireDeFenetres.Commande == null)
+            if (GestionnaireDeFenetres.Adherents == null || GestionnaireDeFenetres.Adherents.liste.SelectedItem == null)
             {
-               GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherents.liste.SelectedItem);
+                MessageBox.Show("Voyez selectionner un adherent dans la liste");
             }
+            else
+            {
+                if (GestionnaireDeFenetres.Commande == null)
+                {
+                    GestionnaireDeFenetres.Commande = new EMI_RA.WPF.Commande((API.Client.Adherents)GestionnaireDeFenetres.Adherents.liste.SelectedItem);
+                }
 
-            Main.Navigate(GestionnaireDeFenetres.Commande);
+                Main.Navigate(GestionnaireDeFenetres.Commande);
+            }
+           
 
         }
         
