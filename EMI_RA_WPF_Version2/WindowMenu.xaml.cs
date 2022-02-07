@@ -24,6 +24,8 @@ namespace EMI_RA.WPF
         public WindowMenu()
         {
             InitializeComponent();
+            GestionnaireDeFenetres.PageParDefault = new EMI_RA_WPF.PageParDefault();
+            Main.Content = GestionnaireDeFenetres.PageParDefault;
         }
 
         private void MenuItemVoirAdherents_click(object sender, RoutedEventArgs e)
