@@ -30,7 +30,8 @@ namespace EMI_RA.API.Controllers
             return service.GetAllPaniersGlobaux().Select(p => new PaniersGlobaux(
                 p.ID,
                 p.NumeroSemaine,
-                p.Annee
+                p.Annee, 
+                p.Cloture
             ));
         }
 
@@ -82,14 +83,7 @@ namespace EMI_RA.API.Controllers
             };
             return Panier;
  
-    }
-
-            
-            /*return new FileStreamResult(stream, "application/csv")
-            {
-                FileDownloadName = filename
-            };*/
-        
+        }
 
         [HttpPost("cloturer")]
         public void Cloturer(int pgId)
