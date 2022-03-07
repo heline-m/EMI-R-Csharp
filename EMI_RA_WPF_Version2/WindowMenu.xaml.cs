@@ -200,12 +200,17 @@ namespace EMI_RA.WPF
             {
                 PaniersGlobaux paniers;
                 paniers = (PaniersGlobaux)GestionnaireDeFenetres.Panier.liste.SelectedItem;
+                if (paniers.Cloture)
+                {
+                    MessageBox.Show("Ce panier a déjà été cloturé");
+                }
+                else if (!paniers.Cloture)
+                {
+                    var clientApi = new Client("https://localhost:44313/", new HttpClient());
+                    var cloturerPanier = clientApi.CloturerAsync(paniers.Id);
+                    MessageBox.Show("Le panier a été cloturé");
 
-                var clientApi = new Client("https://localhost:44313/", new HttpClient());
-                var cloturerPanier = clientApi.CloturerAsync(paniers.Id);
-
-                MessageBox.Show("Le panier a été cloturé");
-
+                }
             }
 
 
