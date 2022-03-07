@@ -219,27 +219,34 @@ namespace EMI_RA
         }
         public void Cloturer(int pgId)
         {
-            List<Offres> listeOffres = offresService.GetOffreByIDPaniers(pgId);
-
-            List<int> idProduits = listeOffres
-                .Select(offre => offre.IdProduits).Distinct()
-                .ToList();
-
-            foreach(int idProduit in idProduits)
-            {
-                float prixMin = listeOffres.Where(offre => offre.IdProduits == idProduit).Select(offre => offre.Prix).Min();
-
-                Offres offreGagnante = 
-                    listeOffres
-                    .Where(offre => offre.IdProduits == idProduit && offre.Prix == prixMin)
-                    .OrderBy(offre => fournisseursService.GetFournisseursByID(offre.IdFournisseurs).DateAdhesion)
-                    .First();
-
-                offreGagnante.Gagne = true;
-                offresService.Update(offreGagnante);
-            }
             PaniersGlobaux paniersGlobaux = GetPaniersGlobauxByID(pgId);
-            UpdateCloture(paniersGlobaux);
+            if (paniersGlobaux.Cloture == false) { 
+                List<Offres> listeOffres = offresService.GetOffreByIDPaniers(pgId);
+
+                List<int> idProduits = listeOffres
+                    .Select(offre => offre.IdProduits).Distinct()
+                    .ToList();
+
+                foreach(int idProduit in idProduits)
+                {
+                    float prixMin = listeOffres.Where(offre => offre.IdProduits == idProduit).Select(offre => offre.Prix).Min();
+
+                    Offres offreGagnante = 
+                        listeOffres
+                        .Where(offre => offre.IdProduits == idProduit && offre.Prix == prixMin)
+                        .OrderBy(offre => fournisseursService.GetFournisseursByID(offre.IdFournisseurs).DateAdhesion)
+                        .First();
+
+                    offreGagnante.Gagne = true;
+                    offresService.Update(offreGagnante);
+                }
+            
+                UpdateCloture(paniersGlobaux);
+            } 
+            else if (paniersGlobaux.Cloture == true)
+            {
+               throw new Exception($"Le panier {paniersGlobaux.ID} a déjà été cloturé");
+            }
 
         }
         public void genererListeAchat(int IdAdherent, IFormFile csvFile)
