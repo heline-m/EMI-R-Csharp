@@ -30,7 +30,8 @@ namespace EMI_RA.API.Controllers
                 f.PrenomContact,
                 f.Email,
                 f.Adresse,
-                f.DateAdhesion));
+                f.DateAdhesion,
+                f.Actif));
         }
 
         [HttpPost("catalogue/{IdFournisseurs}")]

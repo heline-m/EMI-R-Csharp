@@ -2274,6 +2274,9 @@ namespace EMI_RA.API.Client
         [Newtonsoft.Json.JsonProperty("dateAdhesion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset DateAdhesion { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("actif", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool Actif { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v12.0.0.0))")]

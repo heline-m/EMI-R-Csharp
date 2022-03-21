@@ -9,15 +9,33 @@
       Title="ModifierFournisseur">
 
     <Grid>
-        <Button Content="Valider" HorizontalAlignment="Left" Margin="385,252,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Valider" HorizontalAlignment="Left" Margin="400,285,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="357,19,0,0" TextWrapping="Wrap" Text="Modifier un Fournisseur :" VerticalAlignment="Top"/>
+
         <TextBox HorizontalAlignment="Left" Margin="297,75,0,0"  Name="id" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" Width="217" Visibility="Hidden"/>
-        <TextBox HorizontalAlignment="Left" Margin="297,98,0,0"  Name="societe" TextWrapping="Wrap" Text="Societe" VerticalAlignment="Top" Width="217" />
-        <TextBox HorizontalAlignment="Left" Margin="297,121,0,0"  Name="civilite" TextWrapping="Wrap" Text="Civilite" VerticalAlignment="Top" Width="217" />
-        <TextBox HorizontalAlignment="Left" Margin="297,144,0,0"  Name="nom" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Width="217" />
-        <TextBox HorizontalAlignment="Left" Margin="297,167,0,0"  Name="prenom" TextWrapping="Wrap" Text="Prenom" VerticalAlignment="Top" Width="217" />
-        <TextBox HorizontalAlignment="Left" Margin="297,190,0,0"  Name="email" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="217" />
-        <TextBox HorizontalAlignment="Left" Margin="297,213,0,0"  Name="adresse" TextWrapping="Wrap" Text="Adresse" VerticalAlignment="Top" Width="217" />
-        <TextBlock HorizontalAlignment="Left" Margin="351,46,0,0" TextWrapping="Wrap" Text="Modifier un Fournisseur" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,69,0,0" Text="Nom de l'entreprise :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBox HorizontalAlignment="Left" Margin="312,69,0,0"  Name="societe" TextWrapping="Wrap" Text="Societe" VerticalAlignment="Top" Width="217" />
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,88,0,0" Text="Adresse :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBox HorizontalAlignment="Left" Margin="312,92,0,0"  Name="adresse" TextWrapping="Wrap" Text="Adresse" VerticalAlignment="Top" Width="217" />
+
+        <TextBlock HorizontalAlignment="Left" Margin="337,153,0,0" TextWrapping="Wrap" Text="Contact au sein de la société :" VerticalAlignment="Top"/>
+
+        <TextBox HorizontalAlignment="Left" Margin="312,183,0,0"  Name="civilite" TextWrapping="Wrap" Text="Civilite" VerticalAlignment="Top" Width="217" />
+        <TextBox HorizontalAlignment="Left" Margin="312,205,0,0"  Name="nom" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top" Width="217" />
+        <TextBox HorizontalAlignment="Left" Margin="312,229,0,0"  Name="prenom" TextWrapping="Wrap" Text="Prenom" VerticalAlignment="Top" Width="217" />
+        <TextBox HorizontalAlignment="Left" Margin="312,251,0,0"  Name="email" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Width="217" />
+
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,183,0,0" Text="Civilité :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,206,0,0" Text="Nom :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,228,0,0" Text="Prenom :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="194,251,0,0" Text="Email :" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+
+        <StackPanel Margin="336,127,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Width="168">
+            <RadioButton Content="Actif" Name="active" Width="74"/>
+            <RadioButton Content="Desactif" Name="desactive"/>
+        </StackPanel>
+
+        <!--<Button Content="Valider" HorizontalAlignment="Center" Margin="0,326,0,0" VerticalAlignment="Top" Click="Button_Click"/>-->
 
     </Grid>
 </Page>
