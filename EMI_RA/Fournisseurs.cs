@@ -16,14 +16,15 @@ namespace EMI_RA
         public String Email { get; set; }
         public String Adresse { get; set; }
         public DateTime DateAdhesion { get; set; }
+        public bool Actif { get; set; }
 
-        public Fournisseurs(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
-                    => (Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (societe, civiliteContact, nomContact, prenomContact, email, adresse);
-        public Fournisseurs(int idFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse)
-                    => (IdFournisseurs, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse) = (idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse);
+        public Fournisseurs(String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, bool actif)
+                    => (Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse, Actif) = (societe, civiliteContact, nomContact, prenomContact, email, adresse, actif);
+        public Fournisseurs(int idFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, bool actif)
+                    => (IdFournisseurs, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse, Actif) = (idFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, actif);
 
-        public Fournisseurs(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, DateTime dateAdhesion) 
-            : this (societe, civiliteContact, nomContact, prenomContact, email, adresse)
+        public Fournisseurs(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, DateTime dateAdhesion, bool actif) 
+            : this (societe, civiliteContact, nomContact, prenomContact, email, adresse, actif)
         {
             IdFournisseurs = iDFournisseurs;
             DateAdhesion = dateAdhesion;

@@ -35,6 +35,17 @@ namespace EMI_RA.WPF
             email.Text = fournisseur.Email;
             adresse.Text = fournisseur.Adresse;
 
+            if (fournisseur.Actif == true)
+            {
+                active.IsChecked = true;
+                desactive.IsChecked = false;
+            }
+            else
+            {
+                active.IsChecked = false;
+                desactive.IsChecked = true;
+            }
+
 
 
         }
@@ -52,12 +63,27 @@ namespace EMI_RA.WPF
                 NomContact = nom.Text,
                 PrenomContact = prenom.Text,
                 Email = email.Text,
-                Adresse = adresse.Text
+                Adresse = adresse.Text,
+                Actif = (bool)active.IsChecked,
 
             };
 
+
+
             var fournisseur = await clientApi.FournisseursPUTAsync(fournisseurDTO);
             MessageBox.Show("Le fournisseur a été modifié");
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            active.IsChecked = true;
+            desactive.IsChecked = false;
+        }
+
+        private void RadioButton_Checked2(object sender, RoutedEventArgs e)
+        {
+            active.IsChecked = false;
+            desactive.IsChecked = true;
         }
     }
 }
