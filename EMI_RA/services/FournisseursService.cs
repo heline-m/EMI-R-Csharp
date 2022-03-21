@@ -11,6 +11,20 @@ namespace EMI_RA
 {
     public class FournisseursService : IFournisseursService
     {
+        private static string CreateRandomPassword(int passwordLength)
+        {
+            string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-";
+            char[] chars = new char[passwordLength];
+            Random rd = new Random();
+
+            for (int i = 0; i < passwordLength; i++)
+            {
+                chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
+            }
+
+            return new string(chars);
+        }
+
         private Fournisseurs_Depot_DAL depot = new Fournisseurs_Depot_DAL();
         private ProduitsServices produitsService = new ProduitsServices();
         private AssoProduitsFournisseursServices assoProduitsFournisseursServices = new AssoProduitsFournisseursServices();
@@ -26,7 +40,9 @@ namespace EMI_RA
                                               f.Email,
                                               f.Adresse,
                                               f.DateAdhesion,
-                                              f.Actif
+                                              f.Actif,
+                                              f.MotDePasse,
+                                              f.MotDePasseChange
                         ))
                 .ToList();
             
@@ -45,11 +61,14 @@ namespace EMI_RA
                                     f.Email,
                                     f.Adresse,
                                     f.DateAdhesion,
-                                    f.Actif);
+                                    f.Actif,
+                                    f.MotDePasse,
+                                    f.MotDePasseChange);
         }
 
         public Fournisseurs Insert(Fournisseurs f)
         {
+            var token = CreateRandomPassword(15);
             var fournisseur = new Fournisseurs_DAL(f.IdFournisseurs,
                                                    f.Societe,
                                                    f.CiviliteContact,
@@ -58,7 +77,9 @@ namespace EMI_RA
                                                    f.Email,
                                                    f.Adresse,
                                                    DateTime.Now,
-                                                   f.Actif
+                                                   f.Actif,
+                                                   token,
+                                                   f.MotDePasseChange
                                                    );
             depot.Insert(fournisseur);
             f.IdFournisseurs = fournisseur.IdFournisseurs;
@@ -76,8 +97,47 @@ namespace EMI_RA
                                                    f.Email,
                                                    f.Adresse,
                                                    f.DateAdhesion,
-                                                   f.Actif);
+                                                   f.Actif,
+                                                   f.MotDePasse,
+                                                   f.MotDePasseChange);
             depot.Update(fournisseur);
+
+            return f;
+        }
+
+        public Fournisseurs ResetPassword(Fournisseurs f)
+        {
+            var token = CreateRandomPassword(15);
+            var fournisseur = new Fournisseurs_DAL(f.IdFournisseurs,
+                                                   f.Societe,
+                                                   f.CiviliteContact,
+                                                   f.NomContact,
+                                                   f.PrenomContact,
+                                                   f.Email,
+                                                   f.Adresse,
+                                                   f.DateAdhesion,
+                                                   f.Actif,
+                                                   token,
+                                                   f.MotDePasseChange);
+            depot.ResetPassword(fournisseur);
+
+            return f;
+        }
+
+        public Fournisseurs UpdatePassword(Fournisseurs f)
+        {
+            var fournisseur = new Fournisseurs_DAL(f.IdFournisseurs,
+                                                   f.Societe,
+                                                   f.CiviliteContact,
+                                                   f.NomContact,
+                                                   f.PrenomContact,
+                                                   f.Email,
+                                                   f.Adresse,
+                                                   f.DateAdhesion,
+                                                   f.Actif,
+                                                   f.MotDePasse,
+                                                   f.MotDePasseChange);
+            depot.UpdatePassword(fournisseur);
 
             return f;
         }
@@ -92,7 +152,9 @@ namespace EMI_RA
                                                       f.Email,
                                                       f.Adresse,
                                                       f.DateAdhesion,
-                                                      f.Actif);
+                                                      f.Actif,
+                                                      f.MotDePasse,
+                                                      f.MotDePasseChange);
             depot.Delete(fournisseur);
 
         }

@@ -18,10 +18,14 @@ namespace EMI_RA.DAL
         public String Adresse { get; set; }
         public DateTime DateAdhesion { get; set; }
         public bool Actif { get; set; }
-
+        public String MotDePasse { get; set; }
+        public bool MotDePasseChange { get; set; }
 
         public Fournisseurs_DAL(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, DateTime dateAdhesion, bool actif)
                     => (IdFournisseurs, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse, DateAdhesion, Actif) = (iDFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, actif);
-        
+
+        public Fournisseurs_DAL(int iDFournisseurs, String societe, String civiliteContact, String nomContact, String prenomContact, String email, String adresse, DateTime dateAdhesion, bool actif, String motDePasse, bool motDePasseChange)
+                    => (IdFournisseurs, Societe, CiviliteContact, NomContact, PrenomContact, Email, Adresse, DateAdhesion, Actif, MotDePasse, MotDePasseChange) = (iDFournisseurs, societe, civiliteContact, nomContact, prenomContact, email, adresse, dateAdhesion, actif, motDePasse, motDePasseChange);
+
     }
 }

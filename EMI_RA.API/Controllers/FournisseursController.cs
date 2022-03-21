@@ -31,7 +31,9 @@ namespace EMI_RA.API.Controllers
                 f.Email,
                 f.Adresse,
                 f.DateAdhesion,
-                f.Actif));
+                f.Actif,
+                f.MotDePasse,
+                f.MotDePasseChange));
         }
 
         [HttpPost("catalogue/{IdFournisseurs}")]
@@ -61,10 +63,20 @@ namespace EMI_RA.API.Controllers
             return f_metier;
         }
 
-        [HttpDelete("{id}")]
-        public void Delete([FromRoute] int id)
+        [HttpPut("resetPassword/{IdFournisseurs}")]
+        public Fournisseurs ResetPassword(Fournisseurs f)
         {
-            service.Delete(new Fournisseurs(id));
+            var f_metier = service.ResetPassword(f);
+
+            return f_metier;
+        }
+
+        [HttpPut("updatePassword/{IdFournisseurs}")]
+        public Fournisseurs UpdatePassword(Fournisseurs f)
+        {
+            var f_metier = service.UpdatePassword(f);
+
+            return f_metier;
         }
     }
 }
