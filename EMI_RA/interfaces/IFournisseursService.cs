@@ -16,5 +16,8 @@ namespace EMI_RA
         public Fournisseurs Insert(Fournisseurs f);
         public Fournisseurs Update(Fournisseurs f);
         public void Delete(Fournisseurs f);
+        public Fournisseurs ResetPassword(Fournisseurs f);
+        public Fournisseurs UpdatePassword(Fournisseurs f);
+
     }
 }
